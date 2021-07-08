@@ -1,0 +1,24 @@
+---
+title: "Introduction to obsplot"
+author: "Julien Barnier"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 5
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to obsplot}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+library(obsplot)
+library(htmlwidgets)
+knitr::opts_chunk$set(
+  screenshot.force = FALSE,
+  echo = TRUE
+)
+```

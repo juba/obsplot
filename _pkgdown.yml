@@ -1,0 +1,17 @@
+url: https://juba.github.io/obsplot/
+template:
+  params:
+    bootswatch: cosmo
+reference:
+- title: Main function
+  contents:
+  - '`obsplot`'
+- title: Misc
+  desc: Utility functions
+  contents:
+  - '`to_js_date`'
+articles:
+- title: Articles
+  navbar: ~
+  contents:
+  - introduction

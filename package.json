@@ -1,0 +1,30 @@
+{
+  "name": "obsplot",
+  "version": "0.0.1",
+  "description": "<!-- badges: start --> [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#maturing) [![R build status](https://github.com/juba/obsplot/workflows/R-CMD-check/badge.svg)](https://github.com/juba/obsplot/actions) <!-- badges: end -->",
+  "main": "index.js",
+  "directories": {
+    "example": "examples",
+    "man": "man"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "none": "webpack --config webpack.dev.js --mode=none",
+    "development": "webpack --config webpack.dev.js",
+    "production": "webpack --config webpack.prod.js",
+    "watch": "webpack --config webpack.dev.js -d --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "css-loader": "^5.2.6",
+    "style-loader": "^3.0.0",
+    "webpack": "^5.42.1",
+    "webpack-cli": "^4.7.2",
+    "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "@observablehq/plot": "^0.1.0"
+  }
+}

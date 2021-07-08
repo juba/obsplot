@@ -1,0 +1,15 @@
+.plot {
+    display:block;
+    font:10px system-ui,sans-serif;
+    background:#fff;
+    height:auto;
+    height:intrinsic;
+    max-width:100%
+}
+.plot text {
+    white-space:pre
+}
+figcaption {
+    font:small system-ui,sans-serif;
+    color:#838383;
+}
