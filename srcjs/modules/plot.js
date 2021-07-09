@@ -1,13 +1,13 @@
 import * as Plot from "@observablehq/plot";
 
-class Obsplot {
+export class Obsplot {
 
     constructor(el, x) {
         
         this.el = el;
         this.data = Obsplot.convert_data(x.data);
-        this.marks = x.marks === null ? [] : x.marks;
-        this.opts = x.opts === undefined ? {} : x.opts;
+        this.marks = x.marks || [];
+        this.opts = x.opts || {};
         this.facet = x.facet;
     }
 
@@ -27,10 +27,10 @@ class Obsplot {
                 return mark_fun.call(null, mark.opts)
             }
             // Data marks
-            const data = Obsplot.convert_data(mark.data);
+            const data = Obsplot.convert_data(mark.data) || this.data;
             // Transform
-            if (mark.opts.transform !== undefined) {
-                const transform = mark.opts.transform;
+            if (mark.transform !== undefined && mark.transform !== null) {
+                const transform = mark.transform;
                 const trans_fun = Plot[transform.transform_type];
                 if (transform.outputs === null) {
                     // transform with options only
@@ -54,7 +54,10 @@ class Obsplot {
 
     static convert_data(data) {
         if (data === undefined || data === null) return(null)
-        if (typeof(data[0]) == "object") {
+        // Check if data is a literal object
+        // See https://stackoverflow.com/a/16608074
+        if (data.constructor === Object) {
+            console.log("conversion")
             return HTMLWidgets.dataframeToD3(data)
         }
         return(data)
@@ -62,5 +65,3 @@ class Obsplot {
     
 
 }
-
-export { Obsplot }
