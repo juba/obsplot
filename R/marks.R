@@ -297,15 +297,29 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
         function(v) !inherits(v, "obsplot_transform"),
         unnamed_opts, nomatch = NULL
     )
+
     # Unless it has been specifically given in named opts
     if (!is.null(opts$data)) {
         data <- opts$data
         opts$data <- NULL
     }
 
+    # If x or y channel is a vector and data is null, automatically
+    # add a corresponding data index
+    if (is.vector(opts$x) && length(opts$x) > 1) {
+        if (is.vector(opts$y) && length(opts$x) != length(opts$y)) {
+            stop("if x and y are not of the same length")
+        }
+        if (is.null(data)) data <- seq_along(opts$x)
+    }
+    if (is.vector(opts$y) && length(opts$y) > 1) {
+        if (is.null(data)) data <- seq_along(opts$y)
+    }
+
+
+    # Check channels values
     check_data <- data
     if (is.null(data)) check_data <- g$x$data
-
     check_channels(
         data = check_data,
         mark_channels = mark_channels,
