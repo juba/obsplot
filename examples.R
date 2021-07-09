@@ -111,7 +111,7 @@ obsplot(alphabet) |>
     scale_y(transform = JS("d => d * 100"), label = "↑ Frequency (%)")
 
 
-## State age example from https://observablehq.com/@observablehq/plot-dot
+## State age examples from https://observablehq.com/@observablehq/plot-dot
 
 stateage <- read_csv("https://static.observableusercontent.com/files/81d7bd5e9551f005d7a4764e2dcb46c44f04b5918551ce19dba191a8799b498beddb5ef2da994047586fc7231749e8911c825b1967f22814a57bee58c590c86e?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27us-population-state-age.csv")
 stateage <- stateage |> 
@@ -128,6 +128,19 @@ obsplot(stateage) |>
     scale_x(domain = unique(stateage$age), labelAnchor = "right") |>
     scale_y(transform = JS("d => d*100")) |>
     opts(grid = TRUE)
+
+
+xy <- transform_normalizeX(list(basis = "sum", z = "name", x = "population", y = "name"))
+obsplot(stateage, height = 660) |>
+    mark_ruleX(x = 0) |>
+    mark_ruleY(transform_groupY(list(x1 = "min", x2 = "max"), xy)) |>
+    mark_dot(xy, fill = "age", title = "age") |>
+    mark_text(transform_selectMinX(xy), textAnchor = "end", dx = -6, text = "name") |>
+    scale_x(axis = "top",   label =  "Percent (%) →", transform = JS("d => d * 100")) |>
+    scale_y(axis = NULL) |>
+    scale_color(scheme = "spectral", domain = unique(stateage$age)) |>
+    opts(grid = TRUE)
+
 
 # width and height
 

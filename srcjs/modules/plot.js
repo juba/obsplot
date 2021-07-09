@@ -40,17 +40,7 @@ export class Obsplot {
             
             // Transform
             if (mark.transform !== undefined && mark.transform !== null) {
-                const transform = mark.transform;
-                const trans_fun = Plot[transform.transform_type];
-                let trans_result = {};
-                if (transform.outputs === null) {
-                    // transform with options only
-                    trans_result = trans_fun.call(null, transform.options);
-                } else {
-                    // transform with outputs and options
-                    trans_result = trans_fun.call(null, transform.outputs, transform.options);
-                }
-                mark.opts = {...trans_result, ...mark.opts}
+                mark.opts = {...Obsplot.call_transform(mark.transform), ...mark.opts}
             }
             
             return mark_fun.call(null, data, mark.opts)
@@ -73,6 +63,22 @@ export class Obsplot {
             return HTMLWidgets.dataframeToD3(data)
         }
         return(data)
+    }
+
+    static call_transform(transform) {
+        const trans_fun = Plot[transform.transform_type];
+        let trans_result = {};
+        if (transform.options.transform_type) {
+            transform.options = Obsplot.call_transform(transform.options)
+        }
+        if (transform.outputs === null) {
+            // transform with options only
+            trans_result = trans_fun.call(null, transform.options);
+        } else {
+            // transform with outputs and options
+            trans_result = trans_fun.call(null, transform.outputs, transform.options);
+        }
+        return(trans_result)
     }
 
 }
