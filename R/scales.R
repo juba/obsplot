@@ -15,7 +15,7 @@ scale_opacity <- function(g, ...) {
 
 #' @rdname scale_color
 #' @export
-scale_radius <- function(g, ...) {
+scale_r <- function(g, ...) {
     scale_(g, "r", ...)
 }
 
