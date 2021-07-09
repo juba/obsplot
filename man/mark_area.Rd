@@ -28,62 +28,63 @@
 \alias{mark_tickY}
 \title{Add a mark to an obsplot}
 \usage{
-mark_area(g, data = NULL, ...)
+mark_area(g, ...)
 
-mark_areaX(g, data = NULL, ...)
+mark_areaX(g, ...)
 
-mark_areaY(g, data = NULL, ...)
+mark_areaY(g, ...)
 
-mark_barX(g, data = NULL, ...)
+mark_barX(g, ...)
 
-mark_barY(g, data = NULL, ...)
+mark_barY(g, ...)
 
-mark_cell(g, data = NULL, ...)
+mark_cell(g, ...)
 
-mark_cellX(g, data = NULL, ...)
+mark_cellX(g, ...)
 
-mark_cellY(g, data = NULL, ...)
+mark_cellY(g, ...)
 
-mark_dot(g, data = NULL, ...)
+mark_dot(g, ...)
 
-mark_dotX(g, data = NULL, ...)
+mark_dotX(g, ...)
 
-mark_dotY(g, data = NULL, ...)
+mark_dotY(g, ...)
 
-mark_line(g, data = NULL, ...)
+mark_line(g, ...)
 
-mark_lineX(g, data = NULL, ...)
+mark_lineX(g, ...)
 
-mark_lineY(g, data = NULL, ...)
+mark_lineY(g, ...)
 
-mark_link(g, data = NULL, ...)
+mark_link(g, ...)
 
-mark_rect(g, data = NULL, ...)
+mark_rect(g, ...)
 
-mark_rectX(g, data = NULL, ...)
+mark_rectX(g, ...)
 
-mark_rectY(g, data = NULL, ...)
+mark_rectY(g, ...)
 
-mark_ruleX(g, data = NULL, ...)
+mark_ruleX(g, ...)
 
-mark_ruleY(g, data = NULL, ...)
+mark_ruleY(g, ...)
 
-mark_text(g, data = NULL, ...)
+mark_text(g, ...)
 
-mark_textX(g, data = NULL, ...)
+mark_textX(g, ...)
 
-mark_textY(g, data = NULL, ...)
+mark_textY(g, ...)
 
-mark_tickX(g, data = NULL, ...)
+mark_tickX(g, ...)
 
-mark_tickY(g, data = NULL, ...)
+mark_tickY(g, ...)
 }
 \arguments{
 \item{g}{an obsplot object}
 
-\item{data}{optional data}
+\item{...}{named options passed to define the mark
 
-\item{...}{named options passed to define the mark}
+... arguments can accept at most two unnamed arguments : a data object and a call
+to a transform function.}
 }
 \description{
 Add a mark to an obsplot

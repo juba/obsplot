@@ -3,7 +3,7 @@
 \name{scale_color}
 \alias{scale_color}
 \alias{scale_opacity}
-\alias{scale_radius}
+\alias{scale_r}
 \alias{scale_x}
 \alias{scale_y}
 \title{Add or modify scale options to an obsplot}
@@ -12,7 +12,7 @@ scale_color(g, ...)
 
 scale_opacity(g, ...)
 
-scale_radius(g, ...)
+scale_r(g, ...)
 
 scale_x(g, ...)
 
