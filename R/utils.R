@@ -12,8 +12,3 @@ is_css_color <- function(str) {
     return(is_hex_code)
 }
 
-check_data <- function(data) {
-    if (!(is.null(data) || inherits(data, "data.frame"))) {
-        warning("if data is not a data frame, it must be a vector with the same length as the marks channels")
-    }
-}
