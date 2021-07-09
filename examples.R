@@ -142,6 +142,20 @@ obsplot(stateage, height = 660) |>
     opts(grid = TRUE)
 
 
+# metros example from https://observablehq.com/@observablehq/plot-link
+
+metros <- read_csv("https://static.observableusercontent.com/files/39837ec5121fcc163131dbc2fe8c1a2e0b3423a5d1e96b5ce371e2ac2e20a290d78b71a4fb08b9fa6a0107776e17fb78af313b8ea70f4cc6648fad68ddf06f7a?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27metros.csv")
+metros$diff1580 <- metros$R90_10_2015 - metros$R90_10_1980
+
+obsplot(metros) |>
+    mark_link(x1 = "POP_1980", y1 = "R90_10_1980", x2 = "POP_2015", y2 = "R90_10_2015", stroke = "diff1580") |>
+    mark_dot(x = "POP_2015", y = "R90_10_2015", r = 1) |>
+    mark_text(x = "POP_2015", y = "R90_10_2015", filter = "highlight", text = "nyt_display", dy = -6) |>
+    scale_x(type = "log", tickFormat = "~s") |>
+    scale_color(type = "diverging", reverse = TRUE) |>
+    opts(grid = TRUE)
+
+
 # width and height
 
 obsplot(penguins, grid = TRUE) |>
