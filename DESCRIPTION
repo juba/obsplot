@@ -12,7 +12,7 @@ Authors@R: c(
 Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
 Description: Allows using Observable Plot library in R.
 VignetteBuilder: knitr
-URL: https://github.com/juba/obsplot
+URL: https://juba.github.io/obsplot/
 BugReports: https://github.com/juba/obsplot/issues
 License: GPL (>=3)
 Encoding: UTF-8
