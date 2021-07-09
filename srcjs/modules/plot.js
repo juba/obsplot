@@ -32,13 +32,15 @@ export class Obsplot {
             if (mark.transform !== undefined && mark.transform !== null) {
                 const transform = mark.transform;
                 const trans_fun = Plot[transform.transform_type];
+                let trans_result = {};
                 if (transform.outputs === null) {
                     // transform with options only
-                    mark.opts = trans_fun.call(null, transform.options);
+                    trans_result = trans_fun.call(null, transform.options);
                 } else {
                     // transform with outputs and options
-                    mark.opts = trans_fun.call(null, transform.outputs, transform.options);
+                    trans_result = trans_fun.call(null, transform.outputs, transform.options);
                 }
+                mark.opts = {...trans_result, ...mark.opts}
             }
             return mark_fun.call(null, data, mark.opts)
         })
