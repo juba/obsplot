@@ -323,7 +323,8 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
     check_channels(
         data = check_data,
         mark_channels = mark_channels,
-        mark_opts = opts
+        mark_opts = opts,
+        has_transform = !is.null(transform)
     )
 
     mark <- list(type = mark_type, data = data, transform = transform, opts = opts)

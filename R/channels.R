@@ -1,14 +1,11 @@
-check_channels <- function(data, mark_channels, mark_opts) {
+check_channels <- function(data, mark_channels, mark_opts, has_transform) {
     universal_channels <- data.frame(
         channel = c("fill", "fillOpacity", "stroke", "strokeOpacity"),
         status = c("opt", "opt", "opt", "opt")
     )
     channels <- rbind(mark_channels, universal_channels)
 
-    # Is there a transform argument ?
-    has_transform <- !is.null(mark_opts[["transform"]])
-
-    # Check required channels
+    # Check required channels if there is no transform
     if (!has_transform) {
         req <- channels$channel[channels$status == "req"]
         missing_channels <- setdiff(req, names(mark_opts))
