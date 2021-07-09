@@ -1,6 +1,6 @@
 Package: obsplot
 Type: Package
-Title: Observable Plot bindings
+Title: Create Charts with 'Observable Plot'
 Version: 0.0.1
 Date: 2021-07-01
 Authors@R: c(
@@ -10,7 +10,7 @@ Authors@R: c(
       role = c("aut", "cre")
     ))
 Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
-Description: Allows using Observable Plot library in R.
+Description: Creation of charts with the 'Observable Plot' 'JavaScript' library.
 VignetteBuilder: knitr
 URL: https://juba.github.io/obsplot/
 BugReports: https://github.com/juba/obsplot/issues
