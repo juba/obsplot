@@ -4,12 +4,32 @@ template:
     bootswatch: cosmo
 reference:
 - title: Main function
+  desc: Plot creation
   contents:
   - '`obsplot`'
-- title: Misc
-  desc: Utility functions
+- title: Marks
+  desc: Graphical marks
   contents:
-  - '`to_js_date`'
+  - '`mark_area`'
+  - '`mark_frame`'
+- title: Scales
+  desc: Scale options
+  contents:
+  - '`scale_color`'
+- title: Faceting
+  contents:
+  - '`facet`'
+- title: Transform
+  desc: Transform functions
+  contents:
+  - '`transform_bin`'
+  - '`transform_mapX`'
+  - '`transform_normalizeX`'
+- title: Options
+  desc: Main plot options
+  contents:
+  - '`opts`'
+  - '`style`'
 articles:
 - title: Articles
   navbar: ~
