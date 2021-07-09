@@ -28,7 +28,7 @@ check_channels <- function(data, mark_channels, mark_opts, has_transform) {
     }
 
     # Check channels which can be a data column
-    chans <- setdiff(opts, c("fill", "stroke", "curve", "title", "textAnchor"))
+    chans <- setdiff(opts, c("fill", "stroke", "curve", "textAnchor"))
     for (chan in chans) {
         check_channel_column(data, chan, mark_opts_check[[chan]])
     }
