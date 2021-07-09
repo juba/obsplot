@@ -9,8 +9,7 @@
 mark_area <- function(g, ...) {
     channels <- data.frame(
         channel = c("x1",  "y1",  "x2",  "y2",  "z"),
-        status  = c("req", "req", "opt", "opt", "opt"),
-        type    = c("num", "num", "num", "num", "cat")
+        status  = c("req", "req", "opt", "opt", "opt")
     )
     mark_("area", g, channels, ...)
 }
@@ -20,8 +19,7 @@ mark_area <- function(g, ...) {
 mark_areaX <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",  "y",    "z"),
-        status  = c("opt", "opt", "opt"),
-        type    = c("num", "num", "cat")
+        status  = c("opt", "opt", "opt")
     )
     mark_("areaX", g, channels, ...)
 }
@@ -31,8 +29,7 @@ mark_areaX <- function(g, ...) {
 mark_areaY <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",  "y",    "z"),
-        status  = c("opt", "opt", "opt"),
-        type    = c("num", "num", "cat")
+        status  = c("opt", "opt", "opt")
     )
     mark_("areaY", g, channels, ...)
 }
@@ -42,8 +39,7 @@ mark_areaY <- function(g, ...) {
 mark_barX <- function(g, ...) {
     channels <- data.frame(
         channel = c("x1",  "x2",  "x",   "y"),
-        status  = c("opt", "opt", "opt", "opt"),
-        type    = c("", "", "")
+        status  = c("opt", "opt", "opt", "opt")
     )
     mark_("barX", g, channels, ...)
 }
@@ -53,8 +49,7 @@ mark_barX <- function(g, ...) {
 mark_barY <- function(g, ...) {
     channels <- data.frame(
         channel = c("y1",  "y2",  "x",   "y"),
-        status  = c("opt", "opt", "opt", "opt"),
-        type    = c("", "", "")
+        status  = c("opt", "opt", "opt", "opt")
     )
     mark_("barY", g, channels, ...)
 }
@@ -64,8 +59,7 @@ mark_barY <- function(g, ...) {
 mark_cell <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y"),
-        status  = c("opt", "opt"),
-        type    = c("", "")
+        status  = c("opt", "opt")
     )
     mark_("cell", g, channels, ...)
 }
@@ -75,8 +69,7 @@ mark_cell <- function(g, ...) {
 mark_cellX <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y"),
-        status  = c("opt", "opt"),
-        type    = c("", "")
+        status  = c("opt", "opt")
     )
     mark_("cellX", g, channels, ...)
 }
@@ -86,8 +79,7 @@ mark_cellX <- function(g, ...) {
 mark_cellY <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y"),
-        status  = c("opt", "opt"),
-        type    = c("", "")
+        status  = c("opt", "opt")
     )
     mark_("cellY", g, channels, ...)
 }
@@ -97,8 +89,7 @@ mark_cellY <- function(g, ...) {
 mark_dot <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y",   "r"),
-        status  = c("req", "req", "opt"),
-        type    = c("num", "num", "radius")
+        status  = c("opt", "opt", "opt")
     )
     mark_("dot", g, channels, ...)
 }
@@ -107,9 +98,8 @@ mark_dot <- function(g, ...) {
 #' @export
 mark_dotX <- function(g, ...) {
     channels <- data.frame(
-        channel = c("x",   "y"),
-        status  = c("opt", "opt"),
-        type    = c("",    "")
+        channel = c("x",   "y",   "r"),
+        status  = c("opt", "opt", "opt")
     )
     mark_("dotX", g, channels, ...)
 }
@@ -118,9 +108,8 @@ mark_dotX <- function(g, ...) {
 #' @export
 mark_dotY <- function(g, ...) {
     channels <- data.frame(
-        channel = c("x",   "y"),
-        status  = c("opt", "opt"),
-        type    = c("",    "")
+        channel = c("x",   "y",   "r"),
+        status  = c("opt", "opt", "opt")
     )
     mark_("dotY", g, channels, ...)
 }
@@ -131,8 +120,7 @@ mark_dotY <- function(g, ...) {
 mark_line <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y",   "z"),
-        status  = c("req", "req", "opt"),
-        type    = c("num", "num", "cat")
+        status  = c("req", "req", "opt")
     )
     mark_("line", g, channels, ...)
 }
@@ -142,8 +130,7 @@ mark_line <- function(g, ...) {
 mark_lineX <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y",   "z"),
-        status  = c("opt", "opt", "opt"),
-        type    = c("",    "",    "cat")
+        status  = c("opt", "opt", "opt")
     )
     mark_("lineX", g, channels, ...)
 }
@@ -153,8 +140,7 @@ mark_lineX <- function(g, ...) {
 mark_lineY <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y",   "z"),
-        status  = c("opt", "opt", "opt"),
-        type    = c("",    "",    "cat")
+        status  = c("opt", "opt", "opt")
     )
     mark_("lineY", g, channels, ...)
 }
@@ -164,8 +150,7 @@ mark_lineY <- function(g, ...) {
 mark_link <- function(g, ...) {
     channels <- data.frame(
         channel = c("x1",   "y1", "x2",  "y2"),
-        status  = c("req", "req", "req", "req"),
-        type    = c("num", "num", "num", "num")
+        status  = c("req", "req", "req", "req")
     )
     mark_("link", g, channels, ...)
 }
@@ -175,8 +160,7 @@ mark_link <- function(g, ...) {
 mark_rect <- function(g, ...) {
     channels <- data.frame(
         channel = c("x1",  "y1",  "x2",  "y2"),
-        status  = c("req", "req", "req", "req"),
-        type    = c("num", "num", "num", "num")
+        status  = c("req", "req", "req", "req")
     )
     mark_("rect", g, channels, ...)
 }
@@ -186,8 +170,7 @@ mark_rect <- function(g, ...) {
 mark_rectX <- function(g, ...) {
     channels <- data.frame(
         channel = c("x1",  "y1",  "x2",  "y2",  "x"),
-        status  = c("opt", "req", "opt", "req", "opt"),
-        type    = c("num", "num", "num", "num", "num")
+        status  = c("opt", "req", "opt", "req", "opt")
     )
     mark_("rectX", g, channels, ...)
 }
@@ -197,8 +180,7 @@ mark_rectX <- function(g, ...) {
 mark_rectY <- function(g, ...) {
     channels <- data.frame(
         channel = c("x1",  "y1",  "x2",  "y2",  "y"),
-        status  = c("req", "opt", "req", "opt", "opt"),
-        type    = c("num", "num", "num", "num", "num")
+        status  = c("req", "opt", "req", "opt", "opt")
     )
     mark_("rectY", g, channels, ...)
 }
@@ -208,8 +190,7 @@ mark_rectY <- function(g, ...) {
 mark_ruleX <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y1",  "y2",  "y"),
-        status  = c("opt", "opt", "opt", "opt"),
-        type    = c("num", "num", "num", "num")
+        status  = c("opt", "opt", "opt", "opt")
     )
     mark_("ruleX", g, channels, ...)
 }
@@ -219,8 +200,7 @@ mark_ruleX <- function(g, ...) {
 mark_ruleY <- function(g, ...) {
     channels <- data.frame(
         channel = c("y",   "x1",  "x2",  "x"),
-        status  = c("opt", "opt", "opt", "opt"),
-        type    = c("num", "num", "num", "num")
+        status  = c("opt", "opt", "opt", "opt")
     )
     mark_("ruleY", g, channels, ...)
 }
@@ -230,8 +210,7 @@ mark_ruleY <- function(g, ...) {
 mark_text <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y",  "text", "fontSize", "rotate"),
-        status  = c("opt", "opt", "req", "opt",      "opt"),
-        type    = c("num", "num", "cat", "num",      "num")
+        status  = c("opt", "opt", "req", "opt",      "opt")
     )
     mark_("text", g, channels, ...)
 }
@@ -241,8 +220,7 @@ mark_text <- function(g, ...) {
 mark_textX <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y",  "text", "fontSize", "rotate"),
-        status  = c("opt", "opt", "req", "opt",      "opt"),
-        type    = c("num", "num", "cat", "num",      "num")
+        status  = c("opt", "opt", "req", "opt",      "opt")
     )
     mark_("textX", g, channels, ...)
 }
@@ -252,8 +230,7 @@ mark_textX <- function(g, ...) {
 mark_textY <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y",  "text", "fontSize", "rotate"),
-        status  = c("opt", "opt", "req", "opt",      "opt"),
-        type    = c("num", "num", "cat", "num",      "num")
+        status  = c("opt", "opt", "req", "opt",      "opt")
     )
     mark_("textY", g, channels, ...)
 }
@@ -263,8 +240,7 @@ mark_textY <- function(g, ...) {
 mark_tickX <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y"),
-        status  = c("req", "opt"),
-        type    = c("num", "num")
+        status  = c("req", "opt")
     )
     mark_("textX", g, channels, ...)
 }
@@ -274,8 +250,7 @@ mark_tickX <- function(g, ...) {
 mark_tickY <- function(g, ...) {
     channels <- data.frame(
         channel = c("x",   "y"),
-        status  = c("opt", "req"),
-        type    = c("num", "num")
+        status  = c("opt", "req")
     )
     mark_("textY", g, channels, ...)
 }
@@ -317,7 +292,7 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
         opts$transform <- NULL
     }
 
-    # Get data from unnamed opts       
+    # Get data from unnamed opts
     data <- Find(
         function(v) !inherits(v, "obsplot_transform"),
         unnamed_opts, nomatch = NULL

@@ -1,8 +1,7 @@
 check_channels <- function(data, mark_channels, mark_opts) {
     universal_channels <- data.frame(
         channel = c("fill", "fillOpacity", "stroke", "strokeOpacity"),
-        status = c("opt", "opt", "opt", "opt"),
-        type = c("color", "", "color", "")
+        status = c("opt", "opt", "opt", "opt")
     )
     channels <- rbind(mark_channels, universal_channels)
 
@@ -26,13 +25,13 @@ check_channels <- function(data, mark_channels, mark_opts) {
     opts <- names(mark_opts_check)
 
     # Check color channels
-    chans <- intersect(opts, channels$channel[channels$type == "color"])
+    chans <- intersect(opts, c("fill", "stroke"))
     for (chan in chans) {
         check_channel_color(data, chan, mark_opts_check[[chan]])
     }
 
     # Check other channels
-    chans <- intersect(opts, channels$channel[channels$type != "color"])
+    chans <- setdiff(opts, c("fill", "stroke"))
     for (chan in chans) {
         check_channel_column(data, chan, mark_opts_check[[chan]])
     }
