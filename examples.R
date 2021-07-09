@@ -128,3 +128,8 @@ obsplot(stateage) |>
     scale_x(domain = unique(stateage$age), labelAnchor = "right") |>
     scale_y(transform = JS("d => d*100")) |>
     opts(grid = TRUE)
+
+# width and height
+
+obsplot(penguins, grid = TRUE, width = 900) |>
+    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "species")

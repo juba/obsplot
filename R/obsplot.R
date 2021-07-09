@@ -18,6 +18,8 @@ obsplot <- function(
   # forward options using x
   x$data <- data
   x$opts <- list(...)
+  x$opts$width <- width
+  x$opts$height <- height
   x["marks"] <- list(NULL)
 
   # create widget

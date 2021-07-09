@@ -4,19 +4,21 @@ export class Obsplot {
 
     constructor(el, x) {
         
-        this.el = el;
         this.data = Obsplot.convert_data(x.data);
         this.marks = x.marks || [];
         this.opts = x.opts || {};
         this.facet = x.facet;
+
     }
 
-    plot() {
+    plot(el) {
         const opts = this.opts;
         opts.marks = this.build_marks();
         opts.facet = this.build_facet();
+        opts.width = opts.width || el.width;
+        opts.height = opts.height || el.height;
         const p = Plot.plot(opts);
-        this.el.append(p)
+        el.append(p)
     }
 
     build_marks() {

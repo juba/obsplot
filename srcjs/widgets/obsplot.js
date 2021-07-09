@@ -10,19 +10,22 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
+    el.width = width;
+    el.height = height;
+
     return {
 
       renderValue: function(x) {
 
-        let plot = new Obsplot(el, x);
-        
-        plot.plot();
+        const plot = new Obsplot(el, x);
+        plot.plot(el);
 
       },
 
       resize: function(width, height) {
-
-
+        el.width = width;
+        el.height = height;
+        plot.plot(el);
       }
 
     };
