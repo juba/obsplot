@@ -295,6 +295,7 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
 
     opts <- list(...)
 
+    # Get unnamed opts and removed them
     if (is.null(names(opts))) {
         unnamed_opts <- opts
         opts <- list()
@@ -305,19 +306,23 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
 
     if (length(unnamed_opts) > 2) stop("a mark cannot accept more than two unnamed arguments")
 
+    # Get transform from unnamed opts
     transform <- Find(
         function(v) inherits(v, "obsplot_transform"),
         unnamed_opts, nomatch = NULL
     )
+    # Unless it has been specifically given in named opts
     if (!is.null(opts$transform)) {
         transform <- opts$transform
         opts$transform <- NULL
     }
 
+    # Get data from unnamed opts       
     data <- Find(
         function(v) !inherits(v, "obsplot_transform"),
         unnamed_opts, nomatch = NULL
     )
+    # Unless it has been specifically given in named opts
     if (!is.null(opts$data)) {
         data <- opts$data
         opts$data <- NULL
