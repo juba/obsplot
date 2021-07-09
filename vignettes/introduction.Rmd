@@ -29,3 +29,5 @@ knitr::opts_chunk$set(
 
 - `data` can be declared in `obsplot()` and inherited by the following marks.
 - if `x` or `y` are given as a vector, a `data` index of the same length is automatically added.
+
+## Dealing with date and time data
