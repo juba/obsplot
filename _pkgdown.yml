@@ -30,6 +30,10 @@ reference:
   contents:
   - '`opts`'
   - '`style`'
+- title: Misc
+  desc: Utility functions
+  contents:
+  - '`to_js_date`'
 articles:
 - title: Articles
   navbar: ~
