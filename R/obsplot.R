@@ -1,8 +1,8 @@
 #' Create a new obsplot plot
 #' 
 #' @param data optional data.frame as primary data source
-#' @param width plot width
-#' @param height plot height
+#' @param width plot width. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide.
+#' @param height plot height. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide.
 #' @param elementId optional custom element id, passed to createWidget()
 #' @param ... named options passed to Observable Plot
 #'
@@ -18,9 +18,14 @@ obsplot <- function(
   # forward options using x
   x$data <- data
   x$opts <- list(...)
-  x$opts$width <- width
-  x$opts$height <- height
   x["marks"] <- list(NULL)
+
+  # If width or height are "auto", put it to Plot opts so that it will use el.width
+  # and el.height, and set it to NULL for createWidgets
+  x$opts$width <- width
+  if (!is.null(width) && width == "auto") width <- NULL
+  x$opts$height <- height
+  if (!is.null(height) && height == "auto") height <- NULL
 
   # create widget
   htmlwidgets::createWidget(

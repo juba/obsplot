@@ -12,24 +12,32 @@ export class Obsplot {
     }
 
     plot(el) {
+
         const opts = this.opts;
         opts.marks = this.build_marks();
         opts.facet = this.build_facet();
-        opts.width = opts.width || el.width;
-        opts.height = opts.height || el.height;
-        const p = Plot.plot(opts);
+        if (opts.width == "auto") opts.width = el.width;
+        if (opts.height == "auto") opts.height = el.height;
+
+        let p = Plot.plot(opts);
         el.append(p)
+
     }
 
     build_marks() {
+
         return this.marks.map((mark) => {
+            
             const mark_fun = Plot[mark.type];
+            
             // Decorations
             if (["frame"].includes(mark.type)) {
                 return mark_fun.call(null, mark.opts)
             }
+            
             // Data marks
             const data = Obsplot.convert_data(mark.data) || this.data;
+            
             // Transform
             if (mark.transform !== undefined && mark.transform !== null) {
                 const transform = mark.transform;
@@ -44,13 +52,14 @@ export class Obsplot {
                 }
                 mark.opts = {...trans_result, ...mark.opts}
             }
+            
             return mark_fun.call(null, data, mark.opts)
         })
     }
 
     build_facet() {
         if (this.facet === undefined) return {};
-        const data = this.facet.data === null ? this.data : HTMLWidgets.dataframeToD3(this.facet.data);
+        const data = HTMLWidgets.dataframeToD3(this.facet.data) || this.data;
         let facet = this.facet.opts;
         facet.data = data
         return facet;
@@ -65,6 +74,5 @@ export class Obsplot {
         }
         return(data)
     }
-    
 
 }

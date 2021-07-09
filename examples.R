@@ -131,5 +131,11 @@ obsplot(stateage) |>
 
 # width and height
 
-obsplot(penguins, grid = TRUE, width = 900) |>
+obsplot(penguins, grid = TRUE) |>
+    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "species")
+
+obsplot(penguins, grid = TRUE, width = 900, height = 800) |>
+    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "species")
+
+obsplot(penguins, grid = TRUE, width = "auto", height = "auto") |>
     mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "species")
