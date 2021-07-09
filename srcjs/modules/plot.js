@@ -57,7 +57,6 @@ export class Obsplot {
         // Check if data is a literal object
         // See https://stackoverflow.com/a/16608074
         if (data.constructor === Object) {
-            console.log("conversion")
             return HTMLWidgets.dataframeToD3(data)
         }
         return(data)
