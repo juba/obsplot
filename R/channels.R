@@ -30,8 +30,8 @@ check_channels <- function(data, mark_channels, mark_opts) {
         check_channel_color(data, chan, mark_opts_check[[chan]])
     }
 
-    # Check other channels
-    chans <- setdiff(opts, c("fill", "stroke"))
+    # Check channels which can be a data column
+    chans <- setdiff(opts, c("fill", "stroke", "curve", "title"))
     for (chan in chans) {
         check_channel_column(data, chan, mark_opts_check[[chan]])
     }
