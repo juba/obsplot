@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 import * as Plot from "@observablehq/plot";
 
 export class Obsplot {
@@ -62,7 +63,10 @@ export class Obsplot {
         if (data.constructor === Object) {
             return HTMLWidgets.dataframeToD3(data)
         }
-        return(data)
+        if (!Array.isArray(data)) {
+            return [data];
+        }
+        return data;
     }
 
     static call_transform(transform) {
@@ -78,7 +82,7 @@ export class Obsplot {
             // transform with outputs and options
             trans_result = trans_fun.call(null, transform.outputs, transform.options);
         }
-        return(trans_result)
+        return trans_result;
     }
 
 }
