@@ -1,165 +1,173 @@
 #' Define an Observable Plot transform with outputs and options
 #'
-#' @param outputs a named list of outputs
-#' @param options a named list of options
+#' @param ... transform outputs and options
+#' @details transform output is given as first named argument of the function. If there are several outputs, pass a named list as first argument.
 #' @export
-transform_bin <- function(outputs, options) {
-    transform_("bin", outputs, options)
+transform_bin <- function(...) {
+    args <- get_outputs_options(...)
+    transform_("bin", args$outputs, args$options)
 }
 
 #' @rdname transform_bin
 #' @export
-transform_binX <- function(outputs, options) {
-    transform_("binX", outputs, options)
+transform_binX <- function(...) {
+    args <- get_outputs_options(...)
+    transform_("binX", args$outputs, args$options)
 }
 
 #' @rdname transform_bin
 #' @export
-transform_binY <- function(outputs, options) {
-    transform_("binY", outputs, options)
+transform_binY <- function(...) {
+    args <- get_outputs_options(...)
+    transform_("binY", args$outputs, args$options)
 }
 
 #' @rdname transform_bin
 #' @export
-transform_group <- function(outputs, options) {
-    transform_("group", outputs, options)
+transform_group <- function(...) {
+    args <- get_outputs_options(...)
+    transform_("group", args$outputs, args$options)
 }
 
 #' @rdname transform_bin
 #' @export
-transform_groupX <- function(outputs, options) {
-    transform_("groupX", outputs, options)
+transform_groupX <- function(...) {
+    args <- get_outputs_options(...)
+    transform_("groupX", args$outputs, args$options)
 }
 
 #' @rdname transform_bin
 #' @export
-transform_groupY <- function(outputs, options) {
-    transform_("groupY", outputs, options)
+transform_groupY <- function(...) {
+    args <- get_outputs_options(...)
+    transform_("groupY", args$outputs, args$options)
 }
 
 #' @rdname transform_bin
 #' @export
-transform_groupZ <- function(outputs, options) {
-    transform_("groupZ", outputs, options)
+transform_groupZ <- function(...) {
+    args <- get_outputs_options(...)
+    transform_("groupZ", args$outputs, args$options)
 }
 
 #' @rdname transform_bin
 #' @export
-transform_map <- function(outputs, options) {
-    transform_("map", outputs, options)
+transform_map <- function(...) {
+    args <- get_outputs_options(...)
+    transform_("map", args$outputs, args$options)
 }
 
 #' Define an Observable Plot transform with map and options
 #'
 #' @param map a map method name
-#' @param options a named list of options
+#' @param ... transform options
 #' @export
-transform_mapX <- function(map, options) {
-    transform_("mapX", outputs = map, options = options)
+transform_mapX <- function(map, ...) {
+    transform_("mapX", outputs = map, options = get_options(...))
 }
 
 #' @rdname transform_mapX
 #' @export
-transform_mapY <- function(map, options) {
-    transform_("mapY", outputs = map, options = options)
+transform_mapY <- function(map, ...) {
+    transform_("mapY", outputs = map, options = get_options(...))
 }
 
 #' Define an Observable Plot transform with options only
 #'
-#' @param options a named list of options
+#' @param ... transform options
 #' @export
-transform_normalizeX <- function(options) {
-    transform_("normalizeX", outputs = NULL, options = options)
+transform_normalizeX <- function(...) {
+    transform_("normalizeX", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_normalizeY <- function(options) {
-    transform_("normalizeY", outputs = NULL, options = options)
+transform_normalizeY <- function(...) {
+    transform_("normalizeY", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_windowX <- function(options) {
-    transform_("windowX", outputs = NULL, options = options)
+transform_windowX <- function(...) {
+    transform_("windowX", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_windowY <- function(options) {
-    transform_("windowY", outputs = NULL, options = options)
+transform_windowY <- function(...) {
+    transform_("windowY", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_selectFirst <- function(options) {
-    transform_("selectFirst", outputs = NULL, options = options)
+transform_selectFirst <- function(...) {
+    transform_("selectFirst", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_selectLast <- function(options) {
-    transform_("selectLast", outputs = NULL, options = options)
+transform_selectLast <- function(...) {
+    transform_("selectLast", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_selectMinX <- function(options) {
-    transform_("selectMinX", outputs = NULL, options = options)
+transform_selectMinX <- function(...) {
+    transform_("selectMinX", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_selectMaxX <- function(options) {
-    transform_("selectMaxX", outputs = NULL, options = options)
+transform_selectMaxX <- function(...) {
+    transform_("selectMaxX", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_selectMinY <- function(options) {
-    transform_("selectMinY", outputs = NULL, options = options)
+transform_selectMinY <- function(...) {
+    transform_("selectMinY", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_selectMaxY <- function(options) {
-    transform_("selectMaxY", outputs = NULL, options = options)
+transform_selectMaxY <- function(...) {
+    transform_("selectMaxY", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_stackY <- function(options) {
-    transform_("stackY", outputs = NULL, options = options)
+transform_stackY <- function(...) {
+    transform_("stackY", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_stackY1 <- function(options) {
-    transform_("stackY1", outputs = NULL, options = options)
+transform_stackY1 <- function(...) {
+    transform_("stackY1", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_stackY2 <- function(options) {
-    transform_("stackY2", outputs = NULL, options = options)
+transform_stackY2 <- function(...) {
+    transform_("stackY2", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_stackX <- function(options) {
-    transform_("stackX", outputs = NULL, options = options)
+transform_stackX <- function(...) {
+    transform_("stackX", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_stackX1 <- function(options) {
-    transform_("stackX1", outputs = NULL, options = options)
+transform_stackX1 <- function(...) {
+    transform_("stackX1", outputs = NULL, options = get_options(...))
 }
 
 #' @rdname transform_normalizeX
 #' @export
-transform_stackX2 <- function(options) {
-    transform_("stackX2", outputs = NULL, options = options)
+transform_stackX2 <- function(...) {
+    transform_("stackX2", outputs = NULL, options = get_options(...))
 }
 
 
@@ -171,4 +179,27 @@ transform_ <- function(transform_type, outputs, options) {
     )
     class(l) <- c("obsplot_transform", class(l))
     l
+}
+
+# From a list of arguments, returns the first one as output and the rest as options
+get_outputs_options <- function(...) {
+    outputs <- list(...)[1]
+    if (is.list(outputs[[1]])) {
+        outputs <- outputs[[1]]
+    }
+    options <- list(...)[-1]
+    if (is.list(options[[1]])) {
+        options <- options[[1]]
+    }
+    return(list(outputs = outputs, options = options))
+}
+
+# Returns the passed arguments as a list, unless the first argument is itself a list.
+# In this case, returns the first argument.S
+get_options <- function(...) {
+    options <- list(...)
+    if (is.list(options[[1]])) {
+        options <- options[[1]]
+    }
+    return(options)
 }
