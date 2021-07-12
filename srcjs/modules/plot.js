@@ -1,4 +1,3 @@
-import * as d3 from "d3";
 import * as Plot from "@observablehq/plot";
 
 export class Obsplot {
@@ -17,6 +16,7 @@ export class Obsplot {
         const opts = this.opts;
         opts.marks = this.build_marks();
         opts.facet = this.build_facet();
+        // If "auto", use Shiny widget size
         if (opts.width == "auto") opts.width = el.width;
         if (opts.height == "auto") opts.height = el.height;
 
@@ -31,47 +31,58 @@ export class Obsplot {
             
             const mark_fun = Plot[mark.type];
             
-            // Decorations
+            // Decorations mark
             if (["frame"].includes(mark.type)) {
                 return mark_fun.call(null, mark.opts)
             }
             
-            // Data marks
+            // Mark data
             const data = Obsplot.convert_data(mark.data) || this.data;
             
-            // Transform
+            // Check for and apply any transform
             if (mark.transform !== undefined && mark.transform !== null) {
                 mark.opts = {...Obsplot.call_transform(mark.transform), ...mark.opts}
             }
             
             return mark_fun.call(null, data, mark.opts)
         })
+
     }
 
     build_facet() {
+
         if (this.facet === undefined) return {};
-        const data = HTMLWidgets.dataframeToD3(this.facet.data) || this.data;
+        // Get facet data
+        const data = Obsplot.convert_data(this.facet.data) || this.data;
+        // Build facet
         let facet = this.facet.opts;
         facet.data = data
         return facet;
+
     }
 
     static convert_data(data) {
+
         if (data === undefined || data === null) return(null)
         // Check if data is a literal object
         // See https://stackoverflow.com/a/16608074
         if (data.constructor === Object) {
             return HTMLWidgets.dataframeToD3(data)
         }
+        // If data is a single number, convert to array
         if (!Array.isArray(data)) {
             return [data];
         }
         return data;
+
     }
 
     static call_transform(transform) {
+
         const trans_fun = Plot[transform.transform_type];
         let trans_result = {};
+        // Recursive call to compose transforms : if options is a transform,
+        // apply it first
         if (transform.options.transform_type) {
             transform.options = Obsplot.call_transform(transform.options)
         }
@@ -83,6 +94,7 @@ export class Obsplot {
             trans_result = trans_fun.call(null, transform.outputs, transform.options);
         }
         return trans_result;
+
     }
 
 }
