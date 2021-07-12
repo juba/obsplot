@@ -31,6 +31,17 @@ scale_y <- function(g, ...) {
     scale_(g, "y", ...)
 }
 
+#' @rdname scale_color
+#' @export
+scale_fx <- function(g, ...) {
+    scale_(g, "fx", ...)
+}
+
+#' @rdname scale_color
+#' @export
+scale_fy <- function(g, ...) {
+    scale_(g, "fy", ...)
+}
 
 scale_ <- function(g, scale_type, ...) {
     g$x$opts[scale_type] <- list(list(...))
