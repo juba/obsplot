@@ -5,14 +5,14 @@
 \alias{transform_mapY}
 \title{Define an Observable Plot transform with map and options}
 \usage{
-transform_mapX(map, options)
+transform_mapX(map, ...)
 
-transform_mapY(map, options)
+transform_mapY(map, ...)
 }
 \arguments{
 \item{map}{a map method name}
 
-\item{options}{a named list of options}
+\item{...}{transform options}
 }
 \description{
 Define an Observable Plot transform with map and options

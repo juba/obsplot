@@ -9,9 +9,9 @@ obsplot(data = NULL, width = NULL, height = NULL, elementId = NULL, ...)
 \arguments{
 \item{data}{optional data.frame as primary data source}
 
-\item{width}{plot width}
+\item{width}{plot width. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide.}
 
-\item{height}{plot height}
+\item{height}{plot height. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide.}
 
 \item{elementId}{optional custom element id, passed to createWidget()}
 

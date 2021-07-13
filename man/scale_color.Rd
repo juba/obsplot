@@ -6,6 +6,8 @@
 \alias{scale_r}
 \alias{scale_x}
 \alias{scale_y}
+\alias{scale_fx}
+\alias{scale_fy}
 \title{Add or modify scale options to an obsplot}
 \usage{
 scale_color(g, ...)
@@ -17,6 +19,10 @@ scale_r(g, ...)
 scale_x(g, ...)
 
 scale_y(g, ...)
+
+scale_fx(g, ...)
+
+scale_fy(g, ...)
 }
 \arguments{
 \item{g}{an obsplot object}

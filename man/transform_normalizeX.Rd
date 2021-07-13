@@ -19,40 +19,40 @@
 \alias{transform_stackX2}
 \title{Define an Observable Plot transform with options only}
 \usage{
-transform_normalizeX(options)
+transform_normalizeX(...)
 
-transform_normalizeY(options)
+transform_normalizeY(...)
 
-transform_windowX(options)
+transform_windowX(...)
 
-transform_windowY(options)
+transform_windowY(...)
 
-transform_selectFirst(options)
+transform_selectFirst(...)
 
-transform_selectLast(options)
+transform_selectLast(...)
 
-transform_selectMinX(options)
+transform_selectMinX(...)
 
-transform_selectMaxX(options)
+transform_selectMaxX(...)
 
-transform_selectMinY(options)
+transform_selectMinY(...)
 
-transform_selectMaxY(options)
+transform_selectMaxY(...)
 
-transform_stackY(options)
+transform_stackY(...)
 
-transform_stackY1(options)
+transform_stackY1(...)
 
-transform_stackY2(options)
+transform_stackY2(...)
 
-transform_stackX(options)
+transform_stackX(...)
 
-transform_stackX1(options)
+transform_stackX1(...)
 
-transform_stackX2(options)
+transform_stackX2(...)
 }
 \arguments{
-\item{options}{a named list of options}
+\item{...}{transform options}
 }
 \description{
 Define an Observable Plot transform with options only

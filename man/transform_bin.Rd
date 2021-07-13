@@ -11,27 +11,28 @@
 \alias{transform_map}
 \title{Define an Observable Plot transform with outputs and options}
 \usage{
-transform_bin(outputs, options)
+transform_bin(...)
 
-transform_binX(outputs, options)
+transform_binX(...)
 
-transform_binY(outputs, options)
+transform_binY(...)
 
-transform_group(outputs, options)
+transform_group(...)
 
-transform_groupX(outputs, options)
+transform_groupX(...)
 
-transform_groupY(outputs, options)
+transform_groupY(...)
 
-transform_groupZ(outputs, options)
+transform_groupZ(...)
 
-transform_map(outputs, options)
+transform_map(...)
 }
 \arguments{
-\item{outputs}{a named list of outputs}
-
-\item{options}{a named list of options}
+\item{...}{transform outputs and options}
 }
 \description{
 Define an Observable Plot transform with outputs and options
+}
+\details{
+transform output is given as first named argument of the function. If there are several outputs, pass a named list as first argument.
 }
