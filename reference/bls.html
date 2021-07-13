@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Shiny bindings for obsplot — obsplot-shiny • obsplot</title>
+<title>Sample data from Observable Plot documentation examples — bls • obsplot</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,8 @@
 
 
 
-<meta property="og:title" content="Shiny bindings for obsplot — obsplot-shiny" />
-<meta property="og:description" content="Output and render functions for using obsplot within Shiny
-applications and interactive Rmd documents." />
+<meta property="og:title" content="Sample data from Observable Plot documentation examples — bls" />
+<meta property="og:description" content="Sample data from Observable Plot documentation examples" />
 
 
 
@@ -127,48 +126,24 @@ applications and interactive Rmd documents." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Shiny bindings for obsplot</h1>
-    <small class="dont-index">Source: <a href='https://github.com/juba/obsplot/blob/master/R/obsplot.R'><code>R/obsplot.R</code></a></small>
-    <div class="hidden name"><code>obsplot-shiny.Rd</code></div>
+    <h1>Sample data from Observable Plot documentation examples</h1>
+    <small class="dont-index">Source: <a href='https://github.com/juba/obsplot/blob/master/R/datasets.R'><code>R/datasets.R</code></a></small>
+    <div class="hidden name"><code>bls.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Output and render functions for using obsplot within Shiny
-applications and interactive Rmd documents.</p>
+    <p>Sample data from Observable Plot documentation examples</p>
     </div>
 
-    <pre class="usage"><span class='fu'>obsplotOutput</span><span class='op'>(</span><span class='va'>outputId</span>, width <span class='op'>=</span> <span class='st'>"100%"</span>, height <span class='op'>=</span> <span class='st'>"400px"</span><span class='op'>)</span>
+    <pre class="usage"><span class='va'>bls</span></pre>
 
-<span class='fu'>renderObsplot</span><span class='op'>(</span><span class='va'>expr</span>, env <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sys.parent.html'>parent.frame</a></span><span class='op'>(</span><span class='op'>)</span>, quoted <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>outputId</th>
-      <td><p>output variable to read from</p></td>
-    </tr>
-    <tr>
-      <th>width, height</th>
-      <td><p>Must be a valid CSS unit (like <code>'100%'</code>,
-<code>'400px'</code>, <code>'auto'</code>) or a number, which will be coerced to a
-string and have <code>'px'</code> appended.</p></td>
-    </tr>
-    <tr>
-      <th>expr</th>
-      <td><p>An expression that generates a obsplot</p></td>
-    </tr>
-    <tr>
-      <th>env</th>
-      <td><p>The environment in which to evaluate <code>expr</code>.</p></td>
-    </tr>
-    <tr>
-      <th>quoted</th>
-      <td><p>Is <code>expr</code> a quoted expression (with <code><a href='https://rdrr.io/r/base/substitute.html'>quote()</a></code>)? This
-is useful if you want to save an expression in a variable.</p></td>
-    </tr>
-    </table>
+    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
+    <p>An object of class <code>spec_tbl_df</code> (inherits from <code>tbl_df</code>, <code>tbl</code>, <code>data.frame</code>) with 1708 rows and 3 columns.</p>
+    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
+
+    <p><a href='https://observablehq.com/@observablehq/plot-area'>https://observablehq.com/@observablehq/plot-area</a></p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

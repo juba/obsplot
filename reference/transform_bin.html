@@ -97,6 +97,9 @@
     <li>
       <a href="../articles/introduction.html">Introduction to obsplot</a>
     </li>
+    <li>
+      <a href="../articles/gallery.html">obsplot Gallery</a>
+    </li>
   </ul>
 </li>
 <li>
@@ -132,35 +135,34 @@
     <p>Define an Observable Plot transform with outputs and options</p>
     </div>
 
-    <pre class="usage"><span class='fu'>transform_bin</span><span class='op'>(</span><span class='va'>outputs</span>, <span class='va'>options</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>transform_bin</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>transform_binX</span><span class='op'>(</span><span class='va'>outputs</span>, <span class='va'>options</span><span class='op'>)</span>
+<span class='fu'>transform_binX</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>transform_binY</span><span class='op'>(</span><span class='va'>outputs</span>, <span class='va'>options</span><span class='op'>)</span>
+<span class='fu'>transform_binY</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>transform_group</span><span class='op'>(</span><span class='va'>outputs</span>, <span class='va'>options</span><span class='op'>)</span>
+<span class='fu'>transform_group</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>transform_groupX</span><span class='op'>(</span><span class='va'>outputs</span>, <span class='va'>options</span><span class='op'>)</span>
+<span class='fu'>transform_groupX</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>transform_groupY</span><span class='op'>(</span><span class='va'>outputs</span>, <span class='va'>options</span><span class='op'>)</span>
+<span class='fu'>transform_groupY</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>transform_groupZ</span><span class='op'>(</span><span class='va'>outputs</span>, <span class='va'>options</span><span class='op'>)</span>
+<span class='fu'>transform_groupZ</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>transform_map</span><span class='op'>(</span><span class='va'>outputs</span>, <span class='va'>options</span><span class='op'>)</span></pre>
+<span class='fu'>transform_map</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>outputs</th>
-      <td><p>a named list of outputs</p></td>
-    </tr>
-    <tr>
-      <th>options</th>
-      <td><p>a named list of options</p></td>
+      <th>...</th>
+      <td><p>transform outputs and options</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>transform output is given as first named argument of the function. If there are several outputs, pass a named list as first argument.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

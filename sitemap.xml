@@ -4,13 +4,40 @@
     <loc>https://juba.github.io/obsplot//index.html</loc>
   </url>
   <url>
+    <loc>https://juba.github.io/obsplot//reference/aapl.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/alphabet.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/bls.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/civilizations.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/dji.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/driving.html</loc>
+  </url>
+  <url>
     <loc>https://juba.github.io/obsplot//reference/facet.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/gistemp.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/income.html</loc>
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//reference/mark_area.html</loc>
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//reference/mark_frame.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/metros.html</loc>
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//reference/obsplot-shiny.html</loc>
@@ -22,7 +49,22 @@
     <loc>https://juba.github.io/obsplot//reference/opts.html</loc>
   </url>
   <url>
+    <loc>https://juba.github.io/obsplot//reference/popchange.html</loc>
+  </url>
+  <url>
     <loc>https://juba.github.io/obsplot//reference/scale_color.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/seattle.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/sftemp.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/simpsons.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/stateage.html</loc>
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//reference/style.html</loc>
@@ -38,6 +80,9 @@
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//reference/transform_normalizeX.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//articles/gallery.html</loc>
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//articles/introduction.html</loc>
