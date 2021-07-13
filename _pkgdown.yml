@@ -3,17 +3,14 @@ template:
   params:
     bootswatch: cosmo
 reference:
-- title: Main function
-  desc: Plot creation
+- title: Plot creation
   contents:
   - '`obsplot`'
 - title: Marks
-  desc: Graphical marks
   contents:
   - '`mark_area`'
   - '`mark_frame`'
 - title: Scales
-  desc: Scale options
   contents:
   - '`scale_color`'
 - title: Faceting
