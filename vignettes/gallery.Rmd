@@ -1,0 +1,356 @@
+---
+title: "obsplot Gallery"
+author: "Julien Barnier"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 7
+    fig_height: 5
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{obsplot Gallery}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+library(obsplot)
+library(htmlwidgets)
+knitr::opts_chunk$set(
+  screenshot.force = FALSE,
+  echo = TRUE
+)
+```
+
+This document is an attempt to reproduce some of the charts shown in [Observable Plot documentation](https://observablehq.com/@observablehq/plot).
+
+
+```{r include = FALSE, eval = FALSE}
+seattle <- read_csv("https://static.observableusercontent.com/files/831732e8332e141e39aca2776edfdb19b2d43308d4974f5ad4a21fad007faa0518fe5bc4a0fc4f57422689a161dc27b82073403cee0e29ebf6ccb75d0ec4aeb3?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27seattle-weather.csv")
+usethis::use_data(seattle)
+```
+
+
+## Area mark examples
+
+
+```{r}
+data(aapl)
+obsplot(aapl) |>
+    mark_areaY(x = "Date", y = "Close", fill = "#ccc") |>
+    mark_lineY(x = "Date", y = "Close") |>
+    mark_ruleY(y = 0) |>
+    scale_y(grid = TRUE)
+```
+
+
+```{r}
+data(sftemp)
+
+obsplot(sftemp) |>
+    mark_ruleY(y = 32) |>
+    mark_areaY(
+        transform_windowY(
+            x = "date",
+            y1 = "low", y2 = "high",
+            fill = "#ccc", k = 14
+        )
+    ) |>
+    mark_line(
+        transform_windowY(
+            x = "date",
+            y = JS("d => (d.low + d.high) / 2"),
+            k = 14
+        )
+    ) |>
+    scale_y(grid = TRUE, label = "↑ Temperature (°F)")
+
+```
+
+
+```{r}
+data(bls)
+
+obsplot(bls) |>
+    mark_areaY(x = "date", y2 = "unemployed", z = "industry", fillOpacity = 0.1) |>
+    mark_lineY(x = "date", y = "unemployed", z = "industry", strokeWidth = 1) 
+```
+
+
+```{r}
+obsplot(bls) |>
+    mark_areaY(x = "date", y = "unemployed", fill = "industry") |>
+    mark_ruleY(y = 0)
+```
+
+```{r}
+normY <- transform_normalizeY(basis = "median", x = "date", y = "unemployed")
+obsplot(bls, height = 600) |>
+    mark_areaY(normY, fillOpacity = 0.2) |>
+    mark_lineY(normY, strokeWidth = 1) |>
+    facet(y = "industry", marginRight = 140) |>
+    scale_y(axis = NULL) |>
+    scale_fy(axis = "right", label = NULL)
+```
+
+
+## Bar mark examples
+
+
+```{r}
+data(civilizations)
+
+obsplot(civilizations, height = nrow(civilizations) * 12) |>
+    mark_barX(x1 = "start", x2 = "end", y = "civilization") |>
+    mark_text(x = "start", y = "civilization", text = "civilization", textAnchor = "end", dx = -6) |>
+    opts(marginLeft = 120) |>
+    scale_x(axis = "top", grid = TRUE) |>
+    scale_y(axis = NULL, domain = civilizations$civilization[order(civilizations$start)])
+```
+
+```{r}
+data(popchange)
+popchange$diff <- (popchange$`2019` - popchange$`2010`) / popchange$`2010` * 100
+popchange$up <- popchange$diff >= 0
+
+obsplot(popchange, height = 780) |>
+    mark_barX(y = "State", x = "diff", fill = "up") |>
+    mark_ruleX(x = 0) |>
+    opts(marginLeft = 100, grid = TRUE) |>
+    scale_x(
+        axis = "top", round = TRUE, 
+        label = "← decrease · Change in population, 2010–2019 (%) · increase →",
+        labelAnchor = "center", tickFormat = "+"
+    ) |>
+    scale_y(label = NULL, domain = rev(popchange$State[order(popchange$diff)])) |>
+    scale_color(range = c("#e15759", "#4e79a7"))
+
+```
+
+```{r}
+data(alphabet)
+
+obsplot(alphabet, height = 60) |>
+    mark_ruleX(c(0,1)) |>
+    mark_barX(
+        transform_stackX(
+            order = "letter", x = "frequency", fill = "#ccc", insetLeft = 1
+        )
+    ) |>
+    mark_textX(
+        transform_stackX(
+            order = "letter", x = "frequency", text = "letter", insetLeft = 1
+        )
+    ) |>
+    scale_x(label = "Frequency (%)", transform = JS("d => d * 100"))
+
+```
+
+
+```{r}
+library(dplyr)
+data(stateage)
+# Pivot to longer format
+stateage <- stateage |>
+    tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
+states <- stateage |>
+    group_by(name) |>
+    summarize(total = sum(population)) |>
+    arrange(desc(total)) |>
+    slice(1:6) |>
+    pull(name)
+
+obsplot(stateage) |>
+    mark_barY(x = "age", y = "population", fill = "age", title = "age") |>
+    mark_ruleY(y = 0) |>
+    facet(x = "name") |>
+    scale_x(axis = NULL, domain = unique(stateage$age)) |>
+    scale_fx(domain = states, label = NULL, tickSize = 6) |>
+    scale_y(grid = TRUE, tickFormat = "s") |>
+    scale_color(domain = unique(stateage$age), scheme = "spectral")
+```
+
+
+## Cell mark examples
+
+
+```{r}
+obsplot(simpsons, height = 600) |>
+    mark_cell(x = "season", y = "number_in_season", fill = "imdb_rating") |>
+    mark_text(x = "season", y = "number_in_season", text = "imdb_rating", title = "title") |>
+    scale_x(axis = "top", label = "Season") |>
+    scale_y(label = "Episode") |>
+    scale_color(scheme = "PiYg") |>
+    opts(padding = 0.05, grid = TRUE) 
+```
+
+```{r}
+library(lubridate)
+data(dji)
+dji <- dji |>
+    mutate(
+        variation = (Close - lag(Close)) / lag(Close),
+        title = round(variation * 100, 1),
+        week = isoweek(Date),
+        weekday = wday(Date, week_start = 1),
+        year = year(Date),
+    )
+
+obsplot(dji, height = 1300) |>
+    mark_cell(
+        x = "week", y = "weekday", fill = "variation", title = "title", inset = 0.5
+    ) |>
+    facet(y = "year") |>
+    scale_x(axis = NULL, padding = 0) |>
+    scale_y(padding = 0, tickSize = 0, label = NULL) |>
+    scale_fy(reverse = TRUE, label = NULL) |>
+    scale_color(type = "diverging", scheme = "PiYg")
+```
+
+```{r}
+data(seattle)
+seattle <- seattle |>
+    mutate(
+        month = month(date, label = TRUE),
+        day = day(date)
+    )
+
+obsplot(seattle, height = 300) |>
+    mark_cell(
+        transform_group(
+            fill = "max",
+            x = "day", y = "month", fill = "temp_max",
+            inset = 0.5
+        )
+    ) |>
+    scale_x(label = NULL) |>
+    scale_y(domain = unique(seattle$month), label = NULL) |>
+    opts(padding = 0)
+```
+
+```{r}
+df <- simpsons |>
+    mutate(tick = season * 100 + number_in_season - 1)
+
+obsplot(df, height = 60) |>
+    mark_cell(x = "tick", fill = "imdb_rating") |>
+    scale_x(
+        ticks = df |> filter(number_in_season == 1) |> pull(tick),
+        tickFormat = JS("d => d / 100"),
+        round = FALSE, label = "Season →", labelAnchor = "right"
+    ) |>
+    scale_color(scheme = "PiYg")
+```
+
+
+## Dot mark examples
+
+
+```{r}
+data(gistemp)
+
+obsplot(gistemp) |>
+    mark_ruleY(y = 0) |>
+    mark_dot(x = "Date", y = "Anomaly", stroke = "Anomaly") |>
+    scale_y(tickFormat = "+f", grid = TRUE) |>
+    scale_color(type = "diverging", scheme = "BuRd")
+```
+
+
+```{r}
+data(driving)
+
+# We filter out highlighted data before
+driv5 <- driving |> filter(year %% 5 == 0)
+obsplot(driving) |>
+    mark_line(x = "miles", y = "gas", curve = "catmull-rom") |>
+    mark_dot(x = "miles", y = "gas", fill = "currentColor") |>
+    mark_text(driv5, x = "miles", y = "gas", text = "year", dy = -8) |>
+    opts(grid = TRUE)
+```
+
+
+```{r}
+data(alphabet)
+
+obsplot(alphabet) |>
+    mark_ruleY(y = 0) |>
+    mark_ruleX(x = "letter", y = "frequency") |>
+    mark_dot(x = "letter", y = "frequency", fill = "black", r = 4) |>
+    scale_x(label = NULL, tickSize = 0) |>
+    scale_y(transform = JS("d => d * 100"), label = "↑ Frequency (%)")
+```
+
+
+```{r}
+data(stateage)
+
+# Pivot to longer format
+stateage <- stateage |> 
+    tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
+
+xy <- transform_normalizeY(basis = "sum", z = "name", x = "age", y = "population")
+obsplot(stateage) |>
+    mark_ruleY(y = 0) |>
+    mark_line(
+        xy,
+        strokeWidth = 1, stroke = "#ccc"
+    ) |>
+    mark_dot(xy) |>
+    scale_x(domain = unique(stateage$age), labelAnchor = "right") |>
+    scale_y(transform = JS("d => d*100")) |>
+    opts(grid = TRUE)
+```
+
+```{r}
+xy <- transform_normalizeX(basis = "sum", z = "name", x = "population", y = "name")
+
+obsplot(stateage, height = 660) |>
+    mark_ruleX(x = 0) |>
+    mark_ruleY(transform_groupY(list(x1 = "min", x2 = "max"), xy)) |>
+    mark_dot(xy, fill = "age", title = "age") |>
+    mark_text(transform_selectMinX(xy), textAnchor = "end", dx = -6, text = "name") |>
+    scale_x(axis = "top",   label =  "Percent (%) →", transform = JS("d => d * 100")) |>
+    scale_y(axis = NULL) |>
+    scale_color(scheme = "spectral", domain = unique(stateage$age)) |>
+    opts(grid = TRUE)
+```
+
+## Link mark examples
+
+```{r}
+data(metros)
+# Compute the difference first
+metros$diff1580 <- metros$R90_10_2015 - metros$R90_10_1980
+
+obsplot(metros) |>
+    mark_link(x1 = "POP_1980", y1 = "R90_10_1980", x2 = "POP_2015", y2 = "R90_10_2015", stroke = "diff1580") |>
+    mark_dot(x = "POP_2015", y = "R90_10_2015", r = 1) |>
+    mark_text(x = "POP_2015", y = "R90_10_2015", filter = "highlight", text = "nyt_display", dy = -6) |>
+    scale_x(type = "log", tickFormat = "~s") |>
+    scale_color(type = "diverging", reverse = TRUE) |>
+    opts(grid = TRUE)
+```
+
+
+TODO
+
+```{r}
+data(income)
+# Compute min and max values first
+imin <- min(c(income$m, income$f), na.rm = TRUE)
+imax <- max(c(income$m, income$f), na.rm = TRUE)
+qs <- c(.6, .7, .8, .9)
+
+obsplot(height = 600) |>
+    mark_link(data = 1, x1 = imin, y1 = imin, x2 = imax, y2 = imax) |>
+    mark_link(data = qs, x1 = imin, y1 = imin * qs, x2 = imax, y2 = imax * qs,
+        strokeOpacity = 0.2) |>
+    mark_text(data = c(qs, 1), x = imax, y = c(qs, 1) * imax, textAnchor = "start", dx = 6,
+        text = JS('d => d === 1 ? "Equal" : d3.format("+.0%")(d - 1)')) |>
+    mark_dot(income, x = "m", y = "f", title = paste(income$type, income$age))
+```
+
+## Line mark examples
