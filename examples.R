@@ -85,3 +85,21 @@ obsplot(penguins, grid = TRUE, width = 900, height = 800) |>
 
 obsplot(penguins, grid = TRUE, width = "auto", height = "auto") |>
     mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "species")
+
+
+# date and time
+
+df <- data.frame(
+    date1 = as.Date(c("2021-07-13", "2022-08-14", "2022-10-11")),
+    date2 = as.POSIXct(c("2021-07-13 23:46:13 CEST", "2021-07-13 23:47:13 CEST", "2021-07-13 23:48:13 CEST")),
+    x = 1:3
+)
+
+obsplot(df) |>
+    mark_dot(x = "date1", y = "x")
+obsplot(df) |>
+    mark_dot(x = "date2", y = "x")
+# Won't work. Only data objects are added metadata.
+obsplot() |>
+    mark_dot(x = df$date1, y = df$x)
+
