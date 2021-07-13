@@ -16,7 +16,7 @@ obsplot <- function(
   x <- list()
 
   # forward options using x
-  x$data <- data
+  x$data <- add_metadata(data)
   x$opts <- list(...)
   x["marks"] <- list(NULL)
 
@@ -26,7 +26,6 @@ obsplot <- function(
   if (!is.null(width) && width == "auto") width <- NULL
   x$opts$height <- height
   if (!is.null(height) && height == "auto") height <- NULL
-
   # create widget
   htmlwidgets::createWidget(
     name = 'obsplot',
@@ -37,7 +36,6 @@ obsplot <- function(
     elementId = elementId
   )
 }
-
 
 
 #' Shiny bindings for obsplot

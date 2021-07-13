@@ -297,7 +297,6 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
         function(v) !inherits(v, "obsplot_transform"),
         unnamed_opts, nomatch = NULL
     )
-
     # Unless it has been specifically given in named opts
     if (!is.null(opts$data)) {
         data <- opts$data
@@ -319,7 +318,7 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
 
     # Check channels values
     check_data <- data
-    if (is.null(data)) check_data <- g$x$data
+    if (is.null(data)) check_data <- g$x$data$data
     check_channels(
         data = check_data,
         mark_channels = mark_channels,
@@ -327,6 +326,7 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
         has_transform = !is.null(transform)
     )
 
+    data <- add_metadata(data)
     mark <- list(type = mark_type, data = data, transform = transform, opts = opts)
     g$x$marks <- append(g$x$marks, list(mark))
 

@@ -1,9 +1,10 @@
 import * as Plot from "@observablehq/plot";
+import * as d3 from "d3";
 
 export class Obsplot {
 
     constructor(el, x) {
-        
+
         this.data = Obsplot.convert_data(x.data);
         this.marks = x.marks || [];
         this.opts = x.opts || {};
@@ -63,17 +64,25 @@ export class Obsplot {
 
     static convert_data(data) {
 
-        if (data === undefined || data === null) return(null)
+        if (data.data === undefined || data.data === null) return(null)
         // Check if data is a literal object
         // See https://stackoverflow.com/a/16608074
-        if (data.constructor === Object) {
-            return HTMLWidgets.dataframeToD3(data)
+        if (data.data.constructor === Object) {
+            let date_columns = data.dates;
+            data =  HTMLWidgets.dataframeToD3(data.data)
+            // Convert date columns to Date
+            if (!Array.isArray(date_columns)) date_columns = [date_columns]    
+            data = data.map(d => {
+                date_columns.forEach(col => d[col] = new Date(d[col]));
+                return d;
+            })
+            return data;
         }
         // If data is a single number, convert to array
-        if (!Array.isArray(data)) {
-            return [data];
+        if (!Array.isArray(data.data)) {
+            return [data.data];
         }
-        return data;
+        return data.data;
 
     }
 

@@ -28,3 +28,18 @@ to_js_date <- function(date) {
   diff <- as.POSIXct(date) - structure(0, class = c("POSIXct", "POSIXt"), tzone = "UTC")
   as.numeric(diff, unit = "secs") * 1000
 }
+
+
+#' Convert data object to a list with associated metadata : 
+#' (list of date columns)
+add_metadata <- function(data) {
+  if (is.null(data)) return(list(data = NULL))
+  if (inherits(data, "data.frame")) {
+    is_date <- sapply(data, function(v) inherits(v, "Date") || inherits(v, "POSIXt"))
+    dates <- names(data)[is_date]
+  }
+  # TODO : vectors
+  return(list(data = data, dates = dates))
+}
+
+
