@@ -65,7 +65,7 @@ export class Obsplot {
     static convert_data(data) {
 
         if (data.data === undefined || data.data === null) return(null)
-        // Check if data is a literal object
+        // Check if data is a literal object (an R data frame)
         // See https://stackoverflow.com/a/16608074
         if (data.data.constructor === Object) {
             let date_columns = data.dates;
@@ -78,8 +78,16 @@ export class Obsplot {
             })
             return data;
         }
-        // If data is a single number, convert to array
+        // If data is an array (an R vector)
+        if (Array.isArray(data.data)) {
+            if (data.dates) {
+                data.data = data.data.map(d => new Date(d));
+            };
+            return data.data;
+        }
+        // If data is a single number (an R scalar)
         if (!Array.isArray(data.data)) {
+            if (data.dates) data.data = new Date(data.data);
             return [data.data];
         }
         return data.data;
