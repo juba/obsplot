@@ -30,8 +30,8 @@ to_js_date <- function(date) {
 }
 
 
-#' Convert data object to a list with associated metadata : 
-#' (list of date columns)
+# Convert data object to a list with associated metadata : 
+# (list of date columns)
 add_metadata <- function(data) {
   if (is.null(data)) return(list(data = NULL))
   # If data is a data frame, add date column names to dates
