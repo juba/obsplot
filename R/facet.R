@@ -6,6 +6,7 @@
 #' @export
 
 facet <- function(g, data = NULL, ...) {
+  data <- add_metadata(data)
   g$x$facet <- list(data = data, opts = list(...))
   g
 }
