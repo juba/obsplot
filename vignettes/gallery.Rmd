@@ -334,23 +334,23 @@ obsplot(metros) |>
     opts(grid = TRUE)
 ```
 
-
-TODO
-
 ```{r}
 data(income)
 # Compute min and max values first
 imin <- min(c(income$m, income$f), na.rm = TRUE)
 imax <- max(c(income$m, income$f), na.rm = TRUE)
-qs <- c(.6, .7, .8, .9)
+qs <- c(.6, .7, .8, .9, 1)
 
 obsplot(height = 600) |>
-    mark_link(data = 1, x1 = imin, y1 = imin, x2 = imax, y2 = imax) |>
-    mark_link(data = qs, x1 = imin, y1 = imin * qs, x2 = imax, y2 = imax * qs,
-        strokeOpacity = 0.2) |>
-    mark_text(data = c(qs, 1), x = imax, y = c(qs, 1) * imax, textAnchor = "start", dx = 6,
-        text = JS('d => d === 1 ? "Equal" : d3.format("+.0%")(d - 1)')) |>
-    mark_dot(income, x = "m", y = "f", title = paste(income$type, income$age))
+    mark_link(x1 = imin, y1 = imin, x2 = imax, y2 = imax) |>
+    mark_link(x1 = imin, y1 = imin * qs, x2 = imax, y2 = imax * qs,
+        strokeOpacity = ifelse(qs == 1, 1, 0.2)) |>
+    mark_text(x = imax, y = qs * imax, textAnchor = "start", dx = 6,
+        text = ifelse(qs == 1, "Equal", qs)) |>
+    mark_dot(income, x = "m", y = "f", title = paste(income$type, income$age)) |>
+    opts(marginRight = 40) |>
+    scale_x(label = "Median annual income (men, thousands) →", tickFormat = JS("d => d / 1000")) |>
+    scale_y(label = "↑ Median annual income (women, thousands)", tickFormat = JS("d => d / 1000"))
 ```
 
 ## Line mark examples
