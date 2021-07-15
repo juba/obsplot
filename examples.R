@@ -12,13 +12,13 @@ obsplot(grid = TRUE) |>
     mark_dot(penguins, x = "bill_length_mm", y = "bill_depth_mm", stroke = "species")
 
 obsplot(penguins, grid = TRUE) |>
-    mark_frame(fill = "none") |>
+    mark_frame() |>
     mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "island") |>
     facet(x = "island", y = "species") |>
     opts(grid = FALSE, caption = "What a caption")
 
 obsplot(penguins, grid = TRUE) |>
-    mark_frame(fill = "none") |>
+    mark_frame() |>
     mark_dot(
         x = "bill_length_mm", y = "bill_depth_mm", stroke = "island", 
         filter = JS("d => d.island != 'Dream'")
@@ -59,10 +59,6 @@ obsplot() |>
 
 obsplot() |>
     mark_dotY(y = runif(100))
-
-
-
-
 
 
 ## Diamonds example from https://observablehq.com/@observablehq/plot-dot
