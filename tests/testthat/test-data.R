@@ -22,12 +22,12 @@ test_that("rep data channels", {
   g2 <- g |> mark_dot(x = 1.2, y = rnorm(5))
   expect_equal(g2$x$marks[[1]]$data, list(data = 1:5, dates = FALSE))
   expect_equal(g2$x$marks[[1]]$opts$x, list(data = rep(1.2, 5), dates = FALSE))
-  # Single numerical strokeOpacity and fillOpacity are not data channels
-  g2 <- g |> mark_dot(x = 1.2, y = rnorm(5), strokeOpacity = 0.5, fillOpacity = 0)
+  # Single numerical r, strokeOpacity or fillOpacity are not data channels
+  g2 <- g |> mark_dot(x = 1.2, y = rnorm(5), strokeOpacity = 0.5, fillOpacity = 0, r = 10)
   expect_equal(g2$x$marks[[1]]$opts$strokeOpacity, 0.5)
   expect_equal(g2$x$marks[[1]]$opts$fillOpacity, 0)
+  expect_equal(g2$x$marks[[1]]$opts$r, 10)
 })
-
 
 test_that("date / time metadata", {
   expect_equal(g$x$data$dates, c("date", "time"))

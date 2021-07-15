@@ -34,8 +34,8 @@ check_channels <- function(check_data, data, mark_channels, mark_opts, has_trans
     # Check data channels
     data_chans <- get_data_channels(mark_opts, mark_channels)
     if (length(data_chans) >= 1) {
-        if (!is.null(data)) stop(" can't provide both a data object and data channels")
         lengths <- sapply(data_chans, function(chan) length(mark_opts[[chan]]))
+        if (!is.null(data) && any(lengths > 1)) stop(" can't provide both a data object and data channels")
         lengths <- lengths[lengths > 1]
         if (length(unique(lengths)) > 1) stop(" all data channels must be of the same length or of length 1")
     }
@@ -59,8 +59,8 @@ get_data_channels <- function(opts, mark_channels) {
     channels <- get_defined_channels(opts, mark_channels)
     Filter(function(chan) {
         value <- opts[[chan]]
-        # If channel is opacity based and a single number, don't consider it a data channel
-        if (chan %in% c("fillOpacity", "strokeOpacity") && length(value) == 1 && is.numeric(value))
+        # If channel is radius or opacity and a single number, don't consider it a data channel
+        if (chan %in% c("fillOpacity", "strokeOpacity", "r") && length(value) == 1 && is.numeric(value))
             return(FALSE)
         # Else, vectors of size > 1 or vectors of size 1 but not characters
         # are considered as data channels
