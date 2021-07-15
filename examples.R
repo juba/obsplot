@@ -99,7 +99,11 @@ obsplot(df) |>
     mark_dot(x = "date1", y = "x")
 obsplot(df) |>
     mark_dot(x = "date2", y = "x")
-# Won't work. Only data objects are added metadata.
 obsplot() |>
-    mark_dot(x = df$date1, y = df$x)
-
+    mark_dot(x = df$date1, y = df$x, strokeOpacity = 0.1)
+obsplot() |>
+    mark_dot(x = as.Date("2021-07-13"), y = as.POSIXct("2021-07-13 23:46:13 CEST"))
+obsplot() |>
+    mark_dot(x = 1, y = as.POSIXct("2021-07-13 23:46:13 CEST"))
+obsplot() |>
+    mark_dot(x = 1:10, y = as.POSIXct("2021-07-13 23:46:13 CEST"), fill = "red", fillOpacity = .1)
