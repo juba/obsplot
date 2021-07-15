@@ -259,10 +259,11 @@ mark_tickY <- function(g, ...) {
 #' Add a decoration mark to an obsplot
 #'
 #' @param g an obsplot object
+#' @param fill fill CSS color
 #' @param ... options passed to define the mark
 #' @export
-mark_frame <- function(g, ...) {
-    mark_("frame", g, mark_channels = NULL, ...)
+mark_frame <- function(g, fill = "none", ...) {
+    mark_("frame", g, mark_channels = NULL, fill = fill, ...)
 }
 
 
