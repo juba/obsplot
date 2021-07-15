@@ -60,7 +60,7 @@ get_data_channels <- function(opts, mark_channels) {
     Filter(function(chan) {
         value <- opts[[chan]]
         # If channel is opacity based and a single number, don't consider it a data channel
-        if (chan %in% c("opacity", "strokeOpacity") && length(value) == 1 && is.numeric(value))
+        if (chan %in% c("fillOpacity", "strokeOpacity") && length(value) == 1 && is.numeric(value))
             return(FALSE)
         # Else, vectors of size > 1 or vectors of size 1 but not characters
         # are considered as data channels

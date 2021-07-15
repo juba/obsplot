@@ -62,7 +62,9 @@ test_that("data channels", {
   expect_equal(g2$x$marks[[1]]$data_channels, c("x", "y"))
   expect_error(g |> mark_dot(x = c("a", "b"), y = c("d", "e")), NA)
   expect_error(g |> mark_dot(x = "a", y = "d"), "is not a column of data")
-  # Single numerical strokeOpacity and opacity are not data channels
-  g2 <- g |> mark_dot(x = 1:5, y = 2, opacity = 0.5, strokeOpacity = 10, fill = 2)
+  # Single numerical strokeOpacity and fillOpacity are not data channels
+  g2 <- g |> mark_dot(x = 1:5, y = 2, fillOpacity = 0.5, strokeOpacity = 10, fill = 2)
   expect_equal(g2$x$marks[[1]]$data_channels, c("x", "y", "fill"))
+  g2 <- g |> mark_dot(x = 1:5, y = 2, fillOpacity = 1:5, strokeOpacity = 1:5, fill = 2)
+  expect_equal(g2$x$marks[[1]]$data_channels, c("x", "y", "fill", "fillOpacity", "strokeOpacity"))
 })
