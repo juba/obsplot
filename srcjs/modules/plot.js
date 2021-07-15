@@ -42,6 +42,7 @@ export class Obsplot {
 
             // Data channels
             if (mark.data_channels) {
+                if (!Array.isArray(mark.data_channels)) mark.data_channels = [mark.data_channels];
                 mark.data_channels.forEach(chan => 
                     mark.opts[chan] = Obsplot.convert_data(mark.opts[chan])
                 )
