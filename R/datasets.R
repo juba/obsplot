@@ -53,3 +53,11 @@
 #' Sample data from Observable Plot documentation examples
 #' @source \url{https://observablehq.com/@observablehq/plot-link}
 "income"
+
+#' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-facets}
+"anscombe_obs"
+
+#' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-facets}
+"barley"
