@@ -28,8 +28,8 @@ This document is an attempt to reproduce some of the charts shown in [Observable
 
 
 ```{r include = FALSE, eval = FALSE}
-seattle <- read_csv("https://static.observableusercontent.com/files/831732e8332e141e39aca2776edfdb19b2d43308d4974f5ad4a21fad007faa0518fe5bc4a0fc4f57422689a161dc27b82073403cee0e29ebf6ccb75d0ec4aeb3?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27seattle-weather.csv")
-usethis::use_data(seattle)
+anscombe_obs <- read_csv("https://static.observableusercontent.com/files/72277359049b092757a163ca1fa10aab48b61f626c7cf1ed103155a6d063e58e17128cb4d4e19d62341d363ec3a471b5a3b92e0e4fcad2fa4e29fb2dfbe858bf?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27anscombe.csv")
+usethis::use_data(anscombe_obs)
 ```
 
 
@@ -354,3 +354,47 @@ obsplot(height = 600) |>
 ```
 
 ## Line mark examples
+
+TODO
+
+
+## Facets examples
+
+```{r}
+data(anscombe_obs)
+
+obsplot(anscombe_obs, height = 240) |>
+    mark_frame() |>
+    mark_dot(x = "x", y = "y") |>
+    facet(x = "series") |>
+    opts(grid = TRUE, inset = 10)
+```
+
+```{r}
+data(barley)
+y_domain <- reorder(barley$variety, barley$yield, median) |> levels() |> rev()
+fy_domain <- reorder(barley$site, barley$yield, median) |> levels() |> rev()
+
+obsplot(barley, height = 800) |>
+    mark_frame() |>
+    mark_dot(x = "yield", y = "variety", stroke = "year") |>
+    facet(y = "site", marginRight = 90) |>
+    scale_x(nice = TRUE) |>
+    scale_y(domain = y_domain, inset = 5) |>
+    scale_fy(domain = fy_domain) |>
+    scale_color(type = "categorical") |>
+    opts(marginLeft = 110, grid = TRUE)
+```
+
+```{r}
+library(palmerpenguins)
+data(penguins)
+
+obsplot(penguins, height = 600) |>
+    mark_frame() |>
+    mark_dot(penguins, x = "bill_depth_mm", y = "bill_length_mm", r = 2, fill = "#ddd") |>
+    mark_dot(x = "bill_depth_mm", y = "bill_length_mm") |>
+    facet(x = "sex", y = "species", marginRight = 80) |>
+    opts(grid = TRUE)
+
+```
