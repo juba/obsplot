@@ -4,10 +4,12 @@
 \alias{mark_frame}
 \title{Add a decoration mark to an obsplot}
 \usage{
-mark_frame(g, ...)
+mark_frame(g, fill = "none", ...)
 }
 \arguments{
 \item{g}{an obsplot object}
+
+\item{fill}{fill CSS color}
 
 \item{...}{options passed to define the mark}
 }
