@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   gallery: gallery.html
   introduction: introduction.html
-last_built: 2021-07-15T16:12Z
+last_built: 2021-07-15T16:40Z
 urls:
   reference: https://juba.github.io/obsplot//reference
   article: https://juba.github.io/obsplot//articles
