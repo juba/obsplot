@@ -33,7 +33,7 @@ usethis::use_data(anscombe_obs)
 ```
 
 
-## Area mark examples
+## Area mark
 
 
 ```{r}
@@ -96,7 +96,7 @@ obsplot(bls, height = 600) |>
 ```
 
 
-## Bar mark examples
+## Bar mark
 
 
 ```{r}
@@ -173,7 +173,7 @@ obsplot(stateage) |>
 ```
 
 
-## Cell mark examples
+## Cell mark
 
 
 ```{r}
@@ -245,7 +245,7 @@ obsplot(df, height = 60) |>
 ```
 
 
-## Dot mark examples
+## Dot mark
 
 
 ```{r}
@@ -318,7 +318,7 @@ obsplot(stateage, height = 660) |>
     opts(grid = TRUE)
 ```
 
-## Link mark examples
+## Link mark
 
 ```{r}
 data(metros)
@@ -353,12 +353,12 @@ obsplot(height = 600) |>
     scale_y(label = "↑ Median annual income (women, thousands)", tickFormat = JS("d => d / 1000"))
 ```
 
-## Line mark examples
+## Line mark
 
 TODO
 
 
-## Facets examples
+## Facets
 
 ```{r}
 data(anscombe_obs)
@@ -396,5 +396,4 @@ obsplot(penguins, height = 600) |>
     mark_dot(x = "bill_depth_mm", y = "bill_length_mm") |>
     facet(x = "sex", y = "species", marginRight = 80) |>
     opts(grid = TRUE)
-
 ```
