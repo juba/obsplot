@@ -48,13 +48,21 @@ test_that("color and column channels", {
   expect_error(g |> mark_dot(x = "v1", y = "v2", fill = "#A23"), NA)
   expect_error(g |> mark_dot(x = "v1", y = "v2", fill = "#A87654"), NA)
   expect_error(g |> mark_dot(x = "v1", y = "v2", fill = "#55G"), "must be a CSS color or a column")
+  expect_error(g |> mark_dot(x = JS("v87"), y = JS("v200"), fill = "red"), NA)
 })
 
 test_that("data channels", {
   expect_error(g |> mark_dot(data, x = 1:5, y = 1:5), "can't provide both a data object and data channels")
   expect_error(g |> mark_dot(x = 1:6, y = 1:5), "all data channels must be of the same length")
-  expect_error(g |> mark_dot(x = 1:5, y = 1:5), NA)
-  expect_error(g |> mark_dot(x = 1, y = 2), NA)
+  g2 <- g |> mark_dot(x = 1:5, y = 1:5)
+  expect_equal(g2$x$marks[[1]]$data_channels, c("x", "y"))
+  g2 <- g |> mark_dot(x = 1, r = 1:5)
+  expect_equal(g2$x$marks[[1]]$data_channels, c("x", "r"))
+  g2 <- g |> mark_dot(x = 1, y = 2)
+  expect_equal(g2$x$marks[[1]]$data_channels, c("x", "y"))
   expect_error(g |> mark_dot(x = c("a", "b"), y = c("d", "e")), NA)
   expect_error(g |> mark_dot(x = "a", y = "d"), "is not a column of data")
+  # Single numerical strokeOpacity and opacity are not data channels
+  g2 <- g |> mark_dot(x = 1:5, y = 2, opacity = 0.5, strokeOpacity = 10, fill = 2)
+  expect_equal(g2$x$marks[[1]]$data_channels, c("x", "y", "fill"))
 })

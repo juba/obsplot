@@ -318,9 +318,12 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
     data_channels <- get_data_channels(opts, mark_channels)
     if (length(data_channels) >= 1) {
         # Automatically add indexed data argument
-        data <- seq_along(opts[[data_channels[1]]])
+        lengths <- sapply(data_channels, function(chan) length(opts[[chan]]))
+        max_length <- max(lengths, na.rm = TRUE)
+        data <- seq_len(max_length)
         # Add metadata to data channels
         for (chan in data_channels) {
+            if (length(opts[[chan]]) == 1) opts[[chan]] <- rep(opts[[chan]], max_length)
             if (!is.null(opts[[chan]])) opts[[chan]] <- add_metadata(opts[[chan]])
         }
     }

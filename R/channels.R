@@ -36,7 +36,8 @@ check_channels <- function(check_data, data, mark_channels, mark_opts, has_trans
     if (length(data_chans) >= 1) {
         if (!is.null(data)) stop(" can't provide both a data object and data channels")
         lengths <- sapply(data_chans, function(chan) length(mark_opts[[chan]]))
-        if (length(unique(lengths)) > 1) stop(" all data channels must be of the same length")
+        lengths <- lengths[lengths > 1]
+        if (length(unique(lengths)) > 1) stop(" all data channels must be of the same length or of length 1")
     }
 
 }
@@ -56,12 +57,17 @@ is_css_color <- function(str) {
 # Return channels that are data vectors
 get_data_channels <- function(opts, mark_channels) {
     channels <- get_defined_channels(opts, mark_channels)
-    # data channel : vector either of size > 1, or not a single character
     Filter(function(chan) {
-        (is.atomic(opts[[chan]]) && length(opts[[chan]]) > 1) ||
-        (is.atomic(opts[[chan]]) && !is.character(opts[[chan]])) ||
-        inherits(opts[[chan]], "Date") ||
-        inherits(opts[[chan]], "POSIXt")
+        value <- opts[[chan]]
+        # If channel is opacity based and a single number, don't consider it a data channel
+        if (chan %in% c("opacity", "strokeOpacity") && length(value) == 1 && is.numeric(value))
+            return(FALSE)
+        # Else, vectors of size > 1 or vectors of size 1 but not characters
+        # are considered as data channels
+        (is.atomic(value) && length(value) > 1) ||
+        (is.atomic(value) && !is.character(value)) ||
+        inherits(value, "Date") ||
+        inherits(value, "POSIXt")
     }, channels)
 }
 
@@ -77,7 +83,7 @@ get_js_channels <- function(opts, mark_channels) {
 get_character_channels <- function(opts, mark_channels) {
     channels <- get_defined_channels(opts, mark_channels)
     Filter(function(chan) {
-        is.character(opts[[chan]]) && length(opts[[chan]]) == 1
+        is.character(opts[[chan]]) && length(opts[[chan]]) == 1 && !(inherits(opts[[chan]], "JS_EVAL"))
     }, channels)
 }
 

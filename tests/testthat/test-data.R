@@ -18,6 +18,17 @@ test_that("add index data", {
   expect_equal(g2$x$marks[[1]]$data, list(data = 1:5, dates = FALSE))
 })
 
+test_that("rep data channels", {
+  g2 <- g |> mark_dot(x = 1.2, y = rnorm(5))
+  expect_equal(g2$x$marks[[1]]$data, list(data = 1:5, dates = FALSE))
+  expect_equal(g2$x$marks[[1]]$opts$x, list(data = rep(1.2, 5), dates = FALSE))
+  # Single numerical strokeOpacity and opacity are not data channels
+  g2 <- g |> mark_dot(x = 1.2, y = rnorm(5), strokeOpacity = 0.5, opacity = 0)
+  expect_equal(g2$x$marks[[1]]$opts$strokeOpacity, 0.5)
+  expect_equal(g2$x$marks[[1]]$opts$opacity, 0)
+})
+
+
 test_that("date / time metadata", {
   expect_equal(g$x$data$dates, c("date", "time"))
   g2 <- g |> mark_dot(data_mark, x = "datem")
@@ -39,4 +50,7 @@ test_that("date / time metadata", {
   expect_equal(g2$x$marks[[1]]$data, list(data = 1, dates = FALSE))
   expect_equal(g2$x$marks[[1]]$opts$x, list(data = 3, dates = FALSE))
   expect_equal(g2$x$marks[[1]]$opts$r, list(data = as.Date(c("2000-01-01")), dates = TRUE))
+  g2 <- g |> mark_dot(x = 1:10, r = as.Date(c("2000-01-01")))
+  expect_equal(g2$x$marks[[1]]$data, list(data = 1:10, dates = FALSE))
+  expect_equal(g2$x$marks[[1]]$opts$r, list(data = rep(as.Date(c("2000-01-01")), 10), dates = TRUE))
 })
