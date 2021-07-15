@@ -39,7 +39,12 @@ export class Obsplot {
             
             // Mark data
             const data = Obsplot.convert_data(mark.data) || this.data;
-            
+
+            // Data channels
+            mark.data_channels.forEach(chan => 
+                mark.opts[chan] = Obsplot.convert_data(mark.opts[chan])
+            )
+        
             // Check for and apply any transform
             if (mark.transform !== undefined && mark.transform !== null) {
                 mark.opts = {...Obsplot.call_transform(mark.transform), ...mark.opts}
