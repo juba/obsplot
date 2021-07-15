@@ -1,9 +1,7 @@
-check_channels <- function(data, mark_channels, mark_opts, has_transform) {
-    universal_channels <- data.frame(
-        channel = c("fill", "fillOpacity", "stroke", "strokeOpacity"),
-        status = c("opt", "opt", "opt", "opt")
-    )
-    channels <- rbind(mark_channels, universal_channels)
+# Check defined channels
+check_channels <- function(check_data, data, mark_channels, mark_opts, has_transform) {
+
+    channels <- rbind(mark_channels, universal_channels())
 
     # Check required channels if there is no transform
     if (!has_transform) {
@@ -14,39 +12,85 @@ check_channels <- function(data, mark_channels, mark_opts, has_transform) {
         }
     }
 
-    # Don't check a channel if it is a JS function
-    mark_opts_check <- Filter(function(mark_arg) {
-        !inherits(mark_arg, "JS_EVAL")
-    }, mark_opts)
-
-    opts <- names(mark_opts_check)
+    ## Check channels that are single character strings
+    char_chans <- get_character_channels(mark_opts, mark_channels)
 
     # Check color channels
-    chans <- intersect(opts, c("fill", "stroke"))
+    chans <- intersect(char_chans, c("fill", "stroke"))
     for (chan in chans) {
-        check_channel_color(data, chan, mark_opts_check[[chan]])
-    }
-
-    # Check channels which can be a data column
-    chans <- setdiff(opts, c("fill", "stroke", "curve", "textAnchor"))
-    for (chan in chans) {
-        check_channel_column(data, chan, mark_opts_check[[chan]])
-    }
-
-}
-
-check_channel_color <- function(data, chan, value) {
-    # If single string, either a CSS color or a column of data
-    if (length(value) == 1 && is.character(value)) {
-        if (!(is_css_color(value) || value %in% names(data))) {
+        value <- mark_opts[[chan]]
+        if (!(is_css_color(value) || value %in% names(check_data))) {
             stop(chan, " must be a CSS color or a column of data")
         }
     }
+
+    # Check data column channels
+    chans <- setdiff(char_chans, c("fill", "stroke"))
+    for (chan in chans) {
+        value <- mark_opts[[chan]]
+        if (!(value %in% names(check_data))) stop(chan, " is not a column of data")
+    }
+
+    # Check data channels
+    data_chans <- get_data_channels(mark_opts, mark_channels)
+    if (length(data_chans) >= 1) {
+        if (!is.null(data)) stop(" can't provide both a data object and data channels")
+        lengths <- sapply(data_chans, function(chan) length(mark_opts[[chan]]))
+        if (length(unique(lengths)) > 1) stop(" all data channels must be of the same length")
+    }
+
 }
 
-check_channel_column <- function(data, chan, value) {
-    # If single string, must be a column of data
-    if (length(value) == 1 && is.character(value)) {
-        if (!(value %in% names(data))) stop(chan, " is not a column of data")
-    }
+# Check if a string is a CSS color or equivalent
+is_css_color <- function(str) {
+    str <- tolower(str)
+    str <- gsub("\\s", "", str)
+    css_colors <- gsub("\\d", "", grDevices::colors())
+    css_colors <- unique(css_colors)
+    css_colors <- c(css_colors, "none", "transparent", "currentcolor")
+    if (str %in% css_colors) return(TRUE)
+    is_hex_code <- grepl("^#[0-9a-f]{6}$", str) || grepl("^#[0-9a-f]{3}$", str)
+    return(is_hex_code)
+}
+
+# Return channels that are data vectors
+get_data_channels <- function(opts, mark_channels) {
+    channels <- get_defined_channels(opts, mark_channels)
+    # data channel : vector either of size > 1, or not a single character
+    Filter(function(chan) {
+        (is.atomic(opts[[chan]]) && length(opts[[chan]]) > 1) ||
+        (is.atomic(opts[[chan]]) && !is.character(opts[[chan]])) ||
+        inherits(opts[[chan]], "Date") ||
+        inherits(opts[[chan]], "POSIXt")
+    }, channels)
+}
+
+# Return channels that are JS calls
+get_js_channels <- function(opts, mark_channels) {
+    channels <- get_defined_channels(opts, mark_channels)
+    Filter(function(chan) {
+        inherits(opts[[chan]], "JS_EVAL")
+    }, channels)
+}
+
+# Return channels that are character strings
+get_character_channels <- function(opts, mark_channels) {
+    channels <- get_defined_channels(opts, mark_channels)
+    Filter(function(chan) {
+        is.character(opts[[chan]]) && length(opts[[chan]]) == 1
+    }, channels)
+}
+
+# Return the names of the defined channels
+get_defined_channels <- function(opts, mark_channels) {
+    channels_list <- rbind(mark_channels, universal_channels())
+    intersect(channels_list$channel, names(opts))
+}
+
+# Channels available for every mark
+universal_channels <- function() {
+    data.frame(
+        channel = c("fill", "fillOpacity", "stroke", "strokeOpacity"),
+        status = c("opt", "opt", "opt", "opt")
+    )
 }

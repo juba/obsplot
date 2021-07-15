@@ -303,31 +303,35 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
         opts$data <- NULL
     }
 
-    # If x or y channel is a vector and data is null, automatically
-    # add a corresponding data index
-    if (is.vector(opts$x) && length(opts$x) > 1) {
-        if (is.vector(opts$y) && length(opts$x) != length(opts$y)) {
-            stop("if x and y are not of the same length")
-        }
-        if (is.null(data)) data <- seq_along(opts$x)
-    }
-    if (is.vector(opts$y) && length(opts$y) > 1) {
-        if (is.null(data)) data <- seq_along(opts$y)
-    }
-
-
     # Check channels values
     check_data <- data
     if (is.null(data)) check_data <- g$x$data$data
     check_channels(
-        data = check_data,
+        check_data = check_data,
+        data = data,
         mark_channels = mark_channels,
         mark_opts = opts,
         has_transform = !is.null(transform)
     )
 
+    # Data channels
+    data_channels <- get_data_channels(opts, mark_channels)
+    if (length(data_channels) >= 1) {
+        # Automatically add indexed data argument
+        data <- seq_along(opts[[data_channels[1]]])
+        # Add metadata to data channels
+        for (chan in data_channels) {
+            if (!is.null(opts[[chan]])) opts[[chan]] <- add_metadata(opts[[chan]])
+        }
+    }
+    # Add metadata to data
     data <- add_metadata(data)
-    mark <- list(type = mark_type, data = data, transform = transform, opts = opts)
+
+    mark <- list(
+        type = mark_type, 
+        data = data, data_channels = data_channels, 
+        transform = transform, opts = opts
+    )
     g$x$marks <- append(g$x$marks, list(mark))
 
     g
