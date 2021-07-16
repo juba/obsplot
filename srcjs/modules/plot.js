@@ -38,7 +38,6 @@ export class Obsplot {
             
             // Mark data
             const data = Obsplot.convert_data(mark.data) || this.data;
-
             // Data channels
             if (mark.data_channels) {
                 if (!Array.isArray(mark.data_channels)) mark.data_channels = [mark.data_channels];
@@ -72,9 +71,9 @@ export class Obsplot {
     static convert_data(data) {
 
         if (data.data === undefined || data.data === null) return(null)
-        // Check if data is a literal object (an R data frame)
-        // See https://stackoverflow.com/a/16608074
-        if (data.data.constructor === Object) {
+        
+        // If data is a data frame
+        if (data.type == "data.frame") {
             let date_columns = data.dates;
             data =  HTMLWidgets.dataframeToD3(data.data)
             // Convert date columns to Date
@@ -85,20 +84,26 @@ export class Obsplot {
             })
             return data;
         }
+
         // If data is an array (an R vector)
-        if (Array.isArray(data.data)) {
+        if (data.type == "vector") {
             if (data.dates) {
                 data.data = data.data.map(d => new Date(d));
             };
             return data.data;
         }
+
         // If data is a single number or string (an R scalar)
-        if (!Array.isArray(data.data) && 
-            (typeof(data.data) == "string" || 
-             typeof(data.data) == "number")) {
+        if (data.type == "scalar") {
             if (data.dates) data.data = new Date(data.data);
             return [data.data];
         }
+
+        // If data is a list
+        if (data.type == "list") {
+            return data.data;
+        }
+
         return data.data;
 
     }

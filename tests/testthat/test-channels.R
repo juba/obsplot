@@ -12,19 +12,19 @@ g <- obsplot(data)
 
 test_that("unnamed opts", {
   expect_error(g |> mark_dot(1, 2, 3), "cannot accept more than two unnamed arguments")
-  expect_equal((g |> mark_dot(data_mark, x = "v3"))$x$data, list(data = data, dates = character(0)))
+  expect_equal((g |> mark_dot(data_mark, x = "v3"))$x$data, list(data = data, dates = character(0), type = "data.frame"))
   g2 <- g |> mark_dot(data_mark, transform_group(x = "sum", x = "v1"))
   expect_equal(g2$x$marks[[1]]$transform$transform_type, "group")
-  expect_equal(g2$x$marks[[1]]$data, list(data = data_mark, dates = character(0)))
+  expect_equal(g2$x$marks[[1]]$data, list(data = data_mark, dates = character(0), type = "data.frame"))
   g2 <- g |> mark_dot(transform_group(x = "sum", x = "v1"), data_mark)
   expect_equal(g2$x$marks[[1]]$transform$transform_type, "group")
-  expect_equal(g2$x$marks[[1]]$data, list(data = data_mark, dates = character(0)))
+  expect_equal(g2$x$marks[[1]]$data, list(data = data_mark, dates = character(0), type = "data.frame"))
   g2 <- g |> mark_dot(transform_group(x = "sum", x = "v1"))
   expect_equal(g2$x$marks[[1]]$transform$transform_type, "group")
   expect_equal(g2$x$marks[[1]]$data, list(data = NULL))
   g2 <- g |> mark_dot(data_mark)
   expect_null(g2$x$marks[[1]]$transform)
-  expect_equal(g2$x$marks[[1]]$data, list(data = data_mark, dates = character(0)))
+  expect_equal(g2$x$marks[[1]]$data, list(data = data_mark, dates = character(0), type = "data.frame"))
 })
 
 test_that("required channels", {

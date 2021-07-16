@@ -23,16 +23,29 @@ to_js_date <- function(date) {
 # (list of date columns)
 add_metadata <- function(data) {
   if (is.null(data)) return(list(data = NULL))
+
   # If data is a data frame, add date column names to dates
   if (inherits(data, "data.frame")) {
     is_date <- sapply(data, function(v) inherits(v, "Date") || inherits(v, "POSIXt"))
     dates <- names(data)[is_date]
-    return(list(data = data, dates = dates))
+    return(list(data = data, dates = dates, type = "data.frame"))
   }
+
   # If data is a vector, add TRUE or FALSE to dates
   if (is.atomic(data)) {
     dates <- (inherits(data, "Date") || inherits(data, "POSIXt"))
-    return(list(data = data, dates = dates))
+    if (length(data) == 1) {
+      type <- "scalar"
+    } else {
+      type <- "vector"
+    }
+    return(list(data = data, dates = dates, type = type))
   }
-  return(list(data = data, dates = NULL))
+
+  # If data is a list
+  if (is.list(data)) {
+    return(list(data = data, dates = NULL, type = "list"))
+  }
+
+  return(list(data = data, dates = NULL, type = NULL))
 }
