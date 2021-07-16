@@ -6,7 +6,11 @@
 
 opts <- function(g, ...) {
     new_opts <- list(...)
-    updated_opts <- utils::modifyList(g$x$opts, new_opts)
+    if (is.null(g$x$opts)) {
+        updated_opts <- new_opts
+    } else {
+        updated_opts <- utils::modifyList(g$x$opts, new_opts)
+    }
     g$x$opts <- updated_opts
     g
 }
@@ -19,7 +23,11 @@ opts <- function(g, ...) {
 
 style <- function(g, ...) {
     new_opts <- list(...)
-    updated_opts <- utils::modifyList(g$x$opts$style, new_opts)
+    if (is.null(g$x$opts$style)) {
+        updated_opts <- new_opts
+    } else {
+        updated_opts <- utils::modifyList(g$x$opts$style, new_opts)
+    }
     g$x$opts$style <- updated_opts
     g
 }
