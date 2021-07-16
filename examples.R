@@ -61,16 +61,6 @@ obsplot() |>
     mark_dotY(y = runif(100))
 
 
-## Diamonds example from https://observablehq.com/@observablehq/plot-dot
-
-data(diamonds)
-obsplot(diamonds, grid = TRUE) |>
-    mark_dot(transform_bin(
-        r = "count", x = "carat", y = "price", thresholds = 100
-    )) |>
-    scale_r(range = c(0, 20))
-
-
 # width and height
 
 obsplot(penguins, grid = TRUE) |>
@@ -103,3 +93,8 @@ obsplot() |>
     mark_dot(x = 1, y = as.POSIXct("2021-07-13 23:46:13 CEST"))
 obsplot() |>
     mark_dot(x = 1:10, y = as.POSIXct("2021-07-13 23:46:13 CEST"), fill = "red", fillOpacity = .1)
+
+obsplot() |> 
+        mark_lineY(JS("d3.cumsum({length: 10}, d3.randomNormal())")) 
+obsplot() |>
+    mark_text(data = data.frame(x = runif(10), y=runif(10), text=1:10), x = "x", y = "y", text = JS("d => d3.format('+.0%')(d.text)"))
