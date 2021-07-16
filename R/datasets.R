@@ -47,6 +47,10 @@
 "stateage"
 
 #' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-line}
+"bls_unemployment"
+
+#' Sample data from Observable Plot documentation examples
 #' @source \url{https://observablehq.com/@observablehq/plot-link}
 "metros"
 
