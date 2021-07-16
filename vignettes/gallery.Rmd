@@ -135,26 +135,23 @@ data(alphabet)
 obsplot(alphabet, height = 60) |>
     mark_ruleX(c(0,1)) |>
     mark_barX(
-        transform_stackX(
-            order = "letter", x = "frequency", fill = "#ccc", insetLeft = 1
-        )
+        transform_stackX(order = "letter", x = "frequency", fill = "#ccc", insetLeft = 1)
     ) |>
     mark_textX(
-        transform_stackX(
-            order = "letter", x = "frequency", text = "letter", insetLeft = 1
-        )
+        transform_stackX(order = "letter", x = "frequency", text = "letter", insetLeft = 1)
     ) |>
     scale_x(label = "Frequency (%)", transform = JS("d => d * 100"))
 
 ```
 
 
-```{r}
+```{r message=FALSE}
 library(dplyr)
 data(stateage)
 # Pivot to longer format
 stateage <- stateage |>
     tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
+# Precompute state names order
 states <- stateage |>
     group_by(name) |>
     summarize(total = sum(population)) |>
@@ -186,9 +183,10 @@ obsplot(simpsons, height = 600) |>
     opts(padding = 0.05, grid = TRUE) 
 ```
 
-```{r}
+```{r message = FALSE}
 library(lubridate)
 data(dji)
+# precompute variables
 dji <- dji |>
     mutate(
         variation = (Close - lag(Close)) / lag(Close),
@@ -261,9 +259,9 @@ obsplot(gistemp) |>
 
 ```{r}
 data(driving)
-
-# We filter out highlighted data before
+# filter out highlighted data beforehand
 driv5 <- driving |> filter(year %% 5 == 0)
+
 obsplot(driving) |>
     mark_line(x = "miles", y = "gas", curve = "catmull-rom") |>
     mark_dot(x = "miles", y = "gas", fill = "currentColor") |>
@@ -294,10 +292,7 @@ stateage <- stateage |>
 xy <- transform_normalizeY(basis = "sum", z = "name", x = "age", y = "population")
 obsplot(stateage) |>
     mark_ruleY(y = 0) |>
-    mark_line(
-        xy,
-        strokeWidth = 1, stroke = "#ccc"
-    ) |>
+    mark_line(xy, strokeWidth = 1, stroke = "#ccc") |>
     mark_dot(xy) |>
     scale_x(domain = unique(stateage$age), labelAnchor = "right") |>
     scale_y(transform = JS("d => d*100")) |>
@@ -372,6 +367,7 @@ obsplot(anscombe_obs, height = 240) |>
 
 ```{r}
 data(barley)
+# precompute domains
 y_domain <- reorder(barley$variety, barley$yield, median) |> levels() |> rev()
 fy_domain <- reorder(barley$site, barley$yield, median) |> levels() |> rev()
 
@@ -386,7 +382,7 @@ obsplot(barley, height = 800) |>
     opts(marginLeft = 110, grid = TRUE)
 ```
 
-```{r}
+```{r message = FALSE}
 library(palmerpenguins)
 data(penguins)
 
