@@ -47,6 +47,10 @@
 "stateage"
 
 #' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-dot}
+"diamonds_obs"
+
+#' Sample data from Observable Plot documentation examples
 #' @source \url{https://observablehq.com/@observablehq/plot-line}
 "bls_unemployment"
 
@@ -61,6 +65,10 @@
 #' Sample data from Observable Plot documentation examples
 #' @source \url{https://observablehq.com/@observablehq/plot-link}
 "income"
+
+#' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-rect}
+"povcalnet"
 
 #' Sample data from Observable Plot documentation examples
 #' @source \url{https://observablehq.com/@observablehq/plot-facets}
