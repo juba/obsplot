@@ -20,6 +20,10 @@ obsplot <- function(
   x$opts <- list(...)
   x["marks"] <- list(NULL)
 
+  # Get width and height from opts if not defined directly
+  if (is.null(width) && !is.null(x$opts$width)) width <- x$opts$width
+  if (is.null(height) && !is.null(x$opts$height)) height <- x$opts$height
+
   # If width or height are "auto", put it to Plot opts so that it will use el.width
   # and el.height, and set it to NULL for createWidgets
   x$opts$width <- width
