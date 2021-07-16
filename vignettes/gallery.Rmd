@@ -28,8 +28,8 @@ This document is an attempt to reproduce some of the charts shown in [Observable
 
 
 ```{r include = FALSE, eval = FALSE}
-anscombe_obs <- read_csv("https://static.observableusercontent.com/files/72277359049b092757a163ca1fa10aab48b61f626c7cf1ed103155a6d063e58e17128cb4d4e19d62341d363ec3a471b5a3b92e0e4fcad2fa4e29fb2dfbe858bf?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27anscombe.csv")
-usethis::use_data(anscombe_obs)
+bls_unemployment <- read_csv("https://static.observableusercontent.com/files/a139d402230eaac422551e10fd6785ffa6fc986abe2648574a7361c1d93e15a686aee8ab7bfd6105bc1ee3fd3a33c6a1a6683963607ffe71171c325a6e476737?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27bls-metro-unemployment.csv")
+usethis::use_data(bls_unemployment)
 ```
 
 
@@ -350,8 +350,28 @@ obsplot(height = 600) |>
 
 ## Line mark
 
-TODO
+```{r}
+data(aapl)
 
+obsplot(aapl) |>
+    mark_line(x = "Date", y = "Close") |>
+    scale_y(grid = TRUE)
+```
+
+```{r}
+obsplot() |>
+    mark_lineY(JS("d3.cumsum({length: 300}, d3.randomNormal())")) |>
+    scale_x(axis = NULL)
+```
+
+```{r}
+data(bls_unemployment)
+
+obsplot(bls_unemployment) |>
+    mark_ruleY(y = 0) |>
+    mark_line(x = "date", y = "unemployment", z = "division") |>
+    scale_y(grid = TRUE, label = "↑ Unemployment (%)")
+```
 
 ## Facets
 
@@ -393,3 +413,4 @@ obsplot(penguins, height = 600) |>
     facet(x = "sex", y = "species", marginRight = 80) |>
     opts(grid = TRUE)
 ```
+
