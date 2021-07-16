@@ -11,7 +11,7 @@ vignette: >
   %\VignetteIndexEntry{obsplot Gallery}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
-editor_options: 
+editor_options:
   chunk_output_type: console
 ---
 
@@ -75,7 +75,7 @@ data(bls)
 
 obsplot(bls) |>
     mark_areaY(x = "date", y2 = "unemployed", z = "industry", fillOpacity = 0.1) |>
-    mark_lineY(x = "date", y = "unemployed", z = "industry", strokeWidth = 1) 
+    mark_lineY(x = "date", y = "unemployed", z = "industry", strokeWidth = 1)
 ```
 
 
@@ -120,7 +120,7 @@ obsplot(popchange, height = 780) |>
     mark_ruleX(x = 0) |>
     opts(marginLeft = 100, grid = TRUE) |>
     scale_x(
-        axis = "top", round = TRUE, 
+        axis = "top", round = TRUE,
         label = "← decrease · Change in population, 2010–2019 (%) · increase →",
         labelAnchor = "center", tickFormat = "+"
     ) |>
@@ -180,7 +180,7 @@ obsplot(simpsons, height = 600) |>
     scale_x(axis = "top", label = "Season") |>
     scale_y(label = "Episode") |>
     scale_color(scheme = "PiYg") |>
-    opts(padding = 0.05, grid = TRUE) 
+    opts(padding = 0.05, grid = TRUE)
 ```
 
 ```{r message = FALSE}
@@ -258,6 +258,39 @@ obsplot(gistemp) |>
 
 
 ```{r}
+data(aapl)
+
+obsplot(aapl) |>
+    mark_ruleX(0) |>
+    mark_dot(
+        x = JS("d => (d.Close - d.Open) / d.Open"),
+        y = "Volume", r = "Volume"
+    ) |>
+    scale_x(
+        label = "Daily change (%) →",
+        tickFormat = "+f", transform = JS("d => d * 100")
+    ) |>
+    scale_y(
+        label = "↑ Daily trading volume",
+        type = "log", tickFormat = "~s"
+    ) |>
+    opts(grid = TRUE)
+```
+
+```{r}
+data(diamonds_obs)
+
+obsplot(diamonds_obs) |>
+    mark_dot(
+        transform_bin(r = "count", x = "carat", y = "price", thresholds = 100)
+    ) |>
+    scale_x(label = "Carats →") |>
+    scale_y(label = "↑ Price ($)") |>
+    scale_r(range = c(0, 20)) |>
+    opts(grid = TRUE, height = 640)
+```
+
+```{r}
 data(driving)
 # filter out highlighted data beforehand
 driv5 <- driving |> filter(year %% 5 == 0)
@@ -286,7 +319,7 @@ obsplot(alphabet) |>
 data(stateage)
 
 # Pivot to longer format
-stateage <- stateage |> 
+stateage <- stateage |>
     tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
 
 xy <- transform_normalizeY(basis = "sum", z = "name", x = "age", y = "population")
@@ -372,6 +405,202 @@ obsplot(bls_unemployment) |>
     mark_line(x = "date", y = "unemployment", z = "division") |>
     scale_y(grid = TRUE, label = "↑ Unemployment (%)")
 ```
+
+```{r}
+data(stocks)
+
+obsplot(stocks) |>
+    mark_ruleY(1) |>
+    mark_line(transform_normalizeY(x = "Date", y = "Close", stroke = "Symbol")) |>
+    mark_text(
+        transform_selectLast(
+            transform_normalizeY(
+                x = "Date", y = "Close", stroke = "Symbol",
+                text = "Symbol", textAnchor = "start", dx = 3
+            )
+        )
+    ) |>
+    scale_y(
+        type ="log", grid = TRUE, label = "↑ Change in price (%)",
+        tickFormat = JS("x => d3.format('+d')((x - 1) * 100)")
+    ) |>
+    style(overflow = "visible")
+```
+
+```{r}
+data(bls_unemployment)
+
+obsplot(bls_unemployment) |>
+    mark_ruleY(0) |>
+    mark_line(
+        x = "date", y = "unemployment", z = "division", stroke = "unemployment"
+    ) |>
+    scale_y(grid = TRUE, label = "↑ Unemployment (%)")
+```
+
+```{r}
+data(bls_unemployment)
+bls_unemployment$highlight <- grepl(", MI ", bls_unemployment$division)
+
+obsplot(bls_unemployment) |>
+    mark_ruleY(0) |>
+    mark_line(
+        x = "date", y = "unemployment", z = "division",
+        stroke = "highlight", sort = "highlight"
+    ) |>
+    scale_y(grid = TRUE, label = "↑ Unemployment (%)") |>
+    scale_color(domain = c(FALSE, TRUE), range =c("#CCC", "red"))
+```
+
+```{r}
+data(sftemp)
+
+obsplot(sftemp) |>
+    mark_line(
+        transform_windowY(k = 14, x = "date", y = "low", stroke = "#4e79a7")
+    ) |>
+    mark_line(
+        transform_windowY(k = 14, x = "date", y = "high", stroke = "#e15759")
+    ) |>
+    mark_ruleY(32) |>
+    scale_y(grid = TRUE, label = "↑ Temperature (°F)")
+```
+
+## Rect mark
+
+```{r}
+data(aapl)
+
+obsplot(aapl) |>
+    mark_rectY(
+        transform_binX(
+            y = "count", x = JS("d => Math.log10(d.Volume)"), normalize =  TRUE
+        )
+    ) |>
+    mark_ruleY(0) |>
+    scale_x(round = TRUE, label = "Trade volume (log₁₀) →") |>
+    scale_y(grid = TRUE)
+```
+
+
+```{r}
+data(povcalnet)
+
+obsplot(povcalnet) |>
+    mark_rectY(
+        transform_stackX(
+            filter = JS("d => ['N', 'A'].includes(d.CoverageType)"),
+            x = "ReqYearPopulation",
+            order = "HeadCount",
+            reverse = TRUE,
+            y2 = "HeadCount",
+            title = JS("d => `${d.CountryName}\n${(d.HeadCount * 100).toFixed(1)}%`"),
+            insetLeft = 0.2,
+            insetRight = 0.2
+        )
+    ) |>
+    scale_x(label = "Population (millions) →") |>
+    scale_y(
+        label = "↑ Proportion living on less than $30 per day (%)",
+        transform = JS("d => d * 100"),
+        grid = TRUE
+    )
+```
+
+
+```{r}
+data(diamonds_obs)
+
+obsplot(diamonds_obs, height = 640) |>
+    mark_rect(
+        transform_bin(
+            fill = "count", x = "carat", y = "price", thresholds = 100, inset = 0
+        )
+    ) |>
+    opts(round = TRUE)  |>
+    scale_color(scheme = "bupu", type = "symlog")
+```
+
+```{r}
+data(aapl)
+
+obsplot(aapl) |>
+    mark_rectY(
+        transform_binX(
+            y = "count", rx = 8, x = JS("d => Math.log10(d.Volume)"), normalize =  TRUE
+        )
+    ) |>
+    mark_ruleY(0) |>
+    scale_x(round = TRUE, label = "Trade volume (log₁₀) →") |>
+    scale_y(grid = TRUE)
+```
+
+## Rule mark
+
+```{r}
+obsplot() |>
+    mark_ruleX(data = list(length = 500), x = JS("d3.randomNormal()"), strokeOpacity = 0.2) |>
+    scale_x(domain = c(-4, 4))
+```
+
+```{r}
+data(seattle)
+
+obsplot(seattle) |>
+    mark_ruleY(0) |>
+    mark_ruleX(x = "date", y1 = "temp_min", y2 = "temp_max", stroke = "temp_max") |>
+    scale_color(scheme = "BuRd") |>
+    scale_y(
+        grid = TRUE, label = "↑ Temperature (°F)",
+        transform = JS("d => d * 9 / 5 + 32")
+    )
+```
+
+```{r}
+data(aapl)
+aapl120 <- tail(aapl, 120)
+
+obsplot(aapl120) |>
+    mark_ruleX(x = "Date", strokeOpacity = 0.1) |>
+    mark_ruleX(x = "Date", y1 = "Low", y2 = "High") |>
+    mark_ruleX(
+        x = "Date", y1 = "Open", y2 = "Close",
+        stroke = JS("d => Math.sign(d.Close - d.Open)"),
+        strokeWidth = 4,
+        strokeLinecap = "round"
+    ) |>
+    scale_x(label = NULL) |>
+    scale_y(grid = TRUE, label = "↑ Stock price ($)") |>
+    scale_color(range = c("#e41a1c", "#000000", "#4daf4a")) |>
+    opts(inset = 6)
+
+```
+
+```{r}
+data(simpsons)
+
+obsplot(simpsons) |>
+    mark_ruleX(
+        transform_groupX(
+            list(y1 = "min", y2 = "max"),
+            x = "season", y = "imdb_rating"
+        )
+    ) |>
+    mark_line(
+        transform_groupX(
+            y = "median",
+            x = "season", y = "imdb_rating", stroke = "red"
+        )
+    ) |>
+    mark_dot(x = "season", y = "imdb_rating") |>
+    scale_x(type = "point", label = "Season →", labelAnchor = "right") |>
+    scale_y(label = "↑ IMDb rating")
+```
+
+
+## Text mark
+
+## Tick mark
 
 ## Facets
 
