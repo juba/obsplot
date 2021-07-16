@@ -1,5 +1,4 @@
 import * as Plot from "@observablehq/plot";
-import * as d3 from "d3";
 
 export class Obsplot {
 
@@ -93,8 +92,10 @@ export class Obsplot {
             };
             return data.data;
         }
-        // If data is a single number (an R scalar)
-        if (!Array.isArray(data.data)) {
+        // If data is a single number or string (an R scalar)
+        if (!Array.isArray(data.data) && 
+            (typeof(data.data) == "string" || 
+             typeof(data.data) == "number")) {
             if (data.dates) data.data = new Date(data.data);
             return [data.data];
         }
