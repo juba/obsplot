@@ -242,7 +242,7 @@ mark_tickX <- function(g, ...) {
         channel = c("x",   "y"),
         status  = c("req", "opt")
     )
-    mark_("textX", g, channels, ...)
+    mark_("tickX", g, channels, ...)
 }
 
 #' @rdname mark_area
@@ -252,7 +252,7 @@ mark_tickY <- function(g, ...) {
         channel = c("x",   "y"),
         status  = c("opt", "req")
     )
-    mark_("textY", g, channels, ...)
+    mark_("tickY", g, channels, ...)
 }
 
 
@@ -324,7 +324,11 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
         if (is.null(data)) data <- seq_len(max_length)
         # Add metadata to data channels
         for (chan in data_channels) {
-            if (length(opts[[chan]]) == 1) opts[[chan]] <- rep(opts[[chan]], max_length)
+            if (length(opts[[chan]]) == 1) {
+                rep_length <- nrow(data)
+                if(is.null(rep_length)) rep_length <- length(data)
+                opts[[chan]] <- rep(opts[[chan]], rep_length)
+            }
             if (!is.null(opts[[chan]])) opts[[chan]] <- add_metadata(opts[[chan]])
         }
     }
