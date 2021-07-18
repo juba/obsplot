@@ -69,3 +69,146 @@ obsplot(penguins, height = 600) |>
 ```
 
 ## Group transform
+
+```{r}
+data(penguins)
+
+obsplot(penguins) |>
+    mark_barY(transform_groupX(y = "count", x = "species")) |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE)
+```
+
+```{r}
+obsplot(penguins) |>
+    mark_barY(transform_groupX(y = "count", x = "species")) |>
+    mark_ruleY(0) |>
+    scale_x(domain = names(sort(table(penguins$species))), reverse = TRUE) |>
+    scale_y(grid = TRUE)
+```
+
+```{r}
+obsplot(penguins) |>
+    mark_barY(transform_groupX(y = "proportion", x = "species")) |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE, percent = TRUE)
+```
+
+```{r}
+penguins$body_mass_kg <- penguins$body_mass_g / 1000
+
+obsplot(penguins) |>
+    mark_barY(transform_groupX(list(y = "sum"), x = "species", y = "body_mass_kg")) |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE, label = "↑ Total mass (kg)")
+```
+
+```{r}
+obsplot(penguins, height = 150) |>
+    mark_dot(y = "species", x = "body_mass_g") |>
+    mark_ruleY(
+        transform_groupY(list(x1 = "min", x2 = "max"), y = "species", x = "body_mass_g")
+    ) |>
+    mark_tickX(transform_groupY(list(x = "median"), y = "species", x = "body_mass_g", stroke = "red")) |>
+    scale_x(inset = 6) |>
+    scale_y(label = NULL) |>
+    opts(marginLeft = 60)
+```
+
+```{r}
+data(mobydick1)
+
+obsplot(mobydick1) |>
+    mark_barY(
+        transform_groupX(y = "count")
+    ) |>
+    plot_ruleY(0) |>
+    scale_y(grid = TRUE)
+```
+
+```{r}
+obsplot(mobydick1) |>
+    mark_barY(
+        transform_groupX(y = "proportion", filter = JS('d => /[AEIOUY]/.test(d)'))
+    ) |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE, percent = TRUE)
+```
+
+```{r}
+data(penguins)
+
+obsplot(penguins) |>
+    mark_barY(transform_groupX(y = "count", x = "sex")) |>
+    mark_ruleY(0) |>
+    facet(x = "species") |>
+    scale_x(tickFormat = JS('d => d === null ? "N/A" : d')) |>
+    scale_y(grid = TRUE)
+```
+
+```{r}
+obsplot(penguins) |>
+    mark_barY(transform_groupX(y = "proportion-facet", x = "sex")) |>
+    mark_ruleY(0) |>
+    facet(x = "species") |>
+    scale_x(tickFormat = JS('d => d === null ? "N/A" : d')) |>
+    scale_y(grid = TRUE, percent = TRUE)
+```
+
+```{r}
+obsplot(penguins) |>
+    mark_barY(transform_groupX(y = "count", x = "species", fill = "sex")) |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE)
+```
+
+```{r}
+obsplot(penguins) |>
+    mark_barX(
+        transform_stackX(
+            transform_groupZ(x = "proportion", fill = "sex")
+        )
+    ) |>
+    mark_text(
+        transform_stackX(
+            transform_groupZ(
+                list(x = "proportion", text = "first"),
+                z = "sex", text = "sex")
+        )
+    ) |>
+    mark_ruleX(c(0, 1)) |>
+    scale_x(percent = TRUE)
+```
+
+```{r}
+obsplot(penguins) |>
+    mark_barY(transform_groupZ(y = "proportion-facet", fill = "sex")) |>
+    mark_ruleY(c(0, 1)) |>
+    facet(x = "species") |>
+    scale_y(grid = TRUE, percent = TRUE)
+```
+
+```{r}
+data(seattle)
+
+obsplot(seattle) |>
+    mark_cell(
+        transform_group(
+            fill = "max",
+            x = JS('d => d.date.getUTCDate()'),
+            y = JS('d => d.date.getUTCMonth()'),
+            fill = "temp_max",
+            inset = 0.5
+        )
+    ) |>
+    scale_color(scheme = "BuRd") |>
+    scale_y(tickFormat = JS('Plot.formatMonth()')) |>
+    opts(padding = 0)
+```
+
+
+## Bin transform
+
+```{r}
+data(athletes)
+```
