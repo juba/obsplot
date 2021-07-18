@@ -30,10 +30,15 @@ as_data <- function(x) {
   x
 }
 
-# Convert data object to a list with associated metadata : 
+# Convert data object to a list with associated metadata :
 # (list of date columns)
 add_metadata <- function(data) {
   if (is.null(data)) return(list(data = NULL))
+
+  # If data is JavaScript code, return as is
+  if (inherits(data, "JS_EVAL")) {
+    return(list(data = data, dates = NULL, type = NULL))
+  }
 
   # If data is a data frame, add date column names to dates
   if (inherits(data, "data.frame")) {
