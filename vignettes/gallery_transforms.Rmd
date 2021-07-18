@@ -8,7 +8,7 @@ output:
     fig_height: 5
     toc: true
 vignette: >
-  %\VignetteIndexEntry{obsplot Gallery}
+  %\VignetteIndexEntry{obsplot Gallery : facets and transforms}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options:
@@ -68,3 +68,4 @@ obsplot(penguins, height = 600) |>
     opts(grid = TRUE)
 ```
 
+## Group transform
