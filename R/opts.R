@@ -6,16 +6,17 @@
 
 opts <- function(g, ...) {
     new_opts <- list(...)
+
+    if (!is.null(new_opts$width) || !is.null(new_opts$height)) {
+        warning("width and height must only be defined in obsplot(). Values set in opts() have been ignored.")
+        new_opts$width <- NULL
+        new_opts$height <- NULL
+    }
+
     if (is.null(g$x$opts)) {
         updated_opts <- new_opts
     } else {
         updated_opts <- utils::modifyList(g$x$opts, new_opts)
-    }
-
-    if (!is.null(updated_opts$width) || !is.null(updated_opts$height)) {
-        warning("width and height must only be defined in obsplot(). Values set in opts() have been ignored.")
-        updated_opts$width <- NULL
-        updated_opts$height <- NULL
     }
 
     g$x$opts <- updated_opts
