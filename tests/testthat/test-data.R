@@ -78,4 +78,6 @@ test_that("data types", {
   expect_equal(g2$x$marks[[1]]$data$type, "data.frame")
   g2 <- g |> mark_dot(x = data.frame(x = 1:3))
   expect_equal(g2$x$marks[[1]]$opts$x$type, NULL)
+  g2 <- g |> mark_dot(JS("d3.cumsum({length: 3}, d3.randomNormal())"))
+  expect_equal(g2$x$marks[[1]]$data$type, NULL)
 })
