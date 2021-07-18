@@ -89,3 +89,7 @@
 #' Sample data from Observable Plot documentation examples
 #' @source \url{https://observablehq.com/@observablehq/plot-group}
 "mobydick1"
+
+#' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-bin}
+"athletes"
