@@ -321,7 +321,7 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
         # Automatically add indexed data argument
         lengths <- sapply(data_channels, function(chan) length(opts[[chan]]))
         max_length <- max(lengths, na.rm = TRUE)
-        data <- seq_len(max_length)
+        if (is.null(data)) data <- seq_len(max_length)
         # Add metadata to data channels
         for (chan in data_channels) {
             if (length(opts[[chan]]) == 1) opts[[chan]] <- rep(opts[[chan]], max_length)
@@ -332,8 +332,8 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
     data <- add_metadata(data)
 
     mark <- list(
-        type = mark_type, 
-        data = data, data_channels = data_channels, 
+        type = mark_type,
+        data = data, data_channels = data_channels,
         transform = transform, opts = opts
     )
     g$x$marks <- append(g$x$marks, list(mark))
