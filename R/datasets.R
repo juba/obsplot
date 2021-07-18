@@ -85,3 +85,7 @@
 #' Sample data from Observable Plot documentation examples
 #' @source \url{https://observablehq.com/@observablehq/plot-facets}
 "barley"
+
+#' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-group}
+"mobydick1"
