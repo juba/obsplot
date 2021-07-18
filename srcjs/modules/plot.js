@@ -14,13 +14,21 @@ export class Obsplot {
     plot(el) {
 
         const opts = this.opts;
-        opts.marks = this.build_marks();
-        opts.facet = this.build_facet();
+        let p;
         // If "auto", use Shiny widget size
         if (opts.width == "auto") opts.width = el.width;
         if (opts.height == "auto") opts.height = el.height;
-
-        let p = Plot.plot(opts);
+        try {
+            // Build plot
+            opts.marks = this.build_marks();
+            opts.facet = this.build_facet();
+            p = Plot.plot(opts);
+        } catch(error) {
+            p = document.createElement("div");
+            p.className = "obsplot-error";
+            p.append(error);
+            console.log(p);
+        } 
         el.append(p)
 
     }

@@ -13,3 +13,6 @@ figcaption {
     font:small system-ui,sans-serif;
     color:#838383;
 }
+.obsplot-error {
+    color: #D00;
+}
