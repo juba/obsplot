@@ -19,6 +19,17 @@ to_js_date <- function(date) {
 }
 
 
+#' Tells obsplot that a single value is a data channel, and must be converted to
+#' an Array in JavaScript
+#'
+#' @param x the object to be considered as a data channel
+#'
+#' @export
+as_data <- function(x) {
+  attr(x, "obsplot_is_data") <- TRUE
+  x
+}
+
 # Convert data object to a list with associated metadata : 
 # (list of date columns)
 add_metadata <- function(data) {
