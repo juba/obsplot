@@ -13,7 +13,7 @@ opts <- function(g, ...) {
     }
 
     if (!is.null(updated_opts$width) || !is.null(updated_opts$height)) {
-        warning("width an height must only be defined in obsplot(). Values set in opts() have been ignored.")
+        warning("width and height must only be defined in obsplot(). Values set in opts() have been ignored.")
         updated_opts$width <- NULL
         updated_opts$height <- NULL
     }
