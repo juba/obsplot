@@ -27,6 +27,7 @@ Suggests:
     dplyr,
     tidyr,
     lubridate,
+    stringr,
     rmarkdown,
     testthat (>= 3.0.0)
 RoxygenNote: 7.1.1
