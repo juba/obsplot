@@ -30,6 +30,7 @@ reference:
 - title: Misc
   desc: Utility functions
   contents:
+  - '`as_data`'
   - '`to_js_date`'
 articles:
 - title: Articles
