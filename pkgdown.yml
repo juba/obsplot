@@ -2,9 +2,10 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
-  gallery: gallery.html
+  gallery_marks: gallery_marks.html
+  gallery_transforms: gallery_transforms.html
   introduction: introduction.html
-last_built: 2021-07-16T16:47Z
+last_built: 2021-07-18T15:47Z
 urls:
   reference: https://juba.github.io/obsplot//reference
   article: https://juba.github.io/obsplot//articles

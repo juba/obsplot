@@ -57,7 +57,10 @@
       <a href="../articles/introduction.html">Introduction to obsplot</a>
     </li>
     <li>
-      <a href="../articles/gallery.html">obsplot Gallery</a>
+      <a href="../articles/gallery_marks.html">obsplot Gallery : marks</a>
+    </li>
+    <li>
+      <a href="../articles/gallery_transforms.html">obsplot Gallery : facets and transforms</a>
     </li>
   </ul>
 </li>
@@ -88,7 +91,7 @@
       <h1 data-toc-skip>Introduction to obsplot</h1>
                         <h4 class="author">Julien Barnier</h4>
             
-            <h4 class="date">2021-07-16</h4>
+            <h4 class="date">2021-07-18</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/juba/obsplot/blob/master/vignettes/introduction.Rmd"><code>vignettes/introduction.Rmd</code></a></small>
       <div class="hidden name"><code>introduction.Rmd</code></div>
@@ -101,14 +104,19 @@
 <h2 class="hasAnchor">
 <a href="#differences-with-observable-plot" class="anchor"></a>Differences with Observable Plot</h2>
 <ul>
-<li>
-<code>data</code> can be declared in <code><a href="../reference/obsplot.html">obsplot()</a></code> and inherited by the following marks.</li>
-<li>if <code>x</code> or <code>y</code> are given as a vector, a <code>data</code> index of the same length is automatically added.</li>
+<li><p><code>data</code> can be declared in <code><a href="../reference/obsplot.html">obsplot()</a></code> and inherited by the following marks.</p></li>
+<li><p>if a channel is given as a vector, a <code>data</code> index of the same length is automatically added.</p></li>
+<li><p>if a channel is considered as data and of size 1, it will be rep()ed to the greatest other data element.</p></li>
+<li><p>to force a single element to be considered as data, use <code>as_data</code> (instead of <code>[]</code> in JavaScript).</p></li>
+<li><p>transforms : by default first argument is output. If several outputs, or if outputs and options have an argument with the same name, use <code><a href="https://rdrr.io/r/base/list.html">list()</a></code> to differentiate between both.</p></li>
 </ul>
 </div>
 <div id="dealing-with-date-and-time-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#dealing-with-date-and-time-data" class="anchor"></a>Dealing with date and time data</h2>
+<ul>
+<li>converted automatically if of type <code>Date</code> or <code>POSIXt</code>.</li>
+</ul>
 </div>
   </div>
 
