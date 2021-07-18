@@ -188,7 +188,7 @@ get_outputs_options <- function(...) {
         outputs <- outputs[[1]]
     }
     options <- list(...)[-1]
-    if (is.list(options[[1]])) {
+    if (length(options) >= 1 && is.list(options[[1]])) {
         options <- options[[1]]
     }
     return(list(outputs = outputs, options = options))
