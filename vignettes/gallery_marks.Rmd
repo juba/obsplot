@@ -8,7 +8,7 @@ output:
     fig_height: 5
     toc: true
 vignette: >
-  %\VignetteIndexEntry{obsplot Gallery}
+  %\VignetteIndexEntry{obsplot Gallery : marks}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options:
@@ -282,7 +282,7 @@ obsplot(diamonds_obs) |>
     scale_x(label = "Carats →") |>
     scale_y(label = "↑ Price ($)") |>
     scale_r(range = c(0, 20)) |>
-    opts(grid = TRUE, height = 640)
+    opts(grid = TRUE, height = 480)
 ```
 
 ```{r}
@@ -533,7 +533,7 @@ obsplot(aapl) |>
 ## Rule mark
 
 ```{r}
-obsplot() |>
+obsplot(height = 60) |>
     mark_ruleX(data = list(length = 500), x = JS("d3.randomNormal()"), strokeOpacity = 0.2) |>
     scale_x(domain = c(-4, 4))
 ```
@@ -628,7 +628,7 @@ data(caltrain)
 north <- subset(caltrain, orientation == "N")
 south <- subset(caltrain, orientation == "S")
 
-obsplot(caltrain, width = 240) |>
+obsplot(caltrain, height = 480, width = 240) |>
     mark_text(x = 1, y = 3, text = as_data("Northbound"), textAnchor = "start") |>
     mark_text(x = -1, y = 3, text = as_data("Southbound"), textAnchor = "end") |>
     mark_text(
@@ -672,7 +672,7 @@ data(stateage)
 stateage <- stateage |>
     tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
 
-obsplot(stateage) |>
+obsplot(stateage, height = 300) |>
     mark_ruleX(0) |>
     mark_tickX(transform_normalizeX(basis = "sum", z = "name", x = "population", y = "age")) |>
     scale_x(axis = "top", label = "Percent (%) →", transform = JS("d => d*100")) |>
@@ -681,7 +681,7 @@ obsplot(stateage) |>
 ```
 
 ```{r}
-obsplot() |>
+obsplot(height = 60) |>
     mark_tickX(list(length = 500), x = JS("d3.randomNormal()"), strokeOpacity = 0.2) |>
     scale_x(domain = c(-4, 4))
 ```
@@ -689,7 +689,7 @@ obsplot() |>
 ```{r}
 data(morley)
 
-obsplot(morley) |>
+obsplot(morley, height = 150) |>
     mark_ruleY(
         transform_groupY(
             list(
