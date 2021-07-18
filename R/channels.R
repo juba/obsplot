@@ -24,13 +24,6 @@ check_channels <- function(check_data, data, mark_channels, mark_opts, has_trans
         }
     }
 
-    # Check data column channels
-    chans <- setdiff(char_chans, c("fill", "stroke"))
-    for (chan in chans) {
-        value <- mark_opts[[chan]]
-        if (!(value %in% names(check_data))) stop(chan, " is not a column of data")
-    }
-
     # Check data channels
     data_chans <- get_data_channels(mark_opts, mark_channels)
     if (length(data_chans) >= 1) {
@@ -39,6 +32,16 @@ check_channels <- function(check_data, data, mark_channels, mark_opts, has_trans
         lengths <- lengths[lengths > 1]
         if (length(unique(lengths)) > 1) stop(" all data channels must be of the same length or of length 1")
     }
+
+    # Check data column channels
+    chans <- setdiff(char_chans, c("fill", "stroke"))
+    # Remove data channels to remove single values marked with as_data
+    chans <- setdiff(chans, data_chans)
+    for (chan in chans) {
+        value <- mark_opts[[chan]]
+        if (!(value %in% names(check_data))) stop(chan, " is not a column of data")
+    }
+
 
 }
 
@@ -59,6 +62,9 @@ get_data_channels <- function(opts, mark_channels) {
     channels <- get_defined_channels(opts, mark_channels)
     Filter(function(chan) {
         value <- opts[[chan]]
+        # Channels explicitly marked as data
+        is_data <- attr(value, "obsplot_is_data")
+        if (!is.null(is_data) && is_data) return(TRUE)
         # If channel is radius or opacity and a single number, don't consider it a data channel
         if (chan %in% c("fillOpacity", "strokeOpacity", "r") && length(value) == 1 && is.numeric(value))
             return(FALSE)
