@@ -37,4 +37,5 @@ articles:
   navbar: ~
   contents:
   - introduction
-  - gallery
+  - gallery_marks
+  - gallery_transforms

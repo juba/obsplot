@@ -27,11 +27,6 @@ knitr::opts_chunk$set(
 This document is an attempt to reproduce some of the charts shown in [Observable Plot documentation](https://observablehq.com/@observablehq/plot).
 
 
-```{r include = FALSE, eval = FALSE}
-bls_unemployment <- read_csv("https://static.observableusercontent.com/files/a139d402230eaac422551e10fd6785ffa6fc986abe2648574a7361c1d93e15a686aee8ab7bfd6105bc1ee3fd3a33c6a1a6683963607ffe71171c325a6e476737?response-content-disposition=attachment%3Bfilename*%3DUTF-8%27%27bls-metro-unemployment.csv")
-usethis::use_data(bls_unemployment)
-```
-
 
 ## Area mark
 
@@ -721,45 +716,3 @@ obsplot(morley) |>
     ) |>
     scale_x(grid = TRUE, inset = 6)
 ```
-
-## Facets
-
-```{r}
-data(anscombe_obs)
-
-obsplot(anscombe_obs, height = 240) |>
-    mark_frame() |>
-    mark_dot(x = "x", y = "y") |>
-    facet(x = "series") |>
-    opts(grid = TRUE, inset = 10)
-```
-
-```{r}
-data(barley)
-# precompute domains
-y_domain <- reorder(barley$variety, barley$yield, median) |> levels() |> rev()
-fy_domain <- reorder(barley$site, barley$yield, median) |> levels() |> rev()
-
-obsplot(barley, height = 800) |>
-    mark_frame() |>
-    mark_dot(x = "yield", y = "variety", stroke = "year") |>
-    facet(y = "site", marginRight = 90) |>
-    scale_x(nice = TRUE) |>
-    scale_y(domain = y_domain, inset = 5) |>
-    scale_fy(domain = fy_domain) |>
-    scale_color(type = "categorical") |>
-    opts(marginLeft = 110, grid = TRUE)
-```
-
-```{r message = FALSE}
-library(palmerpenguins)
-data(penguins)
-
-obsplot(penguins, height = 600) |>
-    mark_frame() |>
-    mark_dot(penguins, x = "bill_depth_mm", y = "bill_length_mm", r = 2, fill = "#ddd") |>
-    mark_dot(x = "bill_depth_mm", y = "bill_length_mm") |>
-    facet(x = "sex", y = "species", marginRight = 80) |>
-    opts(grid = TRUE)
-```
-

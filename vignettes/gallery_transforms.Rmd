@@ -1,0 +1,70 @@
+---
+title: "obsplot Gallery : facets and transforms"
+author: "Julien Barnier"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 7
+    fig_height: 5
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{obsplot Gallery}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options:
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+library(obsplot)
+library(htmlwidgets)
+knitr::opts_chunk$set(
+  screenshot.force = FALSE,
+  echo = TRUE
+)
+```
+
+This document is an attempt to reproduce some of the charts shown in [Observable Plot documentation](https://observablehq.com/@observablehq/plot).
+
+
+## Facets
+
+```{r}
+data(anscombe_obs)
+
+obsplot(anscombe_obs, height = 240) |>
+    mark_frame() |>
+    mark_dot(x = "x", y = "y") |>
+    facet(x = "series") |>
+    opts(grid = TRUE, inset = 10)
+```
+
+```{r}
+data(barley)
+# precompute domains
+y_domain <- reorder(barley$variety, barley$yield, median) |> levels() |> rev()
+fy_domain <- reorder(barley$site, barley$yield, median) |> levels() |> rev()
+
+obsplot(barley, height = 800) |>
+    mark_frame() |>
+    mark_dot(x = "yield", y = "variety", stroke = "year") |>
+    facet(y = "site", marginRight = 90) |>
+    scale_x(nice = TRUE) |>
+    scale_y(domain = y_domain, inset = 5) |>
+    scale_fy(domain = fy_domain) |>
+    scale_color(type = "categorical") |>
+    opts(marginLeft = 110, grid = TRUE)
+```
+
+```{r message = FALSE}
+library(palmerpenguins)
+data(penguins)
+
+obsplot(penguins, height = 600) |>
+    mark_frame() |>
+    mark_dot(penguins, x = "bill_depth_mm", y = "bill_length_mm", r = 2, fill = "#ddd") |>
+    mark_dot(x = "bill_depth_mm", y = "bill_length_mm") |>
+    facet(x = "sex", y = "species", marginRight = 80) |>
+    opts(grid = TRUE)
+```
+
