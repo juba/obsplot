@@ -123,7 +123,7 @@ obsplot(mobydick1) |>
     mark_barY(
         transform_groupX(y = "count")
     ) |>
-    plot_ruleY(0) |>
+    mark_ruleY(0) |>
     scale_y(grid = TRUE)
 ```
 
@@ -164,7 +164,7 @@ obsplot(penguins) |>
 ```
 
 ```{r}
-obsplot(penguins) |>
+obsplot(penguins, height = 60) |>
     mark_barX(
         transform_stackX(
             transform_groupZ(x = "proportion", fill = "sex")
@@ -192,7 +192,7 @@ obsplot(penguins) |>
 ```{r}
 data(seattle)
 
-obsplot(seattle) |>
+obsplot(seattle, height = 300) |>
     mark_cell(
         transform_group(
             fill = "max",
@@ -306,7 +306,7 @@ obsplot(athletes, height = 60) |>
 ```{r}
 sports_by_weight <- levels(reorder(athletes$sport, athletes$weight, median, na.rm = TRUE))
 
-obsplot(athletes) |>
+obsplot(athletes, height = 600) |>
     mark_barX(transform_binX(fill = "proportion-facet", x = "weight", inset = 0.5)) |>
     facet(marginLeft = 100, y = "sport") |>
     scale_color(scheme = "YlGnBu") |>
