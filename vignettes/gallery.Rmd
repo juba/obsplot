@@ -1,5 +1,5 @@
 ---
-title: "obsplot Gallery"
+title: "obsplot Gallery : marks"
 author: "Julien Barnier"
 date: "`r Sys.Date()`"
 output:
@@ -600,7 +600,127 @@ obsplot(simpsons) |>
 
 ## Text mark
 
+```{r}
+data(alphabet)
+
+obsplot(alphabet) |>
+    mark_barY(x = "letter", y = "frequency") |>
+    mark_text(x = "letter", y = "frequency", text = JS("d => (d.frequency * 100).toFixed(1)"), dy = -5) |>
+    mark_ruleY(0) |>
+    scale_x(label = NULL) |>
+    scale_y(grid = TRUE, label = "↑ Frequency (%)", transform = JS("d => d * 100"))
+```
+
+In the following example, the `text` channels passed to `mark_text` are not data column names but explicit values. In Observable Plot this is done by setting to an array (`text: ["2019"]`). In `obsplot`, we use the helper function `as_data` to achieve the same goal.
+
+```{r}
+data(travelers)
+last_traveler <- head(travelers, 1)
+
+obsplot(travelers) |>
+    mark_ruleY(0) |>
+    mark_line(x = "date", y = "previous", stroke = "#bab0ab") |>
+    mark_line(x = "date", y = "current") |>
+    mark_text(last_traveler, x = "date", y = "previous", fill = "#8a817c", text = as_data("2019"), dy = "-0.5em") |>
+    mark_text(last_traveler, x = "date", y = "current", text = as_data("2020"), dy = "1.2em") |>
+    scale_y(grid = TRUE, nice = TRUE, label = "↑ Travelers per day (millions)", transform = JS("d => d / 1e6"))
+```
+
+```{r}
+library(stringr)
+
+data(caltrain)
+north <- subset(caltrain, orientation == "N")
+south <- subset(caltrain, orientation == "S")
+
+obsplot(caltrain, width = 240) |>
+    mark_text(x = 1, y = 3, text = as_data("Northbound"), textAnchor = "start") |>
+    mark_text(x = -1, y = 3, text = as_data("Southbound"), textAnchor = "end") |>
+    mark_text(
+        unique(caltrain$hours), x = 0, y = JS("d => d"),
+        text = JS('d => `${(d - 1) % 12 + 1}${(d % 24) >= 12 ? "p": "a"}`')
+    ) |>
+    mark_text(
+        north,
+        transform_stackX2(
+            x = 1,
+            y = "hours",
+            text = str_pad(north$minutes, 2, side = "left", pad = 0),
+            title = paste(north$time, north$line),
+            fill = "type",
+            textAnchor = "start"
+        )
+    ) |>
+    mark_text(
+        south,
+        transform_stackX2(
+            x = -1,
+            y = "hours",
+            text = str_pad(south$minutes, 2, side = "left", pad = 0),
+            title = paste(north$time, north$line),
+            fill = "type",
+            textAnchor = "end"
+        )
+    ) |>
+    mark_ruleX(c(-.5, .5)) |>
+    scale_x(axis = NULL) |>
+    scale_y(domain = 3:26, axis = NULL) |>
+    scale_color(domain = "NLB", range = c("currentColor", "peru", "brown"))
+```
+
+
+
 ## Tick mark
+
+```{r}
+data(stateage)
+stateage <- stateage |>
+    tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
+
+obsplot(stateage) |>
+    mark_ruleX(0) |>
+    mark_tickX(transform_normalizeX(basis = "sum", z = "name", x = "population", y = "age")) |>
+    scale_x(axis = "top", label = "Percent (%) →", transform = JS("d => d*100")) |>
+    scale_y(domain = unique(stateage$age), label = "Age") |>
+    opts(marginLeft = 50, grid = TRUE)
+```
+
+```{r}
+obsplot() |>
+    mark_tickX(list(length = 500), x = JS("d3.randomNormal()"), strokeOpacity = 0.2) |>
+    scale_x(domain = c(-4, 4))
+```
+
+```{r}
+data(morley)
+
+obsplot(morley) |>
+    mark_ruleY(
+        transform_groupY(
+            list(
+                x1 = JS('V => Math.max(d3.min(V), d3.quantile(V, 0.25) * 2.5 - d3.quantile(V, 0.75) * 1.5)'), 
+                x2 = JS('V => Math.min(d3.max(V), d3.quantile(V, 0.75) * 2.5 - d3.quantile(V, 0.25) * 1.5)')
+            ),
+            x = "Speed", y = "Expt"
+        )
+    ) |>
+    mark_barX(
+        transform_groupY(
+            list(
+                x1 = JS('V => d3.quantile(V, 0.25)'),
+                x2 = JS('V => d3.quantile(V, 0.75)')
+            ),
+            x = "Speed", y = "Expt", fill = "#ccc"
+        )
+    ) |>
+    mark_tickX(
+        transform_groupY(
+            list(x = JS('d3.median')),
+            x = "Speed", y = "Expt", strokeWidth = 2
+        )
+    ) |>
+    scale_x(grid = TRUE, inset = 6)
+```
 
 ## Facets
 
