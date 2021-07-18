@@ -28,6 +28,12 @@ knitr::opts_chunk$set(
 ## Differences with Observable Plot
 
 - `data` can be declared in `obsplot()` and inherited by the following marks.
-- if `x` or `y` are given as a vector, a `data` index of the same length is automatically added.
+- if a channel is given as a vector, a `data` index of the same length is automatically added.
+- if a channel is considered as data and of size 1, it will be rep()ed to the greatest other data element.
+- to force a single element to be considered as data, use `as_data` (instead of `[]` in JavaScript).
+
+- transforms : by default first argument is output. If several outputs, or if outputs and options have an argument with the same name, use `list()` to differentiate between both.
 
 ## Dealing with date and time data
+
+- converted automatically if of type `Date` or `POSIXt`.
