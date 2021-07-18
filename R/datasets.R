@@ -71,6 +71,14 @@
 "povcalnet"
 
 #' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-text}
+"travelers"
+
+#' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-text}
+"caltrain"
+
+#' Sample data from Observable Plot documentation examples
 #' @source \url{https://observablehq.com/@observablehq/plot-facets}
 "anscombe_obs"
 
