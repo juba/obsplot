@@ -8,7 +8,7 @@
 \alias{scale_y}
 \alias{scale_fx}
 \alias{scale_fy}
-\title{Add or modify scale options to an obsplot}
+\title{Define an obsplot scale options}
 \usage{
 scale_color(g, ...)
 
@@ -30,5 +30,5 @@ scale_fy(g, ...)
 \item{...}{named scale options}
 }
 \description{
-Add or modify scale options to an obsplot
+Define an obsplot scale options
 }

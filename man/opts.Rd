@@ -2,7 +2,7 @@
 % Please edit documentation in R/opts.R
 \name{opts}
 \alias{opts}
-\title{Add or modify options to an obsplot}
+\title{Define an obsplot options}
 \usage{
 opts(g, ...)
 }
@@ -12,5 +12,5 @@ opts(g, ...)
 \item{...}{named options}
 }
 \description{
-Add or modify options to an obsplot
+Define an obsplot options
 }

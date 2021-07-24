@@ -2,7 +2,7 @@
 % Please edit documentation in R/opts.R
 \name{style}
 \alias{style}
-\title{Add or modify style options to an obsplot}
+\title{Define an obsplot style options}
 \usage{
 style(g, ...)
 }
@@ -12,5 +12,5 @@ style(g, ...)
 \item{...}{named style options}
 }
 \description{
-Add or modify style options to an obsplot
+Define an obsplot style options
 }

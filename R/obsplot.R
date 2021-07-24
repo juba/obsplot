@@ -1,4 +1,4 @@
-#' Create a new obsplot plot
+#' Create a new obsplot
 #' 
 #' @param data optional data.frame as primary data source
 #' @param width plot width. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide.

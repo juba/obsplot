@@ -2,7 +2,7 @@
 % Please edit documentation in R/obsplot.R
 \name{obsplot}
 \alias{obsplot}
-\title{Create a new obsplot plot}
+\title{Create a new obsplot}
 \usage{
 obsplot(data = NULL, width = NULL, height = NULL, elementId = NULL, ...)
 }
@@ -18,5 +18,5 @@ obsplot(data = NULL, width = NULL, height = NULL, elementId = NULL, ...)
 \item{...}{named options passed to Observable Plot}
 }
 \description{
-Create a new obsplot plot
+Create a new obsplot
 }

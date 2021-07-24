@@ -1,4 +1,4 @@
-#' Add or modify scale options to an obsplot
+#' Define an obsplot scale options
 #'
 #' @param g an obsplot object
 #' @param ... named scale options

@@ -1,4 +1,4 @@
-#' Add or modify options to an obsplot
+#' Define an obsplot options
 #'
 #' @param g an obsplot object
 #' @param ... named options
@@ -23,7 +23,7 @@ opts <- function(g, ...) {
     g
 }
 
-#' Add or modify style options to an obsplot
+#' Define an obsplot style options
 #'
 #' @param g an obsplot object
 #' @param ... named style options
