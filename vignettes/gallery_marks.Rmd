@@ -416,7 +416,7 @@ obsplot(stocks) |>
         )
     ) |>
     scale_y(
-        type ="log", grid = TRUE, label = "↑ Change in price (%)",
+        type = "log", grid = TRUE, label = "↑ Change in price (%)",
         tickFormat = JS("x => d3.format('+d')((x - 1) * 100)")
     ) |>
     style(overflow = "visible")
