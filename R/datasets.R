@@ -93,3 +93,24 @@
 #' Sample data from Observable Plot documentation examples
 #' @source \url{https://observablehq.com/@observablehq/plot-bin}
 "athletes"
+
+#' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-stack}
+"crimea"
+
+#' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-stack}
+"unemployment"
+
+#' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-stack}
+"riaa"
+
+#' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-stack}
+"congress"
+
+#' Sample data from Observable Plot documentation examples
+#' @source \url{https://observablehq.com/@observablehq/plot-stack}
+"iowa"
+
