@@ -318,3 +318,260 @@ obsplot(athletes, height = 600) |>
 
 ## Stack transform
 
+```{r}
+data(crimea)
+
+obsplot(crimea) |>
+    mark_lineY(x = "date", y = "deaths", stroke = "cause") |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE)
+```
+
+```{r}
+obsplot(crimea) |>
+    mark_areaY(x = "date", y2 = "deaths", fill = "cause", mixBlendMode = "multiply") |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE)
+```
+
+```{r}
+obsplot(crimea) |>
+    mark_areaY(x = "date", y = "deaths", fill = "cause") |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE)
+```
+
+```{r}
+obsplot(crimea) |>
+    mark_barY(x = "date", y = "deaths", fill = "cause") |>
+    mark_ruleY(0) |>
+    scale_x(label = NULL, tickFormat = JS('d => d.toLocaleString("en", {month: "narrow"})'))
+```
+
+```{r}
+data(unemployment)
+
+obsplot(unemployment) |>
+    mark_areaY(transform_stackY(x = "date", y = "unemployed", fill = "industry", title = "industry")) |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE, label = '↑ Unemployed (thousands)')
+```
+
+```{r}
+obsplot(unemployment) |>
+    mark_areaY(transform_stackY(offset = "silhouette", x = "date", y = "unemployed", fill = "industry")) |>
+    scale_y(grid = TRUE, label = '↑ Unemployed (thousands)')
+```
+
+```{r}
+obsplot(unemployment) |>
+    mark_areaY(transform_stackY(offset = "wiggle", x = "date", y = "unemployed", fill = "industry")) |>
+    scale_y(grid = TRUE, label = '↑ Unemployed (thousands)')
+```
+
+```{r}
+obsplot(unemployment) |>
+    mark_areaY(transform_stackY(curve = "catmull-rom", x = "date", y = "unemployed", fill = "industry", order = "value")) |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE, label = '↑ Unemployed (thousands)')
+```
+
+```{r}
+data(riaa)
+
+xy <- list(x = "year", y = "revenue", z = "format", order = "appearance", reverse = TRUE)
+obsplot(riaa) |>
+    mark_areaY(
+        transform_stackY(
+            append(
+                xy, 
+                list(fill = "group", title = JS('d => `${d.format}\n${d.group}`'))
+            )
+        )
+    ) |>
+    mark_lineY(
+        transform_stackY1(
+            append(
+                xy, 
+                list(stroke = "white", strokeWidth = 1)
+            )
+        )
+    ) |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE, label = "↑ Annual revenue (billions, adj.)", transform = JS('d => d / 1000'))
+```
+
+```{r}
+xy <- list(x = "year", y = "revenue", z = "format", order = "appearance", reverse = TRUE, offset = "expand")
+obsplot(riaa) |>
+    mark_areaY(
+        transform_stackY(
+            append(
+                xy, 
+                list(fill = "group", title = JS('d => `${d.format}\n${d.group}`'))
+            )
+        )
+    ) |>
+    mark_lineY(
+        transform_stackY1(
+            append(
+                xy, 
+                list(stroke = "white", strokeWidth = 1)
+            )
+        )
+    ) |>
+    mark_ruleY(c(0, 1)) |>
+    scale_y(grid = TRUE, label = "↑ Annual revenue (billions, adj.)", transform = JS('d => d / 1000'))
+```
+
+```{r}
+data(congress)
+
+obsplot(congress, height = 300) |>
+    mark_dot(
+        transform_stackY2(
+            x = JS('d => 2021 - d.birth'),
+            y = JS('d => d.gender === "M" ? 1 : d.gender === "F" ? -1 : 0'),
+            fill = "gender"
+        )
+    ) |>
+    mark_ruleY(0) |>
+    scale_x(label = "Age →", nice = TRUE) |>
+    scale_y(
+        grid = TRUE, label = "← Women · Men →",
+        labelAnchor =  "center",
+        tickFormat = JS('Math.abs')
+    )
+```
+
+```{r}
+obsplot(congress, height = 280) |>
+    mark_barX(
+        transform_stackX(
+            transform_groupZ(x = "proportion-facet", fill = "gender")
+        )
+    ) |>
+    mark_text(
+        transform_stackX(
+            transform_groupZ(
+                list(x = "proportion-facet", text = "first"),
+                z = "gender", text = JS('d => d.gender === "F" ? "Women" : d.gender === "M" ? "Men" : null')
+            )
+        )
+    ) |>
+    mark_ruleX(c(0, 1)) |>
+    facet(y = JS('d => Math.floor((2021 - d.birth) / 10) * 10')) |>
+    scale_x(percent = TRUE)
+```
+
+```{r}
+data(iowa)
+
+obsplot(iowa) |>
+    mark_areaY(
+        transform_stackY(x = "year", y = "net_generation", fill = "source", title = "source")
+    ) |>
+    mark_ruleY(0) |>
+    scale_y(grid = TRUE,  label = "↑ Net generation (million MWh)", transform = JS('d => d / 1000'))
+```
+
+
+## Select transform
+
+```{r}
+data(stocks)
+
+obsplot(stocks) |>
+    mark_line(x = "Date", y = "Close", stroke = "Symbol") |>
+    mark_text(
+        transform_selectLast(
+            x = "Date", y = "Close", stroke = "Symbol",
+            text = "Symbol", textAnchor = "start", dx = 3
+        )
+    ) |>
+    scale_y(grid = TRUE, label = "↑ Price ($)") |>
+    opts(marginRight = 40)
+```
+
+
+## Map transform
+
+```{r}
+values <- rnorm(500)
+
+obsplot(values, height = 200) |>
+    mark_lineY(transform_map(list(y = "cumsum"), y = values))
+```
+
+```{r}
+obsplot(values, height = 200) |>
+    mark_lineY(transform_mapY("cumsum", y = values))
+```
+
+```{r}
+data(sftemp)
+
+obsplot(sftemp) |>
+    mark_areaY(x = "date", y1 = "low", y2 = "high", curve = "step", fill = "#ccc") |>
+    mark_line(
+        transform_windowY(x = "date", y = "low", k = 7, curve = "step", stroke = "blue")
+    ) |>
+    mark_line(
+        transform_windowY(x = "date", y = "high", k = 7, curve = "step", stroke = "red")
+    ) |>
+    scale_y(grid = TRUE, label = "↑ Daily temperature range (°F)")
+```
+
+```{r}
+data(stocks)
+
+obsplot(stocks) |>
+    mark_ruleY(1) |>
+    mark_line(transform_normalizeY(x = "Date", y = "Close", stroke = "Symbol")) |>
+    mark_text(
+        transform_selectLast(
+            transform_normalizeY(
+                x = "Date", y = "Close", stroke = "Symbol",
+                text = "Symbol", textAnchor = "start", dx = 3
+            )
+        )
+    ) |>
+    scale_y(
+        type = "log", grid = TRUE, label = "↑ Change in price (%)",
+        tickFormat = JS("x => d3.format('+d')((x - 1) * 100)")
+    ) |>
+    opts(marginRight = 40)
+```
+
+```{r}
+library(dplyr)
+data(stateage)
+
+# Pivot to longer format
+stateage <- stateage |>
+    tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
+# Get states order by proportion of >=80
+state_order <- stateage |>
+    group_by(name) |>
+    mutate(
+        total_pop = sum(population),
+        prop = population / total_pop
+    ) |>
+    filter(age == "≥80") |>
+    arrange(desc(prop))
+
+xy <- transform_normalizeX(basis = "sum", z = "name", x = "population", y = "name")
+
+obsplot(stateage, height = 660) |>
+    mark_ruleX(x = 0) |>
+    mark_ruleY(transform_groupY(list(x1 = "min", x2 = "max"), xy)) |>
+    mark_dot(xy, fill = "age", title = "age") |>
+    mark_text(transform_selectMinX(xy), textAnchor = "end", dx = -6, text = "name") |>
+    scale_x(axis = "top",   label =  "Percent (%) →", transform = JS("d => d * 100")) |>
+    scale_y(
+        domain = state_order$name,
+        axis = NULL
+    ) |>
+    scale_color(scheme = "spectral", domain = unique(stateage$age)) |>
+    opts(grid = TRUE)
+```
