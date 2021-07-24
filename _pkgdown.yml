@@ -16,7 +16,7 @@ reference:
 - title: Faceting
   contents:
   - '`facet`'
-- title: Transform
+- title: Transforms
   desc: Transform functions
   contents:
   - '`transform_bin`'
