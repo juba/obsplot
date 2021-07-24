@@ -34,6 +34,12 @@
     <loc>https://juba.github.io/obsplot//reference/civilizations.html</loc>
   </url>
   <url>
+    <loc>https://juba.github.io/obsplot//reference/congress.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/crimea.html</loc>
+  </url>
+  <url>
     <loc>https://juba.github.io/obsplot//reference/diamonds_obs.html</loc>
   </url>
   <url>
@@ -50,6 +56,9 @@
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//reference/income.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/iowa.html</loc>
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//reference/mark_area.html</loc>
@@ -77,6 +86,9 @@
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//reference/povcalnet.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/riaa.html</loc>
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//reference/scale_color.html</loc>
@@ -113,6 +125,9 @@
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//reference/travelers.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/unemployment.html</loc>
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//articles/gallery_marks.html</loc>
