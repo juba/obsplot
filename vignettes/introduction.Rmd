@@ -4,7 +4,8 @@ author: "Julien Barnier"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
-    fig_width: 5
+    fig_width: 8
+    fig_height: 4.5
     toc: true
 vignette: >
   %\VignetteIndexEntry{Introduction to obsplot}
@@ -18,22 +19,455 @@ editor_options:
 library(obsplot)
 library(htmlwidgets)
 knitr::opts_chunk$set(
-  screenshot.force = FALSE,
-  echo = TRUE
+    screenshot.force = FALSE,
+    echo = TRUE
 )
 ```
 
 
+`obsplot` is an R package that allows to use the [Observable Plot](https://observablehq.com/@observablehq/plot) library to create charts as HTML widgets. Observable Plot is a free, open-source JavaScript visualisation library developed by [Mike Bostock](https://observablehq.com/@mbostock) and [Philippe Rivière](https://observablehq.com/@fil/) at [Observable](https://observablehq.com/).
 
-## Differences with Observable Plot
 
-- `data` can be declared in `obsplot()` and inherited by the following marks.
-- if a channel is given as a vector, a `data` index of the same length is automatically added.
-- if a channel is considered as data and of size 1, it will be rep()ed to the greatest other data element.
-- to force a single element to be considered as data, use `as_data` (instead of `[]` in JavaScript).
+## A word of caution
 
-- transforms : by default first argument is output. If several outputs, or if outputs and options have an argument with the same name, use `list()` to differentiate between both.
+`obsplot` is still an experimental package, in particular its API is not stable and could change in the future, either for self improvements or to follow Observable Plot evolutions. It is not suitable for production right now.
 
-## Dealing with date and time data
+Also to be considered, `obsplot` is not suitable for charting very large datasets : the generated plots are in SVG format, and when using it in RMarkdown or Shiny the underlying data are included in the output as JSON.
 
-- converted automatically if of type `Date` or `POSIXt`.
+
+## Getting started
+
+Suppose we want to create a very simple dot chart from the `penguins` dataset of the `palmerpenguins` package :
+
+```{r}
+library(palmerpenguins)
+data(penguins)
+```
+
+To create such a chart we first initialise it with `obsplot()`. We pass as argument the data frame containing the data to plot :
+
+```{r eval = FALSE}
+obsplot(penguins)
+```
+
+We then add a graphical mark to create our chart. Here we use the dot mark by piping the `mark_dot` function. We pass as arguments the `x` and `y` *channels* in the form of character strings giving the corresponding data frame columns :
+
+```{r}
+obsplot(penguins) |>
+    mark_dot(x = "bill_length_mm", y = "bill_depth_mm")
+```
+
+We can add other channels, for example by changing dots color according to another variable :
+
+```{r}
+obsplot(penguins) |>
+    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "island")
+```
+
+We can also add *constants* options to a mark to modify an attribute in the same way for all dots :
+
+```{r}
+obsplot(penguins) |>
+    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "island", r = 2)
+```
+
+We can also add global options to the chart with the `opts()` function :
+
+```{r}
+obsplot(penguins) |>
+    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "island", r = 2) |>
+    opts(grid = TRUE)
+```
+
+Finally, we can modify the way variables values are linked to graphical attributes by using *scales* function :
+
+```{r}
+obsplot(penguins) |>
+    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "island", r = 2) |>
+    scale_color(scheme = "set1") |>
+    opts(grid = TRUE)
+```
+
+To go a bit deeper on the way a chart is build, we have to take a look at the fundamental concepts of Observable Plot : marks, faceting, scales and transforms.
+
+
+## Marks
+
+[Marks](https://observablehq.com/@observablehq/plot-marks?collection=@observablehq/plot) are the fundamental building blocks of Observable Plot charts. Each mark is a graphical representation of some data under a specific form : dot, line, area, text...
+
+In Observable Plot, marks are defined by giving a `marks` JavaScript array to the `Plot.plot()` function. In `obsplot`, it is done by piping one or more of the `mark_*` family of functions. In the following example we add three different marks to create a scatterplot with two rules for `x` and `y` mean values :
+
+```{r}
+mean_length <- mean(penguins$bill_length_mm, na.rm = TRUE)
+mean_depth <- mean(penguins$bill_depth_mm, na.rm = TRUE)
+obsplot(penguins) |>
+    mark_ruleY(y = mean_depth) |>
+    mark_ruleX(x = mean_length) |>
+    mark_dot(x = "bill_length_mm", y = "bill_depth_mm")
+```
+
+A mark function takes several arguments. The first one is an optional `data` object. If not specified, it is inherited from the one passed to `obsplot`. Other named arguments are called mark constructors and can be of several types :
+
+- a *column channel*, ie a character string giving the name of a column of `data`
+- a *data channel*, ie raw data to be plotted, in general as a vector
+- a *constant*, which defines an option (such as size, color...) globally in the same way for all mark elements
+- JavaScript code, defined with the `JS()` function, evaluated at runtime
+
+In the following example, both `x` and `y` are column channels, whereas `stroke` is a constant. In fact values passed to a color constructor (`stroke` or `fill`) are automatically considered as constant if they look like a CSS color name or definition.
+
+```{r}
+data(metros)
+obsplot(metros) |>
+  mark_dot(x = "POP_1980", y = "POP_2015", stroke = "#D00")
+```
+
+If we want to highlight some points by adding a text label, we can do it by giving a specific `data` argument to `mark_text` :
+
+```{r}
+metros_10m <- subset(metros, POP_2015 > 10000000)
+obsplot(metros) |>
+  mark_dot(x = "POP_1980", y = "POP_2015", stroke = "#D00") |>
+  mark_text(metros_10m, x = "POP_1980", y = "POP_2015", text = "nyt_display", dy = -10)
+```
+
+We can also use JavaScript code. For example, we can use accessors to convert population values to million of people :
+
+```{r}
+obsplot(metros) |>
+  mark_dot(
+    x = JS("d => d.POP_1980 / 1000000"),
+    y = JS("d => d.POP_2015 / 1000000"),
+    stroke = "#D00"
+  )
+```
+
+We can also provide data directly to one of the channels (in Observable Plot, you can do it only by specifying a corresponding indexed `data` argument of the same length, this is done automatically in `obsplot`) :
+
+```{r}
+obsplot() |>
+  mark_lineY(y = cumsum(rnorm(100))) |>
+  mark_ruleY(0)
+```
+
+The rules to determine a channel type are as follows (this may be subject to change in the future):
+
+- If it is a call to `JS()`, it is JavaScript code
+- If it is a vector of length > 1, it is considered as a data channel
+- If it is a single number, it is considered as a data channel except for `r`, `strikeOpacity` and `fillOpacity`
+- If it is a single character string, it is considered a column channel except if it is a CSS color for `fill` and `stroke`
+
+You can explicitly specify that a channel is a data channel by using the `as_data()` helper function. In the following example, without `as_data` the code would raise an error as it would look for a `"Paris"` column in the data :
+
+```{r}
+obsplot(metros) |>
+  mark_dot(x = "POP_1980", y = "POP_2015") |>
+  mark_dot(x = 9000000, y = 10600000, stroke = "red") |>
+  mark_text(x = 9000000, y = 10600000, text = as_data("Paris"), dy = -10)
+```
+
+When a column or data channel is of type `Date` or `POSIXt` in R, it should automatically be converted to `Date` in JavaScript, and Observable Plot will take it into account for scale specification :
+
+```{r}
+data(aapl)
+recent_aapl <- tail(aapl, 200)
+
+obsplot(recent_aapl) |>
+  mark_line(x = "Date", y = "Close")
+```
+
+Here is the list of the different mark functions currently available in `obsplot` :
+
+```{r results = 'asis', echo = FALSE}
+marks <- grep("^mark_.", ls("package:obsplot"), value = TRUE)
+marks <- paste0("- `", marks, "`\n")
+cat(marks)
+```
+
+To get a complete list of channels and options accepted or required by the different available marks, take a look at the [marks API reference](https://github.com/observablehq/plot#marks). For examples in `obsplot`, see the [marks gallery](https://juba.github.io/obsplot/articles/gallery_marks.html).
+
+
+## Faceting
+
+[Faceting](https://observablehq.com/@observablehq/plot-facets?collection=@observablehq/plot) allows to create a grid of comparable grouped charts. In Observable Plot faceting is used by adding a `facet` option to `Plot.plot()`. In `obsplot` it is created by piping the `facet` function.
+
+Here, we create an horizontal set of scatterplots by passing an `x` channel to `facet()` :
+
+```{r}
+obsplot(penguins) |>
+  mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex") |>
+  facet(x = "island")
+```
+
+To get a vertical faceting, define `y` instead of `x`. We can also add a frame around each subchart by using `mark_frame()` :
+
+```{r fig.height=5.5}
+obsplot(penguins) |>
+  mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex") |>
+  mark_frame() |>
+  facet(y = "island")
+```
+
+Finally it is also possible to create a trellis of charts by specifying both `x` and `y`.
+
+```{r fig.height=6}
+obsplot(penguins) |>
+  mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex") |>
+  mark_frame() |>
+  facet(x = "species", y = "island")
+```
+
+For more information and examples on faceting and the available options, take a look at the [facet options API reference](https://github.com/observablehq/plot#facet-options) and the [facets section of the transforms gallery](https://juba.github.io/obsplot/articles/gallery_transforms.html#facets).
+
+
+## Scales
+
+[Scales](https://observablehq.com/@observablehq/plot-scales?collection=@observablehq/plot) are a family of functions which allow to modify the way a data value is mapped to a visual attribute such as position, size or color.
+
+```{r results = 'asis', echo = FALSE}
+marks <- grep("^scale_.", ls("package:obsplot"), value = TRUE)
+marks <- paste0("- `", marks, "`\n")
+cat(marks)
+```
+
+Modifying scales in `obsplot` is done by piping one of the `scale_` family of functions :
+
+- `scale_x` and `scale_y` allow to change the `x` and `y` scales
+- `scale_color` and `scale_opacity` modify the mappings on `fill`, `stroke`, `fillOpacity` and `strokeOpacity` channels
+- `scale_r` modifies the scale of the radius `r` channel
+- `scale_fx` and `scale_fy` are used to modify the band scales added when using faceting.
+
+For example, we could modify the `x` and `y` scales to become logarithmic and change their labels:
+
+```{r}
+metros$evo <- (metros$POP_2015 - metros$POP_1980) / metros$POP_1980
+
+obsplot(metros) |>
+  mark_dot(x = "POP_1980", y = "POP_2015", stroke = "evo") |>
+  scale_x(type = "log", label = "Population 1980") |>
+  scale_y(type = "log", label = "Population 2015")
+```
+
+Scales can also be used to specify a color palette, or even modify tick values with JavaScript code :
+
+```{r}
+obsplot(metros) |>
+  mark_dot(x = "POP_1980", y = "POP_2015", stroke = "evo") |>
+  scale_x(type = "log", label = "Pop 1980 (millions)", tickFormat = JS("d => d / 1000000")) |>
+  scale_y(type = "log", label = "Pop 2015 (millions)", tickFormat = JS("d => d / 1000000")) |>
+  scale_color(scheme = "viridis")
+```
+
+For a comprehensive list of scales arguments, see the [scale options API reference](https://github.com/observablehq/plot#scale-options).
+
+
+## Transforms
+
+[Transforms](https://observablehq.com/@observablehq/plot-transforms?collection=@observablehq/plot) are used to filter, modify or compute new data before plotting them. 
+
+### Basic transforms
+
+Every mark allows two provide a set of basic transforms : `filter`, `sort` and `reverse`. Those can be used by passing JavaScript code directly as argument to a mark function :
+
+
+```{r}
+obsplot(metros) |>
+  mark_dot(
+    x = "POP_1980", y = "POP_2015", stroke = "#D00",
+    filter = JS("d => d.POP_1980 > 2000000")
+  )
+```
+
+The [transforms notebook](https://observablehq.com/@observablehq/plot-transforms?collection=@observablehq/plot) provides more examples of these three transforms.
+
+### Transform functions
+
+Transform functions are a set of functions which takes mark channels and options as input and compute a new set of channels and options. They are used, for example, to bin data to create an histogram, group them to compute a bar chart, etc.
+
+In Observable Plot, transforms are functions (`Plot.bin`, `Plot.windowX`...) passed as option to a mark. In `obsplot`, a corresponding transform function (`transform_bin()`, `transform_windowX()`) is called and passed as argument to a mark function.
+
+For example, if we want to create an histogram, we have to apply binning by calling `transform_binX` inside a `mark_rectY` :
+
+```{r}
+obsplot(penguins) |>
+  mark_rectY(
+    transform_binX(y = "count", x = "bill_depth_mm")
+  )
+```
+
+To create a cell chart of the cross tabulation of two categorical variables, we have to apply a `transform_group` before calling `mark_rect` and `mark_text` :
+
+```{r fig.height = 2}
+obsplot(penguins) |>
+  mark_cell(
+    transform_group(fill = "count", x = "island", y = "species")
+  ) |>
+  mark_text(
+    transform_group(text = "count", x = "island", y = "species")
+  ) |>
+  scale_color(scheme = "PuRd")
+```
+
+Some transform functions take a specific first argument : either *outputs* for `transform_bin`, `transform_binX`, `transform_binY`, `transform_group`, `transform_groupX`, `transform_groupY`, `transform_groupZ`, `transform_map`, or a *map* for `transform_mapX` and `transform_mapY`. By default, the first argument passed is considered as the unique output or map, whereas the other ones are options. If you must specify several outputs, or if an output as the same name as an option, wrap them into a `list()` :
+
+```{r fig.height=2}
+obsplot(penguins) |>
+    mark_dot(y = "species", x = "body_mass_g") |>
+    mark_ruleY(
+        transform_groupY(list(x1 = "min", x2 = "max"), y = "species", x = "body_mass_g")
+    ) |>
+    mark_tickX(
+      transform_groupY(list(x = "median"), y = "species", x = "body_mass_g", stroke = "red")
+    ) |>
+    scale_x(inset = 6) |>
+    scale_y(label = NULL)
+```
+
+Transforms can be composed, and you can store a transform in an R object and reuse it.
+
+```{r}
+df <- data.frame(
+  index = 1:100,
+  value = rnorm(100)
+)
+
+xy <- transform_mapY("cumsum", y = "value", x = "index", k = 20)
+obsplot(df) |>
+  mark_lineY(xy) |>
+  mark_lineY(
+    transform_windowY(xy), stroke = "red"
+  )
+```
+
+For more informations about transforms, see the [transforms notebook](https://observablehq.com/@observablehq/plot-transforms?collection=@observablehq/plot), the [transforms API reference](https://github.com/observablehq/plot#transforms) and `obsplot` [transforms gallery](https://juba.github.io/obsplot/articles/gallery_transforms.html).
+
+
+## Options
+
+### Global options
+
+You can define global options such as [layout options](https://github.com/observablehq/plot#layout-options) or top-level options like `grid`, `inset`, `round`, etc. either directly in `obsplot()` or by piping the `opts()` function :
+
+```{r}
+obsplot(metros) |>
+  mark_dot(
+    x = "POP_1980", y = "POP_2015", stroke = "#D00"
+  ) |>
+  opts(grid = TRUE, marginLeft = 80, nice = TRUE)
+```
+
+`opts` can also be used to add a caption :
+
+```{r}
+obsplot(metros) |>
+  mark_dot(
+    x = "POP_1980", y = "POP_2015", stroke = "#D00"
+  ) |>
+  opts( caption = "What a wonderful scatterplot", grid = TRUE, marginLeft = 80)
+```
+
+
+### Plot sizing
+
+Plot sizing can be specified by giving `height` and `width` arguments in `obsplot()`. 
+
+If `width` and `height` are not specified, the chart dimensions in pixels will be determined by Observable Plot. Note that these chart dimensions may not be the same as the HTML widget dimensions, which can produce big margins :
+
+```{r}
+obsplot(metros) |>
+  mark_tickX(x = "POP_2015", strokeOpacity = .2)
+```
+
+By specifying height or width values, both Observable Plot and `htmlwidgets` will use these values :
+
+```{r}
+obsplot(metros, height = 60) |>
+  mark_tickX(x = "POP_2015", strokeOpacity = .2)
+```
+
+Finally, the special value `"auto"` can be used, in this case height and width are computed by `htmlwidgets` and passed to Observable Plot :
+
+```{r}
+obsplot(penguins, height = "auto", width = "auto") |>
+  mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex")
+```
+
+### Styling
+
+Style options allow to customize plot appearance via CSS rules. They can be specified by piping the `style()` function :
+
+```{r}
+obsplot(penguins) |>
+  mark_dot(x = "bill_length_mm", y = "bill_depth_mm") |>
+  style(background = "#333", color = "#FFF", `font-family` = "serif")
+```
+
+
+## Notes
+
+### From R to JavaScript
+
+Data conversion from R to JavaScript is handled by `htmlwidgets` via JSON serialization. As a general rule, a data.frame in R is converted to a `d3` style data array (an array of objects), a `list` in R is converted to an object, a vector of size > 1 is converted to an array, and a vector of size 1 is converted to a number or character string.
+
+`obsplot` includes some helpers to automatically detect when an object is of class `Date` or `POSIXt`, and convert it to back a JavaScript `Date` object.
+
+### Differences with Observable Plot
+
+There are several differences between `obsplot` and Observable Plot, mainly :
+
+- `data` can be declared in `obsplot()` and inherited by the chart marks, whereas in Observable Plot it can be declared for each mark.
+- if a channel is given as a data channel (a vector) and no `data` has been declared, an indexed `data` argument of the same length is automatically added.
+- if a channel is considered as data and of size 1, it will be replicated to the length of the greatest other data channel (if possible).
+- to force a single element to be considered as data and not as a column name, you must use `as_data()` in `obsplot` instead of `[]` in JavaScript.
+- for transform functions that accept both outputs (or map) and options arguments, the first argument is automatically considered as the output (or the map), whereas in Observable Plot you must specify two distinct objects.
+
+### Tips and tricks
+
+When the plotted data are stored in a data frame, `obsplot` has currently no way to determine which columns are used or not. This is not a problem in an interactive session, but when used in an RMarkdown document, the whole dataset will be embedded in the output document in JSON format, which can make the document size go up quickly.
+
+One solution is to preselect the needed data in R before calling `obsplot` :
+
+```{r eval = FALSE}
+df <- penguins[, c("bill_depth_mm", "bill_length_mm")]
+obsplot(df) |>
+  mark_dot(x = "bill_length_mm", y = "bill_depth_mm")
+```
+
+You can predefine transform argument in a list for reuse :
+
+```{r}
+xy <- list(x = "island", y = "species")
+obsplot(penguins, height = 100) |>
+  mark_cell(
+    transform_group(fill = "count", xy)
+  ) |>
+  mark_text(
+    transform_group(text = "count", xy)
+  ) |>
+  scale_color(scheme = "PuRd")
+```
+
+But if you want to add new arguments to this predefined list, you'll have to use `append` and put the new arguments themselves in a list :
+
+```{r}
+xy <- list(x = "island", y = "species")
+obsplot(penguins, height = 100) |>
+  mark_cell(
+    transform_group(fill = "count", xy)
+  ) |>
+  mark_text(
+    transform_group(
+      text = "count",
+      append(xy, list(fontWeight = "bold", fontSize = 18, stroke = "#FFF", strokeWidth = .5)))
+  ) |>
+  scale_color(scheme = "PuRd")
+```
+
+### JavaScript libraries in `JS()`
+
+When using JavaScript in `obsplot` with `JS()`, both `d3` and `Plot` libraries are directly available. You can then directly call [d3](https://d3js.org/) functions or [Plot formats](https://github.com/observablehq/plot#formats) in your code.
+
+```{r}
+obsplot() |>
+    mark_lineY(JS("d3.cumsum({length: 300}, d3.randomNormal())")) |>
+    scale_x(axis = NULL)
+```
