@@ -31,7 +31,6 @@ Suggests:
     palmerpenguins,
     knitr,
     dplyr,
-    tidyr,
     lubridate,
     stringr,
     rmarkdown,
