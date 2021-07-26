@@ -92,7 +92,64 @@
 <div id="obsplot" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#obsplot" class="anchor"></a>Obsplot</h1></div>
-<p>A very experimental attempt at using <a href="https://observablehq.com/@observablehq/plot">Observable Plot</a> directly from R.</p>
+<p><code>obsplot</code> is an experimental attempt at using <a href="https://observablehq.com/@observablehq/plot">Observable Plot</a> directly from R.</p>
+<p>Please note that the package is in an early stage. Its API is subject to breaking changes, there are bugs, and maybe bad design choices. You have been warned, but if you still want to try it issues and feedback are very welcome !</p>
+<p>Also note that for the moment <code>obsplot</code> will not work in the RStudio viewer, due to its usage of an outdated web rendering engine. You can either open the visualisation in a browser, or use <a href="https://github.com/REditorSupport/vscode-R">R in VSCode</a>.</p>
+<div id="examples" class="section level2">
+<h2 class="hasAnchor">
+<a href="#examples" class="anchor"></a>Examples</h2>
+<p>Here a small example of a simple scatterplot from the <code>penguins</code> dataset of the <code>palmerpenguins</code> package :</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
+
+<span class="fu"><a href="reference/obsplot.html">obsplot</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"bill_length_mm"</span>, y <span class="op">=</span> <span class="st">"bill_depth_mm"</span>, stroke <span class="op">=</span> <span class="st">"sex"</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/opts.html">opts</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/readme_scatter.png" alt="Simple scatterplot"></p>
+<p>And here is a much more complex example taken from Observable Plot documentation :</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">)</span>
+
+<span class="va">stateage</span> <span class="op">&lt;-</span> <span class="va">stateage</span> |&gt;
+    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">name</span>, names_to <span class="op">=</span> <span class="st">"age"</span>, values_to <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span>
+
+<span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/transform_normalizeX.html">transform_normalizeX</a></span><span class="op">(</span>basis <span class="op">=</span> <span class="st">"sum"</span>, z <span class="op">=</span> <span class="st">"name"</span>, x <span class="op">=</span> <span class="st">"population"</span>, y <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span>
+
+<span class="fu"><a href="reference/obsplot.html">obsplot</a></span><span class="op">(</span><span class="va">stateage</span>, height <span class="op">=</span> <span class="fl">660</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/mark_area.html">mark_ruleX</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/mark_area.html">mark_ruleY</a></span><span class="op">(</span><span class="fu"><a href="reference/transform_bin.html">transform_groupY</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="st">"min"</span>, x2 <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span>, <span class="va">xy</span><span class="op">)</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span><span class="va">xy</span>, fill <span class="op">=</span> <span class="st">"age"</span>, title <span class="op">=</span> <span class="st">"age"</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/mark_area.html">mark_text</a></span><span class="op">(</span><span class="fu"><a href="reference/transform_normalizeX.html">transform_selectMinX</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span>, textAnchor <span class="op">=</span> <span class="st">"end"</span>, dx <span class="op">=</span> <span class="op">-</span><span class="fl">6</span>, text <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/scale_color.html">scale_x</a></span><span class="op">(</span>axis <span class="op">=</span> <span class="st">"top"</span>,   label <span class="op">=</span>  <span class="st">"Percent (%) →"</span>, transform <span class="op">=</span> <span class="fu">JS</span><span class="op">(</span><span class="st">"d =&gt; d * 100"</span><span class="op">)</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/scale_color.html">scale_y</a></span><span class="op">(</span>axis <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/scale_color.html">scale_color</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"spectral"</span>, domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">$</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/opts.html">opts</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/readme_stateage.png" alt="stateage example"></p>
+<p>You will find many more examples in the two gallery vignettes :</p>
+<ul>
+<li><a href="https://juba.github.io/obsplot/articles/gallery_marks.html">marks gallery</a></li>
+<li><a href="https://juba.github.io/obsplot/articles/gallery_transforms.html">facets and transforms gallery</a></li>
+</ul>
+<p>To get satarted, take a look at the <a href="https://juba.github.io/obsplot/articles/introduction.html">introduction vignette</a>.</p>
+</div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>From Github :</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"juba/obsplot"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="credits" class="section level2">
+<h2 class="hasAnchor">
+<a href="#credits" class="anchor"></a>Credits</h2>
+<ul>
+<li>Obviously, the <a href="https://observablehq.com/@observablehq/plot">Observable Plot</a> library developed by <a href="https://observablehq.com/@mbostock">Mike Bostock</a> and <a href="https://observablehq.com/@fil/">Philippe Rivière</a> at <a href="https://observablehq.com/">Observable</a>.</li>
+<li>The <a href="https://www.htmlwidgets.org/">htmlwidgets</a> package, which does all the heavy work to bridge R and JavaScript.</li>
+<li>
+<a href="https://twitter.com/jdatap">John Coene</a> for the <a href="https://github.com/JohnCoene/packer">packer</a> package, the <a href="https://book.javascript-for-r.com/">JavaScript for R book</a> and the <a href="https://github.com/devOpifex/g2r/">g2r</a> package which is a great source of inspiration.</li>
+</ul>
+</div>
 </div>
 
   </div>
@@ -117,6 +174,7 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>Julien Barnier <br><small class="roles"> Author, maintainer </small>  </li>
+<li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
