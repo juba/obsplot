@@ -99,7 +99,7 @@ obsplot(penguins) |>
 penguins$body_mass_kg <- penguins$body_mass_g / 1000
 
 obsplot(penguins) |>
-    mark_barY(transform_groupX(list(y = "sum"), x = "species", y = "body_mass_kg")) |>
+    mark_barY(transform_groupX(y = "sum", x = "species", y = "body_mass_kg")) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE, label = "↑ Total mass (kg)")
 ```
@@ -274,7 +274,7 @@ obsplot(athletes, height = 60) |>
 obsplot(athletes) |>
     mark_rect(transform_bin(fill = "count", x = "weight", y = "height", inset = 0)) |>
     scale_color(scheme = "YlGnBu") |>
-    opts(round = TRUE, grid = TRUE) 
+    opts(round = TRUE, grid = TRUE)
 ```
 
 ```{r}
@@ -384,7 +384,7 @@ obsplot(riaa) |>
     mark_areaY(
         transform_stackY(
             append(
-                xy, 
+                xy,
                 list(fill = "group", title = JS('d => `${d.format}\n${d.group}`'))
             )
         )
@@ -392,7 +392,7 @@ obsplot(riaa) |>
     mark_lineY(
         transform_stackY1(
             append(
-                xy, 
+                xy,
                 list(stroke = "white", strokeWidth = 1)
             )
         )
@@ -407,7 +407,7 @@ obsplot(riaa) |>
     mark_areaY(
         transform_stackY(
             append(
-                xy, 
+                xy,
                 list(fill = "group", title = JS('d => `${d.format}\n${d.group}`'))
             )
         )
@@ -415,7 +415,7 @@ obsplot(riaa) |>
     mark_lineY(
         transform_stackY1(
             append(
-                xy, 
+                xy,
                 list(stroke = "white", strokeWidth = 1)
             )
         )
