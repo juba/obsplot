@@ -8,7 +8,13 @@ Authors@R: c(
       "Julien", "Barnier",
       email = "julien.barnier@cnrs.fr",
       role = c("aut", "cre")
-    ))
+    ),
+    person(
+        "Observable, Inc."
+        , role = c("cph")
+        , comment = "Observable Plot library, https://observablehq.com/@observablehq/plot"
+    )
+)
 Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
 Description: Creation of charts with the 'Observable Plot' 'JavaScript' library.
 VignetteBuilder: knitr
