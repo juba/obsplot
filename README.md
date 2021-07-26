@@ -7,13 +7,13 @@
 
 `obsplot` is an experimental attempt at using [Observable Plot](https://observablehq.com/@observablehq/plot) directly from R.
 
-Please note that the package is in an early stage. Its API is subject to breaking changes, there are bugs, and maybe bad design choices. You have been warned, but if you still want to try it issues and feedback are very welcome !
+Please note that the package is in an early stage. Its API is subject to breaking changes, there are bugs, and maybe bad design choices. But if you still want to try the package, issues and feedback are very welcome !
 
-Also note that for the moment `obsplot` will not work in the RStudio viewer, due to its usage of an outdated web rendering engine. You can either open the visualisation in a browser, or use [R in VSCode](https://github.com/REditorSupport/vscode-R).
+Also note that `obsplot` doesn't work in the RStudio viewer for now on, due to an outdated web rendering engine. You can either open the visualisation in a recent browser, or use [R in VSCode](https://github.com/REditorSupport/vscode-R).
 
 ## Examples
 
-Here a small example of a simple scatterplot from the `penguins` dataset of the `palmerpenguins` package :
+Here is a small example of a simple scatterplot from the `penguins` dataset of the `palmerpenguins` package :
 
 ```r
 library(palmerpenguins)
@@ -30,9 +30,6 @@ And here is a much more complex example taken from Observable Plot documentation
 
 ```r
 data(stateage)
-
-stateage <- stateage |>
-    tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
 
 xy <- transform_normalizeX(basis = "sum", z = "name", x = "population", y = "name")
 
@@ -64,7 +61,7 @@ From Github :
 remotes::install_github("juba/obsplot")
 ```
 
-From [R-universe]() :
+From [R-universe](https://r-universe.dev/organizations/) :
 
 ```r
 install.packages("obsplot", repos = "https://juba.r-universe.dev")
