@@ -5,7 +5,7 @@
 \alias{stateage}
 \title{Sample data from Observable Plot documentation examples}
 \format{
-An object of class \code{spec_tbl_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 52 rows and 10 columns.
+An object of class \code{tbl_df} (inherits from \code{tbl}, \code{data.frame}) with 468 rows and 3 columns.
 }
 \source{
 \url{https://observablehq.com/@observablehq/plot-dot}
