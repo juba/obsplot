@@ -11,7 +11,7 @@ Please note that the package is in an early stage. Its API is subject to breakin
 
 Also note that for the moment `obsplot` will not work in the RStudio viewer, due to its usage of an outdated web rendering engine. You can either open the visualisation in a browser, or use [R in VSCode](https://github.com/REditorSupport/vscode-R).
 
-## Examples 
+## Examples
 
 Here a small example of a simple scatterplot from the `penguins` dataset of the `palmerpenguins` package :
 
@@ -62,6 +62,12 @@ From Github :
 
 ```r
 remotes::install_github("juba/obsplot")
+```
+
+From [R-universe]() :
+
+```r
+install.packages("obsplot", repos = "https://juba.r-universe.dev")
 ```
 
 ## Credits
