@@ -143,12 +143,10 @@ obsplot(alphabet, height = 60) |>
 
 
 ```{r message=FALSE}
-library(dplyr)
 data(stateage)
-# Pivot to longer format
-stateage <- stateage |>
-    tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
+
 # Precompute state names order
+library(dplyr)
 states <- stateage |>
     group_by(name) |>
     summarize(total = sum(population)) |>
@@ -314,10 +312,6 @@ obsplot(alphabet) |>
 
 ```{r}
 data(stateage)
-
-# Pivot to longer format
-stateage <- stateage |>
-    tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
 
 xy <- transform_normalizeY(basis = "sum", z = "name", x = "age", y = "population")
 obsplot(stateage) |>
@@ -705,8 +699,6 @@ obsplot(caltrain, height = 480, width = 240) |>
 
 ```{r}
 data(stateage)
-stateage <- stateage |>
-    tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
 
 obsplot(stateage, height = 300) |>
     mark_ruleX(0) |>

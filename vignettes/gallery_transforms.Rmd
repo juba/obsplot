@@ -633,13 +633,10 @@ obsplot(stocks) |>
 ```
 
 ```{r}
-library(dplyr)
 data(stateage)
 
-# Pivot to longer format
-stateage <- stateage |>
-    tidyr::pivot_longer(!name, names_to = "age", values_to = "population")
 # Get states order by proportion of >=80
+library(dplyr)
 state_order <- stateage |>
     group_by(name) |>
     mutate(
