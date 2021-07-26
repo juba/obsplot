@@ -35,10 +35,17 @@ xy <- transform_normalizeX(basis = "sum", z = "name", x = "population", y = "nam
 
 obsplot(stateage, height = 660) |>
     mark_ruleX(x = 0) |>
-    mark_ruleY(transform_groupY(list(x1 = "min", x2 = "max"), xy)) |>
+    mark_ruleY(
+        transform_groupY(list(x1 = "min", x2 = "max"), xy)
+    ) |>
     mark_dot(xy, fill = "age", title = "age") |>
-    mark_text(transform_selectMinX(xy), textAnchor = "end", dx = -6, text = "name") |>
-    scale_x(axis = "top",   label =  "Percent (%) →", transform = JS("d => d * 100")) |>
+    mark_text(
+        transform_selectMinX(xy), textAnchor = "end", dx = -6, text = "name"
+    ) |>
+    scale_x(
+        axis = "top",   label =  "Percent (%) →", 
+        transform = JS("d => d * 100")
+    ) |>
     scale_y(axis = NULL) |>
     scale_color(scheme = "spectral", domain = unique(stateage$age)) |>
     opts(grid = TRUE)
