@@ -93,12 +93,12 @@
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#obsplot" class="anchor"></a>Obsplot</h1></div>
 <p><code>obsplot</code> is an experimental attempt at using <a href="https://observablehq.com/@observablehq/plot">Observable Plot</a> directly from R.</p>
-<p>Please note that the package is in an early stage. Its API is subject to breaking changes, there are bugs, and maybe bad design choices. You have been warned, but if you still want to try it issues and feedback are very welcome !</p>
-<p>Also note that for the moment <code>obsplot</code> will not work in the RStudio viewer, due to its usage of an outdated web rendering engine. You can either open the visualisation in a browser, or use <a href="https://github.com/REditorSupport/vscode-R">R in VSCode</a>.</p>
+<p>Please note that the package is in an early stage. Its API is subject to breaking changes, there are bugs, and maybe bad design choices. But if you still want to try the package, issues and feedback are very welcome !</p>
+<p>Also note that <code>obsplot</code> doesn’t work in the RStudio viewer for now on, due to an outdated web rendering engine. You can either open the visualisation in a recent browser, or use <a href="https://github.com/REditorSupport/vscode-R">R in VSCode</a>.</p>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
-<p>Here a small example of a simple scatterplot from the <code>penguins</code> dataset of the <code>palmerpenguins</code> package :</p>
+<p>Here is a small example of a simple scatterplot from the <code>penguins</code> dataset of the <code>palmerpenguins</code> package :</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
@@ -110,9 +110,6 @@
 <p>And here is a much more complex example taken from Observable Plot documentation :</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">)</span>
-
-<span class="va">stateage</span> <span class="op">&lt;-</span> <span class="va">stateage</span> |&gt;
-    <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html">pivot_longer</a></span><span class="op">(</span><span class="op">!</span><span class="va">name</span>, names_to <span class="op">=</span> <span class="st">"age"</span>, values_to <span class="op">=</span> <span class="st">"population"</span><span class="op">)</span>
 
 <span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/transform_normalizeX.html">transform_normalizeX</a></span><span class="op">(</span>basis <span class="op">=</span> <span class="st">"sum"</span>, z <span class="op">=</span> <span class="st">"name"</span>, x <span class="op">=</span> <span class="st">"population"</span>, y <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span>
 
@@ -139,7 +136,7 @@
 <p>From Github :</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"juba/obsplot"</span><span class="op">)</span></code></pre></div>
-<p>From <a href="">R-universe</a> :</p>
+<p>From <a href="https://r-universe.dev/organizations/">R-universe</a> :</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"obsplot"</span>, repos <span class="op">=</span> <span class="st">"https://juba.r-universe.dev"</span><span class="op">)</span></code></pre></div>
 </div>
