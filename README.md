@@ -78,4 +78,4 @@ install.packages("obsplot", repos = "https://juba.r-universe.dev")
 
 - Obviously, the [Observable Plot](https://observablehq.com/@observablehq/plot) library developed by [Mike Bostock](https://observablehq.com/@mbostock) and [Philippe Rivière](https://observablehq.com/@fil/) at [Observable](https://observablehq.com/).
 - The [htmlwidgets](https://www.htmlwidgets.org/) package, which does all the heavy work to bridge R and JavaScript.
-- [John Coene](https://twitter.com/jdatap) for the [packer](https://github.com/JohnCoene/packer) package, the [JavaScript for R book](https://book.javascript-for-r.com/) and the [g2r](https://github.com/devOpifex/g2r/) package which is a great source of inspiration.
+- [John Coene](https://twitter.com/jdatap) for the [packer](https://github.com/JohnCoene/packer) package, the [JavaScript for R](https://book.javascript-for-r.com/) book and the [g2r](https://github.com/devOpifex/g2r/) package which is a great source of inspiration.
