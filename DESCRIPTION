@@ -39,5 +39,5 @@ Suggests:
 RoxygenNote: 7.1.1
 Roxygen: list(markdown = TRUE)
 Depends: 
-    R (>= 2.10)
+    R (>= 4.1)
 Config/testthat/edition: 3
