@@ -14,7 +14,7 @@ Authors@R: c(
         , role = c("cph")
         , comment = "Observable Plot library, https://observablehq.com/@observablehq/plot"
     )
-)
+   )
 Maintainer: Julien Barnier <julien.barnier@cnrs.fr>
 Description: Creation of charts with the 'Observable Plot' 'JavaScript' library.
 VignetteBuilder: knitr
