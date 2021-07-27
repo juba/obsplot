@@ -1,6 +1,26 @@
 [
     {
-        "test": "./css/",
-        "use": ["style-loader", "css-loader"]
+        "test": "\\.js$",
+        "exclude": "/node_modules/",
+        "loader": "babel-loader",
+        "options": {
+            "presets": [
+                [
+                    "@babel/preset-env",
+                    {
+                        "useBuiltIns": "entry",
+                        "corejs": { "version": "3.15"},
+                        "targets": {"chrome": "68"}
+                    }
+                ]
+            ]
+        }
+    },
+    {
+        "test": "\\.css$",
+        "use": [
+            "style-loader",
+            "css-loader"
+        ]
     }
 ]

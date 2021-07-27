@@ -18,6 +18,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/preset-env": "^7.14.8",
+    "babel-loader": "^8.2.2",
+    "babel-preset-env": "^1.7.0",
+    "core-js": "^3.15.2",
     "css-loader": "^5.2.6",
     "style-loader": "^3.0.0",
     "webpack": "^5.42.1",

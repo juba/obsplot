@@ -1,3 +1,4 @@
+import 'core-js/stable';
 import { Obsplot } from "../modules/plot";
 import * as d3 from "d3";
 import * as Plot from "@observablehq/plot";

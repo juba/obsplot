@@ -48,6 +48,9 @@ entryPoints = JSON.parse(entryPoints);
 // parse regex
 loaders.forEach((loader) => {
   loader.test = RegExp(loader.test);
+  if (loader.exclude) {
+    loader.exclude = RegExp(loader.exclude);
+  }
   return(loader);
 })
 
