@@ -31,7 +31,6 @@ Suggests:
     palmerpenguins,
     knitr,
     dplyr,
-    lubridate,
     stringr,
     rmarkdown,
     testthat (>= 3.0.0)

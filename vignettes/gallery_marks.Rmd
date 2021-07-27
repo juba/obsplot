@@ -99,7 +99,7 @@ data(civilizations)
 obsplot(civilizations, height = nrow(civilizations) * 12) |>
     mark_barX(x1 = "start", x2 = "end", y = "civilization") |>
     mark_text(
-        x = "start", y = "civilization", text = "civilization", 
+        x = "start", y = "civilization", text = "civilization",
         textAnchor = "end", dx = -6
     ) |>
     opts(marginLeft = 140) |>
@@ -179,25 +179,28 @@ obsplot(simpsons, height = 600) |>
 ```
 
 ```{r message = FALSE}
-library(lubridate)
 data(dji)
 # precompute variables
 dji <- dji |>
     mutate(
         variation = (Close - lag(Close)) / lag(Close),
-        title = round(variation * 100, 1),
-        week = isoweek(Date),
-        weekday = wday(Date, week_start = 1),
-        year = year(Date),
+        title = round(variation * 100, 1)
     )
 
 obsplot(dji, height = 1300) |>
     mark_cell(
-        x = "week", y = "weekday", fill = "variation", title = "title", inset = 0.5
+        x = JS("d => d3.utcWeek.count(d3.utcYear(d.Date), d.Date)"),
+        y = JS("d => d.Date.getUTCDay()"),
+        fill = "variation",
+        title = "title",
+        inset = 0.5
     ) |>
-    facet(y = "year") |>
+    facet(y = JS("d => d.Date.getUTCFullYear()")) |>
     scale_x(axis = NULL, padding = 0) |>
-    scale_y(padding = 0, tickSize = 0, label = NULL) |>
+    scale_y(
+        padding = 0, tickSize = 0, label = NULL,
+        tickFormat = JS('Plot.formatWeekday("en", "narrow")')
+    ) |>
     scale_fy(reverse = TRUE, label = NULL) |>
     scale_color(type = "diverging", scheme = "PiYg")
 ```
@@ -350,12 +353,12 @@ metros$diff1580 <- metros$R90_10_2015 - metros$R90_10_1980
 
 obsplot(metros) |>
     mark_link(
-        x1 = "POP_1980", y1 = "R90_10_1980", 
+        x1 = "POP_1980", y1 = "R90_10_1980",
         x2 = "POP_2015", y2 = "R90_10_2015", stroke = "diff1580"
     ) |>
     mark_dot(x = "POP_2015", y = "R90_10_2015", r = 1) |>
     mark_text(
-        x = "POP_2015", y = "R90_10_2015", 
+        x = "POP_2015", y = "R90_10_2015",
         filter = "highlight", text = "nyt_display", dy = -6
     ) |>
     scale_x(type = "log", tickFormat = "~s") |>
@@ -383,11 +386,11 @@ obsplot(height = 600) |>
     mark_dot(income, x = "m", y = "f", title = paste(income$type, income$age)) |>
     opts(marginRight = 40) |>
     scale_x(
-        label = "Median annual income (men, thousands) →", 
+        label = "Median annual income (men, thousands) →",
         tickFormat = JS("d => d / 1000")
     ) |>
     scale_y(
-        label = "↑ Median annual income (women, thousands)", 
+        label = "↑ Median annual income (women, thousands)",
         tickFormat = JS("d => d / 1000")
     )
 ```
@@ -619,7 +622,7 @@ data(alphabet)
 obsplot(alphabet) |>
     mark_barY(x = "letter", y = "frequency") |>
     mark_text(
-        x = "letter", y = "frequency", 
+        x = "letter", y = "frequency",
         text = JS("d => (d.frequency * 100).toFixed(1)"), dy = -5
     ) |>
     mark_ruleY(0) |>
@@ -638,15 +641,15 @@ obsplot(travelers) |>
     mark_line(x = "date", y = "previous", stroke = "#bab0ab") |>
     mark_line(x = "date", y = "current") |>
     mark_text(
-        last_traveler, x = "date", y = "previous", 
+        last_traveler, x = "date", y = "previous",
         fill = "#8a817c", text = as_data("2019"), dy = "-0.5em"
     ) |>
     mark_text(
-        last_traveler, x = "date", y = "current", 
+        last_traveler, x = "date", y = "current",
         text = as_data("2020"), dy = "1.2em"
     ) |>
     scale_y(
-        grid = TRUE, nice = TRUE, label = "↑ Travelers per day (millions)", 
+        grid = TRUE, nice = TRUE, label = "↑ Travelers per day (millions)",
         transform = JS("d => d / 1e6")
     )
 ```
@@ -723,7 +726,7 @@ obsplot(morley, height = 150) |>
     mark_ruleY(
         transform_groupY(
             list(
-                x1 = JS('V => Math.max(d3.min(V), d3.quantile(V, 0.25) * 2.5 - d3.quantile(V, 0.75) * 1.5)'), 
+                x1 = JS('V => Math.max(d3.min(V), d3.quantile(V, 0.25) * 2.5 - d3.quantile(V, 0.75) * 1.5)'),
                 x2 = JS('V => Math.min(d3.max(V), d3.quantile(V, 0.75) * 2.5 - d3.quantile(V, 0.25) * 1.5)')
             ),
             x = "Speed", y = "Expt"
