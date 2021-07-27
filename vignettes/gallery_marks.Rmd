@@ -198,7 +198,7 @@ obsplot(dji, height = 1300) |>
     facet(y = JS("d => d.Date.getUTCFullYear()")) |>
     scale_x(axis = NULL, padding = 0) |>
     scale_y(
-        padding = 0, tickSize = 0, label = NULL,
+        padding = 0, tickSize = 0,
         tickFormat = JS('Plot.formatWeekday("en", "narrow")')
     ) |>
     scale_fy(reverse = TRUE, label = NULL) |>
@@ -207,22 +207,20 @@ obsplot(dji, height = 1300) |>
 
 ```{r}
 data(seattle)
-seattle <- seattle |>
-    mutate(
-        month = month(date, label = TRUE),
-        day = day(date)
-    )
 
 obsplot(seattle, height = 300) |>
     mark_cell(
         transform_group(
-            fill = "max",
-            x = "day", y = "month", fill = "temp_max",
+            list(fill = "max"),
+            x = JS("d => d.date.getUTCDate()"),
+            y = JS("d => d.date.getUTCMonth()"),
+            fill = "temp_max",
             inset = 0.5
         )
     ) |>
-    scale_x(label = NULL) |>
-    scale_y(domain = unique(seattle$month), label = NULL) |>
+    scale_y(
+        tickFormat = JS('Plot.formatMonth("en", "short")')
+    ) |>
     opts(padding = 0)
 ```
 
