@@ -6,18 +6,24 @@ export class Obsplot {
 
         this.data = Obsplot.convert_data(x.data);
         this.marks = x.marks || [];
-        this.opts = x.opts || {};
         this.facet = x.facet;
+        
+        this.opts = x.opts || {};
+        // Store original width and height values
+        this.opts.orig_width = this.opts.width;
+        this.opts.orig_height = this.opts.height;
+        
+        this.el = el;
 
     }
 
-    plot(el) {
+    plot() {
 
         const opts = this.opts;
         let p;
         // If "auto", use Shiny widget size
-        if (opts.width == "auto") opts.width = el.width;
-        if (opts.height == "auto") opts.height = el.height;
+        if (opts.orig_width == "auto") opts.width = this.el.width;
+        if (opts.orig_height == "auto") opts.height = this.el.height;
         try {
             // Build plot
             opts.marks = this.build_marks();
@@ -29,7 +35,24 @@ export class Obsplot {
             p.append(error);
             console.log(p);
         } 
-        el.append(p)
+        this.el.append(p)
+
+    }
+
+    destroy() {
+
+        let range = document.createRange();
+        range.selectNodeContents(this.el);
+        range.deleteContents();
+
+    }
+
+    resize() {  
+
+        if (this.opts.orig_width !== null && this.opts.orig_width != "auto" &&
+            this.opts.orig_height !== null && this.opts.orig_height != "auto") return;
+        this.destroy();
+        this.plot();
 
     }
 

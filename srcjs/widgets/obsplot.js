@@ -4,6 +4,7 @@ import * as Plot from "@observablehq/plot";
 import 'widgets';
 import '../css/plot.css';
 
+// Make libraries available to be used in JS()
 window.d3 = d3;
 window.Plot = Plot;
 
@@ -15,6 +16,8 @@ HTMLWidgets.widget({
 
   factory: function(el, width, height) {
 
+    let plot;
+
     el.width = width;
     el.height = height;
 
@@ -22,15 +25,18 @@ HTMLWidgets.widget({
 
       renderValue: function(x) {
 
-        const plot = new Obsplot(el, x);
-        plot.plot(el);
+        plot = new Obsplot(el, x);
+        plot.destroy();
+        plot.plot();
 
       },
 
       resize: function(width, height) {
+
         el.width = width;
         el.height = height;
-        plot.plot(el);
+        plot.resize();
+
       }
 
     };

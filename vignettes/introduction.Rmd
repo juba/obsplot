@@ -391,6 +391,8 @@ obsplot(penguins, height = "auto", width = "auto") |>
   mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex")
 ```
 
+When `obsplot` is used in a Shiny app with a responsive layout such as `fluidPage`, it is recommended to use `"auto"` for width and height so that the chart will redraw itself accordingly when its container is resized.
+
 ### Styling
 
 Style options allow to customize plot appearance via CSS rules. They can be specified by piping the `style()` function :
