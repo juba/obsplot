@@ -58,6 +58,8 @@ You will find many more examples in the two gallery vignettes :
 - [marks gallery](https://juba.github.io/obsplot/articles/gallery_marks.html)
 - [facets and transforms gallery](https://juba.github.io/obsplot/articles/gallery_transforms.html)
 
+## Usage
+
 To get started, take a look at the [introduction vignette](https://juba.github.io/obsplot/articles/introduction.html).
 
 ## Installation
