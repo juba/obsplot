@@ -16,7 +16,6 @@ editor_options:
 ---
 
 ```{r, include=FALSE}
-library(obsplot)
 library(htmlwidgets)
 knitr::opts_chunk$set(
     screenshot.force = FALSE,
@@ -33,6 +32,28 @@ knitr::opts_chunk$set(
 `obsplot` is still an experimental package, in particular its API is not stable and could change in the future, either for self improvements or to follow Observable Plot evolutions. It is not suitable for production right now.
 
 Also to be considered, `obsplot` is not suitable for charting very large datasets : the generated plots are in SVG format, and when using it in RMarkdown or Shiny the underlying data are included in the output as JSON.
+
+
+## Installation
+
+`obsplot` is not on CRAN yet, but can be installed from Github with :
+
+```{r eval = FALSE}
+remotes::install_github("juba/obsplot")
+
+```
+
+Or from [R-universe](https://r-universe.dev/organizations/) with :
+
+```{r eval = FALSE}
+install.packages("obsplot", repos = "https://juba.r-universe.dev")
+```
+
+Don't forget to load the library with :
+
+```{r}
+library(obsplot)
+```
 
 
 ## Getting started
