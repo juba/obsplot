@@ -9,8 +9,6 @@
 
 Please note that **the package is in an early stage**. Its API is subject to breaking changes, there are bugs, and maybe bad design choices. But if you still want to try the package, issues and feedback are very welcome !
 
-Also note that `obsplot` **doesn't work in the RStudio viewer** for now on, due to RStudio's outdated web rendering engine. You can either open the visualisation in a recent browser, or use [R in VSCode](https://github.com/REditorSupport/vscode-R).
-
 ## Examples
 
 Here is a small example of a simple scatterplot from the `penguins` dataset of the `palmerpenguins` package :
