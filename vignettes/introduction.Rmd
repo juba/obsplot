@@ -287,7 +287,7 @@ For a comprehensive list of scales arguments, see the [scale options API referen
 
 ### Basic transforms
 
-Every mark allows two provide a set of basic transforms : `filter`, `sort` and `reverse`. Those can be used by passing JavaScript code directly as argument to a mark function :
+Every mark allows to provide a set of basic transforms : `filter`, `sort` and `reverse`. Those can be used by passing JavaScript code directly as argument to a mark function :
 
 
 ```{r}
@@ -328,16 +328,22 @@ obsplot(penguins) |>
   scale_color(scheme = "PuRd")
 ```
 
-Some transform functions take a specific first argument : either *outputs* for `transform_bin`, `transform_binX`, `transform_binY`, `transform_group`, `transform_groupX`, `transform_groupY`, `transform_groupZ`, `transform_map`, or a *map* for `transform_mapX` and `transform_mapY`. By default, the first argument passed is considered as the unique output or map, whereas the other ones are options. If you must specify several outputs, or if an output as the same name as an option, wrap them into a `list()` :
+Some transform functions take a specific first argument : either *outputs* for `transform_bin`, `transform_binX`, `transform_binY`, `transform_group`, `transform_groupX`, `transform_groupY`, `transform_groupZ`, `transform_map`, or a *map* for `transform_mapX` and `transform_mapY`. By default, the first argument passed is considered as the unique output or map, whereas the other ones are options. If you must specify several outputs, or if an output has the same name as an option, wrap them into a `list()` :
 
 ```{r fig.height=2}
 obsplot(penguins) |>
     mark_dot(y = "species", x = "body_mass_g") |>
     mark_ruleY(
-        transform_groupY(list(x1 = "min", x2 = "max"), y = "species", x = "body_mass_g")
+        transform_groupY(
+          list(x1 = "min", x2 = "max"),
+          y = "species", x = "body_mass_g"
+        )
     ) |>
     mark_tickX(
-      transform_groupY(list(x = "median"), y = "species", x = "body_mass_g", stroke = "red")
+      transform_groupY(
+        list(x = "median"),
+        y = "species", x = "body_mass_g", stroke = "red"
+      )
     ) |>
     scale_x(inset = 6) |>
     scale_y(label = NULL)
@@ -383,7 +389,7 @@ obsplot(metros) |>
   mark_dot(
     x = "POP_1980", y = "POP_2015", stroke = "#D00"
   ) |>
-  opts( caption = "What a wonderful scatterplot", grid = TRUE, marginLeft = 80)
+  opts(caption = "What a wonderful scatterplot", grid = TRUE, marginLeft = 80)
 ```
 
 
@@ -437,13 +443,15 @@ Data conversion from R to JavaScript is handled by `htmlwidgets` via JSON serial
 
 There are several differences between `obsplot` and Observable Plot, mainly :
 
-- `data` can be declared in `obsplot()` and inherited by the chart marks, whereas in Observable Plot it can be declared for each mark.
+- `data` can be declared in `obsplot()` and inherited by the chart marks, whereas in Observable Plot it must be declared for each mark.
 - if a channel is given as a data channel (a vector) and no `data` has been declared, an indexed `data` argument of the same length is automatically added.
 - if a channel is considered as data and of size 1, it will be replicated to the length of the greatest other data channel (if possible).
 - to force a single element to be considered as data and not as a column name, you must use `as_data()` in `obsplot` instead of `[]` in JavaScript.
 - for transform functions that accept both outputs (or map) and options arguments, the first argument is automatically considered as the output (or the map), whereas in Observable Plot you must specify two distinct objects.
 
 ### Tips and tricks
+
+#### Data preselection
 
 When the plotted data are stored in a data frame, `obsplot` has currently no way to determine which columns are used or not. This is not a problem in an interactive session, but when used in an RMarkdown document, the whole dataset will be embedded in the output document in JSON format, which can make the document size go up quickly.
 
@@ -454,6 +462,8 @@ df <- penguins[, c("bill_depth_mm", "bill_length_mm")]
 obsplot(df) |>
   mark_dot(x = "bill_length_mm", y = "bill_depth_mm")
 ```
+
+#### Reusing transform arguments
 
 You can predefine transform argument in a list for reuse :
 
