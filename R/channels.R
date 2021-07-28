@@ -59,6 +59,7 @@ is_css_color <- function(str) {
 
 # Return channels that are data vectors
 get_data_channels <- function(opts, mark_channels) {
+    not_data_length1 <- c("fillOpacity", "strokeOpacity", "r", "fontSize", "rotate")
     channels <- get_defined_channels(opts, mark_channels)
     Filter(function(chan) {
         value <- opts[[chan]]
@@ -66,7 +67,7 @@ get_data_channels <- function(opts, mark_channels) {
         is_data <- attr(value, "obsplot_is_data")
         if (!is.null(is_data) && is_data) return(TRUE)
         # If channel is radius or opacity and a single number, don't consider it a data channel
-        if (chan %in% c("fillOpacity", "strokeOpacity", "r") && length(value) == 1 && is.numeric(value))
+        if (chan %in% not_data_length1 && length(value) == 1 && is.numeric(value))
             return(FALSE)
         # Else, vectors of size > 1 or vectors of size 1 but not characters
         # are considered as data channels
