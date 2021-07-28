@@ -85,7 +85,7 @@ obsplot(penguins) |>
     mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "island")
 ```
 
-We can also add *constants* options to a mark to modify an attribute in the same way for all dots :
+We can also add *constant* options to a mark to modify an attribute in the same way for all dots :
 
 ```{r}
 obsplot(penguins) |>
@@ -109,7 +109,7 @@ obsplot(penguins) |>
     opts(grid = TRUE)
 ```
 
-To go a bit deeper on the way a chart is build, we have to take a look at the fundamental concepts of Observable Plot : marks, faceting, scales and transforms.
+To go a bit deeper, we have to take a look at the fundamental concepts of Observable Plot : marks, faceting, scales and transforms.
 
 
 ## Marks
@@ -131,7 +131,7 @@ A mark function takes several arguments. The first one is an optional `data` obj
 
 - a *column channel*, ie a character string giving the name of a column of `data`
 - a *data channel*, ie raw data to be plotted, in general as a vector
-- a *constant*, which defines an option (such as size, color...) globally in the same way for all mark elements
+- a *constant option*, which defines an option (such as size, color...) globally in the same way for all mark elements
 - JavaScript code, defined with the `JS()` function, evaluated at runtime
 
 In the following example, both `x` and `y` are column channels, whereas `stroke` is a constant. In fact values passed to a color constructor (`stroke` or `fill`) are automatically considered as constant if they look like a CSS color name or definition.
@@ -174,7 +174,7 @@ The rules to determine a channel type are as follows (this may be subject to cha
 
 - If it is a call to `JS()`, it is JavaScript code
 - If it is a vector of length > 1, it is considered as a data channel
-- If it is a single number, it is considered as a data channel except for `r`, `strikeOpacity` and `fillOpacity`
+- If it is a single number, it is considered as a data channel except for `r`, `strikeOpacity`,`fillOpacity`, `fontSize` and `rotate`
 - If it is a single character string, it is considered a column channel except if it is a CSS color for `fill` and `stroke`
 
 You can explicitly specify that a channel is a data channel by using the `as_data()` helper function. In the following example, without `as_data` the code would raise an error as it would look for a `"Paris"` column in the data :
@@ -186,7 +186,7 @@ obsplot(metros) |>
   mark_text(x = 9000000, y = 10600000, text = as_data("Paris"), dy = -10)
 ```
 
-When a column or data channel is of type `Date` or `POSIXt` in R, it should automatically be converted to `Date` in JavaScript, and Observable Plot will take it into account for scale specification :
+When a column or data channel is of type `Date` or `POSIXt` in R, it is automatically converted to `Date` in JavaScript, and Observable Plot will take it into account for scale specification :
 
 ```{r}
 data(aapl)
@@ -209,7 +209,7 @@ To get a complete list of channels and options accepted or required by the diffe
 
 ## Faceting
 
-[Faceting](https://observablehq.com/@observablehq/plot-facets?collection=@observablehq/plot) allows to create a grid of comparable grouped charts. In Observable Plot faceting is used by adding a `facet` option to `Plot.plot()`. In `obsplot` it is created by piping the `facet` function.
+[Faceting](https://observablehq.com/@observablehq/plot-facets?collection=@observablehq/plot) allows to create a grid of comparable grouped charts. In Observable Plot faceting is used by adding a `facet` option to `Plot.plot()`. In `obsplot` it is achieved by piping the `facet` function.
 
 Here, we create an horizontal set of scatterplots by passing an `x` channel to `facet()` :
 
@@ -242,7 +242,7 @@ For more information and examples on faceting and the available options, take a 
 
 ## Scales
 
-[Scales](https://observablehq.com/@observablehq/plot-scales?collection=@observablehq/plot) are a family of functions which allow to modify the way a data value is mapped to a visual attribute such as position, size or color.
+[Scales](https://observablehq.com/@observablehq/plot-scales?collection=@observablehq/plot) is a family of functions which allow to modify the way a data value is mapped to a visual attribute such as position, size or color.
 
 ```{r results = 'asis', echo = FALSE}
 marks <- grep("^scale_.", ls("package:obsplot"), value = TRUE)
@@ -255,7 +255,7 @@ Modifying scales in `obsplot` is done by piping one of the `scale_` family of fu
 - `scale_x` and `scale_y` allow to change the `x` and `y` scales
 - `scale_color` and `scale_opacity` modify the mappings on `fill`, `stroke`, `fillOpacity` and `strokeOpacity` channels
 - `scale_r` modifies the scale of the radius `r` channel
-- `scale_fx` and `scale_fy` are used to modify the band scales added when using faceting.
+- `scale_fx` and `scale_fy` are used to modify the band scales added when using faceting
 
 For example, we could modify the `x` and `y` scales to become logarithmic and change their labels:
 
