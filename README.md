@@ -5,9 +5,9 @@
 
 # Obsplot
 
-`obsplot` is an experimental attempt at using [Observable Plot](https://observablehq.com/@observablehq/plot) directly from R.
+`obsplot` is an experimental attempt at using [Observable Plot](https://observablehq.com/@observablehq/plot) as HTML widget in R.
 
-Please note that **the package is in an early stage**. Its API is subject to breaking changes, there are bugs, and maybe bad design choices. But if you still want to try the package, issues and feedback are very welcome !
+Please note that **the package is in an early stage**. Its API is subject to breaking changes, there are bugs, and maybe bad design choices. But if you still want to try it, issues and feedback are very welcome !
 
 ## Examples
 
