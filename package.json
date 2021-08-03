@@ -1,7 +1,7 @@
 {
   "name": "obsplot",
   "version": "0.0.1",
-  "description": "<!-- badges: start --> [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-red.svg)](https://www.tidyverse.org/lifecycle/#maturing) [![R build status](https://github.com/juba/obsplot/workflows/R-CMD-check/badge.svg)](https://github.com/juba/obsplot/actions) <!-- badges: end -->",
+  "description": "Observable Plot in R",
   "main": "index.js",
   "directories": {
     "example": "examples",
