@@ -34,7 +34,11 @@ obsplot <- function(
     width = width,
     height = height,
     package = 'obsplot',
-    elementId = elementId
+    elementId = elementId,
+    sizingPolicy = htmlwidgets::sizingPolicy(
+      browser.fill = TRUE,
+      viewer.fill = TRUE
+    )
   )
 }
 
