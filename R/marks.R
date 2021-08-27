@@ -160,7 +160,7 @@ mark_link <- function(g, ...) {
 mark_rect <- function(g, ...) {
     channels <- data.frame(
         channel = c("x1",  "y1",  "x2",  "y2"),
-        status  = c("req", "req", "req", "req")
+        status  = c("opt", "opt", "opt", "opt")
     )
     mark_("rect", g, channels, ...)
 }
