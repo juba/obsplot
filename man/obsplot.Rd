@@ -8,7 +8,7 @@ obsplot(
   data = NULL,
   width = "auto",
   height = "auto",
-  menu = TRUE,
+  menu = getOption("obsplot_menu"),
   elementId = NULL,
   ...
 )
@@ -20,7 +20,7 @@ obsplot(
 
 \item{height}{plot height. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide}
 
-\item{menu}{if TRUE, display a gear menu aside the plot with additional features}
+\item{menu}{if TRUE, display a gear menu aside the plot with additional features. Can be set globally with \code{options("obsplot_menu")}}
 
 \item{elementId}{optional custom element id, passed to createWidget()}
 

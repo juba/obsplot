@@ -439,6 +439,11 @@ obsplot(penguins, menu = FALSE) |>
   mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex")
 ```
 
+You can also disable the gear menu globally in an R session, a Shiny app or an RMarkdown document with :
+
+```{r, eval = FALSE}
+options("obsplot_menu" = FALSE)
+```
 
 
 ## Notes

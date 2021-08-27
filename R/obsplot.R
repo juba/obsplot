@@ -3,7 +3,7 @@
 #' @param data optional data.frame as primary data source
 #' @param width plot width. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide
 #' @param height plot height. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide
-#' @param menu if TRUE, display a gear menu aside the plot with additional features
+#' @param menu if TRUE, display a gear menu aside the plot with additional features. Can be set globally with `options("obsplot_menu")`
 #' @param elementId optional custom element id, passed to createWidget()
 #' @param ... named options passed to Observable Plot
 #'
@@ -12,7 +12,7 @@
 obsplot <- function(
   data = NULL,
   width = "auto", height = "auto",
-  menu = TRUE,
+  menu = getOption("obsplot_menu"),
   elementId = NULL, ...) {
 
   x <- list()
@@ -20,6 +20,7 @@ obsplot <- function(
   # forward options using x
   x$data <- add_metadata(data)
   x$opts <- list(...)
+  if (is.null(menu)) menu <- TRUE
   x$opts$menu <- menu
   x["marks"] <- list(NULL)
 
