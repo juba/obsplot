@@ -1,18 +1,94 @@
+/* Observable Plot styles */
+
 .plot {
-    display:block;
-    font:10px system-ui,sans-serif;
-    background:#fff;
-    height:auto;
-    height:intrinsic;
-    max-width:100%
+    display: block;
+    font: 10px system-ui, sans-serif;
+    background: #fff;
+    height: auto;
+    height: intrinsic;
+    max-width: 100%
 }
+
 .plot text {
-    white-space:pre
+    white-space: pre
 }
+
 figcaption {
-    font:small system-ui,sans-serif;
-    color:#838383;
+    font: small system-ui, sans-serif;
+    color: #838383;
 }
+
+/* Custom styles */
+
 .obsplot-error {
     color: #D00;
+}
+
+/* GEAR MENU */
+
+.obsplot-menu {
+    position: relative;
+    width: 25px;
+}
+
+.obsplot-menu-body {
+    position: absolute;
+    top: 30px;
+    right: 5px;
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    z-index: 10;
+    background: #F5F7F9;
+    box-shadow: 0px 0px 2px 1px #d6d6d6;
+    font-family: Open Sans, Roboto, Helvetica, sans-serif;
+    font-size: 11px;
+    text-align: right;
+    list-style: none;
+    padding: 0.2em;
+    margin: 0;
+}
+
+.obsplot-menu-body li {
+    list-style: none;
+    white-space: nowrap;
+    padding: 0.6em 0.8em;
+    margin: 0;
+}
+
+.obsplot-menu-body li a {
+    cursor: pointer;
+    color: #727476;
+    /* font-weight: 600; */
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.obsplot-menu-body li a:hover {
+    color: #25282A;
+}
+
+/* GEAR ICON */
+
+.obsplot-gear {
+    z-index: 10;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+}
+
+.obsplot-gear rect {
+    fill: transparent;
+}
+
+.obsplot-gear path {
+    fill: #666;
+    opacity: 0.2;
+    transition: opacity .3s;
+}
+
+.obsplot-gear:hover path,
+.obsplot-gear.selected path {
+    opacity: 0.8;
+    transition: opacity .3s;
 }

@@ -1,4 +1,5 @@
 import * as Plot from "@observablehq/plot";
+import { create_menu } from "./menu";
 
 export class Obsplot {
 
@@ -20,7 +21,7 @@ export class Obsplot {
     plot() {
 
         const opts = this.opts;
-        let p;
+        let p, do_add_menu = false;
         // If "auto", use Shiny widget size
         if (opts.orig_width == "auto") opts.width = this.el.width;
         if (opts.orig_height == "auto") opts.height = this.el.height;
@@ -29,14 +30,16 @@ export class Obsplot {
             opts.marks = this.build_marks();
             opts.facet = this.build_facet();
             p = Plot.plot(opts);
+            // If no exception
+            do_add_menu = true;
         } catch(error) {
             p = document.createElement("div");
             p.className = "obsplot-error";
             p.append(error);
             console.log(p);
         } 
-        this.el.append(p)
-
+        this.el.append(p);
+        if (do_add_menu) this.add_menu();
     }
 
     destroy() {
@@ -156,6 +159,12 @@ export class Obsplot {
             trans_result = trans_fun.call(null, transform.outputs, transform.options);
         }
         return trans_result;
+
+    }
+
+    add_menu() {
+
+        create_menu(this.el);
 
     }
 
