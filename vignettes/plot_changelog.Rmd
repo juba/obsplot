@@ -1,5 +1,5 @@
 ---
-title: "Plot changelog"
+title: "obsplot Gallery : Plot changelog"
 author: "Julien Barnier"
 date: "`r Sys.Date()`"
 output:
@@ -22,6 +22,7 @@ knitr::opts_chunk$set(
     echo = TRUE
 )
 options("obsplot_menu" = FALSE)
+library(obsplot)
 ```
 
 This document tries to reproduce charts included in the [Observable Plot Changelog](https://github.com/observablehq/plot/blob/main/CHANGELOG.md).
