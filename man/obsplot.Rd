@@ -4,14 +4,23 @@
 \alias{obsplot}
 \title{Create a new obsplot}
 \usage{
-obsplot(data = NULL, width = NULL, height = NULL, elementId = NULL, ...)
+obsplot(
+  data = NULL,
+  width = "auto",
+  height = "auto",
+  menu = TRUE,
+  elementId = NULL,
+  ...
+)
 }
 \arguments{
 \item{data}{optional data.frame as primary data source}
 
-\item{width}{plot width. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide.}
+\item{width}{plot width. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide}
 
-\item{height}{plot height. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide.}
+\item{height}{plot height. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide}
+
+\item{menu}{if TRUE, display a gear menu aside the plot with additional features}
 
 \item{elementId}{optional custom element id, passed to createWidget()}
 
