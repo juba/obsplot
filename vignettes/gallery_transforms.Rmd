@@ -42,17 +42,14 @@ obsplot(anscombe_obs, height = 240) |>
 
 ```{r}
 data(barley)
-# precompute domains
-y_domain <- levels(reorder(barley$variety, barley$yield, median))
-fy_domain <- levels(reorder(barley$site, barley$yield, median))
 
 obsplot(barley, height = 800) |>
     mark_frame() |>
-    mark_dot(x = "yield", y = "variety", stroke = "year") |>
+    mark_dot(
+        x = "yield", y = "variety", stroke = "year",
+        sort = list(fy = "x", y = "x", reduce = "median", reverse = TRUE)
+    ) |>
     facet(y = "site", marginRight = 90) |>
-    scale_x(nice = TRUE) |>
-    scale_y(domain = y_domain, reverse = TRUE, inset = 5) |>
-    scale_fy(domain = fy_domain, reverse = TRUE) |>
     scale_color(type = "categorical") |>
     opts(marginLeft = 110, grid = TRUE)
 ```
