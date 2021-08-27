@@ -59,7 +59,11 @@ is_css_color <- function(str) {
 
 # Return channels that are data vectors
 get_data_channels <- function(opts, mark_channels) {
-    not_data_length1 <- c("fillOpacity", "strokeOpacity", "r", "fontSize", "rotate")
+    # Options that are not data channels when of length 1
+    not_data_length1 <- c(
+        "fillOpacity", "strokeOpacity", "r",
+        "fontSize", "rotate"
+    )
     channels <- get_defined_channels(opts, mark_channels)
     Filter(function(chan) {
         value <- opts[[chan]]
