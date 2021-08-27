@@ -44,6 +44,15 @@ scale_fy <- function(g, ...) {
 }
 
 scale_ <- function(g, scale_type, ...) {
-    g$x$opts[scale_type] <- list(list(...))
+    options <- list(...)
+    # Convert length 1 domain or range to a vector with the
+    # value duplicated
+    if (!is.null(options$domain) && length(options$domain) == 1) {
+        options$domain <- rep(options$domain, 2)
+    }
+    if (!is.null(options$range) && length(options$range) == 1) {
+        options$range <- rep(options$range, 2)
+    }
+    g$x$opts[scale_type] <- list(options)
     g
 }
