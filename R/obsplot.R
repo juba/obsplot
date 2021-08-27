@@ -40,7 +40,11 @@ obsplot <- function(
     elementId = elementId,
     sizingPolicy = htmlwidgets::sizingPolicy(
       browser.fill = TRUE,
-      viewer.fill = TRUE
+      browser.defaultWidth = "100%",
+      browser.defaultHeight = "85vh",
+      viewer.fill = TRUE,
+      viewer.defaultWidth = "100%",
+      viewer.defaultHeight = "85vh"
     )
   )
 }
