@@ -28,7 +28,6 @@ test_that("unnamed opts", {
 })
 
 test_that("required channels", {
-  expect_error(g |> mark_rect(), "missing channels x1, y1, x2, y2")
   expect_error(g |> mark_line(x = "v1"), "missing channels y")
   expect_error(g |> mark_line(transform_group(x = "sum", x = "v1")), NA)
 })
