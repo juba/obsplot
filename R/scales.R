@@ -47,12 +47,16 @@ scale_ <- function(g, scale_type, ...) {
     options <- list(...)
     # Convert length 1 domain or range to a vector with the
     # value duplicated
-    if (!is.null(options$domain) && length(options$domain) == 1) {
-        options$domain <- rep(options$domain, 2)
-    }
-    if (!is.null(options$range) && length(options$range) == 1) {
-        options$range <- rep(options$range, 2)
-    }
+    options$domain <- duplicate_single(options$domain)
+    options$range <- duplicate_single(options$range)
     g$x$opts[scale_type] <- list(options)
     g
+}
+
+# Duplicate a single numeric value
+duplicate_single <- function(value) {
+    if (!is.null(value) && length(value) == 1 && is.numeric(value)) {
+        return(rep(value, 2))
+    }
+    value
 }
