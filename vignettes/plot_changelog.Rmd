@@ -1,0 +1,133 @@
+---
+title: "Plot changelog"
+author: "Julien Barnier"
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+    fig_width: 7
+    fig_height: 4.5
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to obsplot}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include=FALSE}
+library(htmlwidgets)
+knitr::opts_chunk$set(
+    screenshot.force = FALSE,
+    echo = TRUE
+)
+options("obsplot_menu" = FALSE)
+```
+
+This document tries to reproduce charts included in the [Observable Plot Changelog](https://github.com/observablehq/plot/blob/main/CHANGELOG.md).
+
+
+## Plot 0.2.0
+
+### Render functions
+
+Marks can be passed as render functions. This can be achieved in `obsplot` with `mark_function()` or `mark_svg()` :
+
+```{r}
+data(aapl)
+obsplot(aapl) |>
+  mark_line(x = "Date", y = "Close") |>
+  mark_svg("<text x=20% y=20% fill=red>Hello, world!</text>")
+```
+
+When using `mark_function`, the function definition must be enclosed into an `htmlwidgets::JS` call. The `svg` template literal has been imported from Observable standard library and can be used directly :
+
+```{r}
+obsplot(aapl) |>
+  mark_line(x = "Date", y = "Close") |>
+  mark_function(JS("() => svg`<text x=20% y=20% fill=red>Hello, world!</text>`"))
+```
+
+### Marks
+
+All marks now accept a `shapeRendering` option :
+
+```{r}
+obsplot() |>
+  mark_dot(x = 0, y = 0, r = 100, shapeRendering = "crispEdges")
+```
+
+`strokeWidth` option can be specified as a channel :
+```{r}
+df <- data.frame(value = 1:40, stroke = (1:40) / 15)
+obsplot(df, height = 60) |>
+  mark_dotX(x = "value", strokeWidth = "stroke")
+```
+
+`stroke` and `strokeOpacity` for `text` mark can now be specified as channels :
+
+```{r}
+df <- data.frame(value = LETTERS[1:10], x = 1:10, opacity = seq(0, 1, length.out = 10))
+obsplot(df, height = 60) |>
+  mark_textX(x = "x", text = "value", stroke = "x", strokeOpacity = "opacity")
+```
+
+
+Collapsed domains handling in marks that represent continuous intervals :
+
+```{r}
+obsplot(df) |>
+  mark_rectY(data = c(1, 1, 1), transform_binX())
+```
+
+### Scales
+
+New `sort` options :
+
+```{r}
+data(alphabet)
+obsplot(alphabet) |>
+  mark_barY(
+    x = "letter", y = "frequency",
+    sort = list(x = "y", reverse = TRUE)
+  )
+```
+
+New *threshold* scale type :
+
+```{r}
+obsplot(alphabet) |>
+  mark_barY(
+    x = "letter", y = "frequency", fill = "frequency",
+    sort = list(x = "y", reverse = TRUE)
+  ) |>
+  scale_y(percent = TRUE) |>
+  scale_color(type = "threshold", domain = 0.05)
+```
+
+TODO : New *diverging* color scales options
+
+New axis *line* option :
+
+```{r}
+obsplot() |>
+  opts(grid = TRUE, inset = 6) |>
+  scale_x(domain = "ABCDEFGH") |>
+  scale_y(domain = c(0, 1), line = TRUE)
+```
+
+### Facets
+
+Empty facets are no longer rendered :
+
+```{r}
+library(palmerpenguins)
+obsplot(penguins) |>
+  mark_dot(x = "bill_depth_mm", y = "bill_length_mm") |>
+  mark_frame() |>
+  facet(x = "sex", y = "species") |>
+  opts(grid = TRUE)
+```
+
+### Transforms
+
