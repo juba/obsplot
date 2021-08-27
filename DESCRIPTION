@@ -3,6 +3,7 @@ Type: Package
 Title: Create Charts with 'Observable Plot'
 Version: 0.0.1.9000
 Date: 2021-08-26
+Authors@R: c(
     person(
       "Julien", "Barnier",
       email = "julien.barnier@cnrs.fr",
