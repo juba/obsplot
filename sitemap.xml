@@ -67,6 +67,12 @@
     <loc>https://juba.github.io/obsplot//reference/mark_frame.html</loc>
   </url>
   <url>
+    <loc>https://juba.github.io/obsplot//reference/mark_function.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/mark_svg.html</loc>
+  </url>
+  <url>
     <loc>https://juba.github.io/obsplot//reference/metros.html</loc>
   </url>
   <url>
@@ -137,5 +143,8 @@
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//articles/introduction.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//articles/plot_changelog.html</loc>
   </url>
 </urlset>

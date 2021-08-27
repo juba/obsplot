@@ -5,7 +5,8 @@ articles:
   gallery_marks: gallery_marks.html
   gallery_transforms: gallery_transforms.html
   introduction: introduction.html
-last_built: 2021-08-27T10:07Z
+  plot_changelog: plot_changelog.html
+last_built: 2021-08-27T16:47Z
 urls:
   reference: https://juba.github.io/obsplot//reference
   article: https://juba.github.io/obsplot//articles
