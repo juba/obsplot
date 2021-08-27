@@ -1,4 +1,4 @@
-# obsplot 0.0.1.9000
+# obsplot (development version)
 
 * Default height and width values are now set to "auto"
 * Add gear menu and SVG export
