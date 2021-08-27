@@ -4,7 +4,7 @@ author: "Julien Barnier"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
-    fig_width: 8
+    fig_width: 7
     fig_height: 4.5
     toc: true
 vignette: >

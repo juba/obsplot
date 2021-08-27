@@ -11,7 +11,7 @@
 #' @export
 obsplot <- function(
   data = NULL,
-  width = NULL, height = NULL,
+  width = "auto", height = "auto",
   menu = TRUE,
   elementId = NULL, ...) {
 

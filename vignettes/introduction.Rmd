@@ -4,7 +4,7 @@ author: "Julien Barnier"
 date: "`r Sys.Date()`"
 output:
   rmarkdown::html_vignette:
-    fig_width: 8
+    fig_width: 7
     fig_height: 4.5
     toc: true
 vignette: >
@@ -397,7 +397,7 @@ obsplot(metros) |>
 
 Plot sizing can be specified by giving `height` and `width` arguments in `obsplot()`. 
 
-If `width` and `height` are not specified, the chart dimensions in pixels will be determined by Observable Plot. Note that these chart dimensions may not be the same as the HTML widget dimensions, which can produce big margins :
+The default `width` and `height` value is `"auto"` : in this case height and width are computed by `htmlwidgets` and passed to Observable Plot, which should give a plot adjusted to its container's size :
 
 ```{r}
 obsplot(metros) |>
@@ -411,14 +411,14 @@ obsplot(metros, height = 60) |>
   mark_tickX(x = "POP_2015", strokeOpacity = .2)
 ```
 
-Finally, the special value `"auto"` can be used, in this case height and width are computed by `htmlwidgets` and passed to Observable Plot :
+Finally, when `height` and `width` are set to `NULL`, the chart dimensions in pixels will be determined by Observable Plot. Note that these dimensions may not be the same as the HTML widget dimensions, which can produce big margins :
 
 ```{r}
-obsplot(penguins, height = "auto", width = "auto") |>
+obsplot(penguins, height = NULL, width = NULL) |>
   mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex")
 ```
 
-When `obsplot` is used in a Shiny app with a responsive layout such as `fluidPage`, it is recommended to use `"auto"` for width and height so that the chart will redraw itself accordingly when its container is resized.
+When `obsplot` is used in a Shiny app with a responsive layout such as `fluidPage`, it is recommended to use `"auto"` (the default) at least for width so that the chart will redraw itself accordingly when its container is resized.
 
 ### Styling
 
