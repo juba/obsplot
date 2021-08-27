@@ -183,11 +183,15 @@ transform_ <- function(transform_type, outputs, options) {
 
 # From a list of arguments, returns the first one as output and the rest as options
 get_outputs_options <- function(...) {
-    outputs <- list(...)[1]
+    opts <- list(...)
+    if (length(opts) == 0) {
+        return(list(outputs = list(), options = list()))
+    }
+    outputs <- opts[1]
     if (is.list(outputs[[1]])) {
         outputs <- outputs[[1]]
     }
-    options <- list(...)[-1]
+    options <- opts[-1]
     if (length(options) >= 1 && is.list(options[[1]])) {
         options <- options[[1]]
     }
@@ -195,9 +199,12 @@ get_outputs_options <- function(...) {
 }
 
 # Returns the passed arguments as a list, unless the first argument is itself a list.
-# In this case, returns the first argument.S
+# In this case, returns the first argument.
 get_options <- function(...) {
     options <- list(...)
+    if (length(options) == 0) {
+        return(list())
+    }
     if (is.list(options[[1]])) {
         options <- options[[1]]
     }

@@ -89,7 +89,7 @@ export class Obsplot {
             if (mark.transform !== undefined && mark.transform !== null) {
                 mark.opts = {...Obsplot.call_transform(mark.transform), ...mark.opts}
             }
-            
+
             return mark_fun.call(null, data, mark.opts)
         })
 
@@ -151,11 +151,22 @@ export class Obsplot {
 
         const trans_fun = Plot[transform.transform_type];
         let trans_result = {};
+        // Check if options or outputs == [], 
+        // as jsonlite::toJSON convert list() to [] instead of {}
+        if (Array.isArray(transform.options) && transform.options.length == 0) {
+            transform.options = {}
+        }
+        if (Array.isArray(transform.outputs) && transform.outputs.length == 0) {
+            transform.outputs = {}
+        }
+        
         // Recursive call to compose transforms : if options is a transform,
         // apply it first
         if (transform.options.transform_type) {
             transform.options = Obsplot.call_transform(transform.options)
         }
+
+        // Call transform function
         if (transform.outputs === null) {
             // transform with options only
             trans_result = trans_fun.call(null, transform.options);
