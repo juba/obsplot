@@ -266,6 +266,29 @@ mark_frame <- function(g, fill = "none", ...) {
     mark_("frame", g, mark_channels = NULL, fill = fill, ...)
 }
 
+#' Add an SVG element to an obsplot
+#'
+#' @param g an obsplot object
+#' @param svg SVG to add, as a character string
+#' @param ... options passed to define the mark
+#' @export
+
+mark_svg <- function(g, svg, ...) {
+    f_code <- paste0("() => svg`", svg, "`")
+    f <- htmlwidgets::JS(f_code)
+    mark_function(g, f)
+}
+
+#' Add a render function mark to an obsplot
+#'
+#' @param g an obsplot object
+#' @param f render function, defined with `htmlwidgets::JS()`
+#' @param ... options passed to define the mark
+#' @export
+
+mark_function <- function(g, f, ...) {
+    mark_("function", g, mark_channels = NULL, fun = f, ...)
+}
 
 mark_ <- function(mark_type, g, mark_channels, ...) {
 

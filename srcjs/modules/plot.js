@@ -63,11 +63,16 @@ export class Obsplot {
 
         return this.marks.map((mark) => {
             
+            // Render function mark
+            if (["function"].includes(mark.type)) {
+                return mark.opts.fun;
+            }
+
             const mark_fun = Plot[mark.type];
             
             // Decorations mark
             if (["frame"].includes(mark.type)) {
-                return mark_fun.call(null, mark.opts)
+                return mark_fun.call(null, mark.opts);
             }
             
             // Mark data
