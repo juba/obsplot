@@ -8,7 +8,7 @@ output:
     fig_height: 4.5
     toc: true
 vignette: >
-  %\VignetteIndexEntry{Introduction to obsplot}
+  %\VignetteIndexEntry{obsplot Gallery : Plot changelog}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
