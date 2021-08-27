@@ -430,6 +430,16 @@ obsplot(penguins) |>
   style(background = "#333", color = "#FFF", `font-family` = "serif")
 ```
 
+### Gear menu
+
+By default, a "gear" menu is added on the right side of the plots with additional features such as SVG export. This can be disabled by specifying `menu = FALSE` :
+
+```{r}
+obsplot(penguins, menu = FALSE) |>
+  mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex")
+```
+
+
 
 ## Notes
 

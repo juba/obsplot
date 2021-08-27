@@ -39,7 +39,7 @@ export class Obsplot {
             console.log(p);
         } 
         this.el.append(p);
-        if (do_add_menu) this.add_menu();
+        if (do_add_menu && this.opts.menu) this.add_menu();
     }
 
     destroy() {
