@@ -138,7 +138,14 @@
     <p>Create a new obsplot</p>
     </div>
 
-    <pre class="usage"><span class='fu'>obsplot</span><span class='op'>(</span>data <span class='op'>=</span> <span class='cn'>NULL</span>, width <span class='op'>=</span> <span class='cn'>NULL</span>, height <span class='op'>=</span> <span class='cn'>NULL</span>, elementId <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>obsplot</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='cn'>NULL</span>,
+  width <span class='op'>=</span> <span class='st'>"auto"</span>,
+  height <span class='op'>=</span> <span class='st'>"auto"</span>,
+  menu <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  elementId <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,11 +156,15 @@
     </tr>
     <tr>
       <th>width</th>
-      <td><p>plot width. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide.</p></td>
+      <td><p>plot width. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide</p></td>
     </tr>
     <tr>
       <th>height</th>
-      <td><p>plot height. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide.</p></td>
+      <td><p>plot height. Use NULL to let Plot decide, or "auto" to let htmlwidgets decide</p></td>
+    </tr>
+    <tr>
+      <th>menu</th>
+      <td><p>if TRUE, display a gear menu aside the plot with additional features</p></td>
     </tr>
     <tr>
       <th>elementId</th>
