@@ -106,7 +106,32 @@ obsplot(alphabet) |>
   scale_color(type = "threshold", domain = 0.05)
 ```
 
-TODO : New *diverging* color scales options
+New *diverging* color scales options :
+
+```{r}
+data(gistemp)
+g <- obsplot(gistemp) |>
+  mark_dot(x = "Date", y = "Anomaly", stroke = "Anomaly") |>
+  mark_ruleY(0) |>
+  opts(grid = TRUE)
+
+g |>
+  scale_color(
+    type = "diverging", scheme = "BuRd"
+  )
+```
+
+```{r}
+g |>
+  scale_color(
+    type = "diverging", scheme = "BuRd", symmetric = FALSE
+  )
+```
+
+```{r}
+g |>
+  scale_color(type = "diverging-sqrt")
+```
 
 New axis *line* option :
 
@@ -132,3 +157,46 @@ obsplot(penguins) |>
 
 ### Transforms
 
+New *filter*, *sort* and *reverse* options to bin and group transforms *outputs* objects :
+
+```{r}
+data(sfcases)
+df <- sfcases |> filter(case_disposition == "Death")
+obsplot(df) |>
+  mark_areaY(
+    transform_binX(
+      list(y = "sum", filter = NULL),
+      x = "specimen_collection_date",
+      y = "case_count",
+      fill = "transmission_category",
+      curve = "step",
+      thresholds = JS("d3.utcWeek")
+    )
+  ) |>
+  mark_ruleY(0)
+```
+
+New reducers in *bin* and *group* transforms :
+
+```{r}
+obsplot(trends2020, height = 900) |>
+  mark_areaY(x = "week", y = "interest", sort = list(fy = "y", reduce = "max-index")) |>
+  facet(y = "search", marginLeft = 160) |>
+  opts(label = NULL) |>
+  scale_x(axis = "top", label = NULL) |>
+  scale_y(axis = NULL, label = NULL)
+```
+
+TODO :
+```{r}
+obsplot(gistemp) |>
+  mark_ruleY(0) |>
+  mark_line(transform_windowY(24, list(x = "Date", y = "Anomaly")))
+```
+
+TODO :
+```{r}
+obsplot(penguins) |>
+  mark_dot(x = "bill_depth_mm", y = "bill_length_mm", stroke = "sex") |>
+  opts(label = NULL)
+```
