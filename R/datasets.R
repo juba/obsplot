@@ -114,3 +114,10 @@
 #' @source \url{https://observablehq.com/@observablehq/plot-stack}
 "iowa"
 
+#' Sample data from Observable Plot changelog
+#' @source \url{https://observablehq.com/@visnup/sf-covid-data}
+"sfcases"
+
+#' Sample data from Observable Plot changelog
+#' @source \url{https://observablehq.com/@ben-tanen/the-relentless-2020-news-cycle-in-one-chart}
+"trends2020"
