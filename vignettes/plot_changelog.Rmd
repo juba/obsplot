@@ -184,8 +184,8 @@ obsplot(trends2020, height = 900) |>
   mark_areaY(x = "week", y = "interest", sort = list(fy = "y", reduce = "max-index")) |>
   facet(y = "search", marginLeft = 160) |>
   opts(label = NULL) |>
-  scale_x(axis = "top", label = NULL) |>
-  scale_y(axis = NULL, label = NULL)
+  scale_x(axis = "top") |>
+  scale_y(axis = NULL)
 ```
 
 *k* can be passed directly as first argument to window transforms :
