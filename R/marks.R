@@ -290,6 +290,7 @@ mark_function <- function(g, f, ...) {
     mark_("function", g, mark_channels = NULL, fun = f, ...)
 }
 
+
 mark_ <- function(mark_type, g, mark_channels, ...) {
 
     opts <- list(...)
