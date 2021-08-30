@@ -5,9 +5,9 @@
 \alias{transform_normalizeY}
 \title{Define an Observable Plot transform with basis and options}
 \usage{
-transform_normalizeX(basis, ...)
+transform_normalizeX(basis = NULL, ...)
 
-transform_normalizeY(basis, ...)
+transform_normalizeY(basis = NULL, ...)
 }
 \arguments{
 \item{basis}{a basis method name}

@@ -11,21 +11,21 @@
 \alias{transform_stackX2}
 \title{Define an Observable Plot transform with two options objects}
 \usage{
-transform_windowX(spec, ...)
+transform_windowX(spec = NULL, ...)
 
-transform_windowY(spec, ...)
+transform_windowY(spec = NULL, ...)
 
-transform_stackY(spec, ...)
+transform_stackY(spec = NULL, ...)
 
-transform_stackY1(spec, ...)
+transform_stackY1(spec = NULL, ...)
 
-transform_stackY2(spec, ...)
+transform_stackY2(spec = NULL, ...)
 
-transform_stackX(spec, ...)
+transform_stackX(spec = NULL, ...)
 
-transform_stackX1(spec, ...)
+transform_stackX1(spec = NULL, ...)
 
-transform_stackX2(spec, ...)
+transform_stackX2(spec = NULL, ...)
 }
 \arguments{
 \item{spec}{specific options}
