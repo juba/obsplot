@@ -16,7 +16,7 @@ opts <- function(g, ...) {
     if (is.null(g$x$opts)) {
         updated_opts <- new_opts
     } else {
-        updated_opts <- utils::modifyList(g$x$opts, new_opts)
+        updated_opts <- utils::modifyList(g$x$opts, new_opts, keep.null = TRUE)
     }
 
     g$x$opts <- updated_opts
