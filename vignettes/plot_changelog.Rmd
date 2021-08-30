@@ -23,6 +23,7 @@ knitr::opts_chunk$set(
 )
 options("obsplot_menu" = FALSE)
 library(obsplot)
+library(dplyr)
 ```
 
 This document tries to reproduce charts included in the [Observable Plot Changelog](https://github.com/observablehq/plot/blob/main/CHANGELOG.md).
@@ -187,16 +188,10 @@ obsplot(trends2020, height = 900) |>
   scale_y(axis = NULL, label = NULL)
 ```
 
-TODO :
+*k* can be passed directly as first argument to window transforms :
+
 ```{r}
 obsplot(gistemp) |>
   mark_ruleY(0) |>
   mark_line(transform_windowY(24, list(x = "Date", y = "Anomaly")))
-```
-
-TODO :
-```{r}
-obsplot(penguins) |>
-  mark_dot(x = "bill_depth_mm", y = "bill_length_mm", stroke = "sex") |>
-  opts(label = NULL)
 ```
