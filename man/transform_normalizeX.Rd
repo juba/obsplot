@@ -3,57 +3,17 @@
 \name{transform_normalizeX}
 \alias{transform_normalizeX}
 \alias{transform_normalizeY}
-\alias{transform_windowX}
-\alias{transform_windowY}
-\alias{transform_selectFirst}
-\alias{transform_selectLast}
-\alias{transform_selectMinX}
-\alias{transform_selectMaxX}
-\alias{transform_selectMinY}
-\alias{transform_selectMaxY}
-\alias{transform_stackY}
-\alias{transform_stackY1}
-\alias{transform_stackY2}
-\alias{transform_stackX}
-\alias{transform_stackX1}
-\alias{transform_stackX2}
-\title{Define an Observable Plot transform with options only}
+\title{Define an Observable Plot transform with basis and options}
 \usage{
-transform_normalizeX(...)
+transform_normalizeX(basis, ...)
 
-transform_normalizeY(...)
-
-transform_windowX(...)
-
-transform_windowY(...)
-
-transform_selectFirst(...)
-
-transform_selectLast(...)
-
-transform_selectMinX(...)
-
-transform_selectMaxX(...)
-
-transform_selectMinY(...)
-
-transform_selectMaxY(...)
-
-transform_stackY(...)
-
-transform_stackY1(...)
-
-transform_stackY2(...)
-
-transform_stackX(...)
-
-transform_stackX1(...)
-
-transform_stackX2(...)
+transform_normalizeY(basis, ...)
 }
 \arguments{
+\item{basis}{a basis method name}
+
 \item{...}{transform options}
 }
 \description{
-Define an Observable Plot transform with options only
+Define an Observable Plot transform with basis and options
 }

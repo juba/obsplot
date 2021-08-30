@@ -151,28 +151,34 @@ export class Obsplot {
 
         const trans_fun = Plot[transform.transform_type];
         let trans_result = {};
-        // Check if options or outputs == [], 
+        // Check if options or arg1 is [], 
         // as jsonlite::toJSON convert list() to [] instead of {}
         if (Array.isArray(transform.options) && transform.options.length == 0) {
-            transform.options = {}
+            transform.options = {};
         }
-        if (Array.isArray(transform.outputs) && transform.outputs.length == 0) {
-            transform.outputs = {}
+        if (Array.isArray(transform.arg1) && transform.arg1.length == 0) {
+            transform.arg1 = {}
         }
         
         // Recursive call to compose transforms : if options is a transform,
         // apply it first
-        if (transform.options.transform_type) {
+        if (transform.options && transform.options.transform_type) {
             transform.options = Obsplot.call_transform(transform.options)
         }
-
+        if (transform.arg1 && transform.arg1.transform_type) {
+            transform.arg1 = Obsplot.call_transform(transform.arg1)
+        }
+        
         // Call transform function
-        if (transform.outputs === null) {
+        if (transform.arg1 === null) {
             // transform with options only
             trans_result = trans_fun.call(null, transform.options);
+        } else if (transform.options === null) {
+            // transform with arg1 only
+            trans_result = trans_fun.call(null, transform.arg1);
         } else {
-            // transform with outputs and options
-            trans_result = trans_fun.call(null, transform.outputs, transform.options);
+            // transform with arg1 (outputs, inputs, map...) and options
+            trans_result = trans_fun.call(null, transform.arg1, transform.options);
         }
         return trans_result;
 
