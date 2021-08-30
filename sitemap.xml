@@ -103,6 +103,9 @@
     <loc>https://juba.github.io/obsplot//reference/seattle.html</loc>
   </url>
   <url>
+    <loc>https://juba.github.io/obsplot//reference/sfcases.html</loc>
+  </url>
+  <url>
     <loc>https://juba.github.io/obsplot//reference/sftemp.html</loc>
   </url>
   <url>
@@ -130,7 +133,16 @@
     <loc>https://juba.github.io/obsplot//reference/transform_normalizeX.html</loc>
   </url>
   <url>
+    <loc>https://juba.github.io/obsplot//reference/transform_selectFirst.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/transform_windowX.html</loc>
+  </url>
+  <url>
     <loc>https://juba.github.io/obsplot//reference/travelers.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot//reference/trends2020.html</loc>
   </url>
   <url>
     <loc>https://juba.github.io/obsplot//reference/unemployment.html</loc>

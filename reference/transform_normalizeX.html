@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Define an Observable Plot transform with options only — transform_normalizeX • obsplot</title>
+<title>Define an Observable Plot transform with basis and options — transform_normalizeX • obsplot</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Define an Observable Plot transform with options only — transform_normalizeX" />
-<meta property="og:description" content="Define an Observable Plot transform with options only" />
+<meta property="og:title" content="Define an Observable Plot transform with basis and options — transform_normalizeX" />
+<meta property="og:description" content="Define an Observable Plot transform with basis and options" />
 
 
 
@@ -132,50 +132,26 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Define an Observable Plot transform with options only</h1>
+    <h1>Define an Observable Plot transform with basis and options</h1>
     <small class="dont-index">Source: <a href='https://github.com/juba/obsplot/blob/master/R/transforms.R'><code>R/transforms.R</code></a></small>
     <div class="hidden name"><code>transform_normalizeX.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Define an Observable Plot transform with options only</p>
+    <p>Define an Observable Plot transform with basis and options</p>
     </div>
 
-    <pre class="usage"><span class='fu'>transform_normalizeX</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>transform_normalizeX</span><span class='op'>(</span>basis <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>transform_normalizeY</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_windowX</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_windowY</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_selectFirst</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_selectLast</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_selectMinX</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_selectMaxX</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_selectMinY</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_selectMaxY</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_stackY</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_stackY1</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_stackY2</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_stackX</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_stackX1</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>transform_stackX2</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>transform_normalizeY</span><span class='op'>(</span>basis <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>basis</th>
+      <td><p>a basis method name</p></td>
+    </tr>
     <tr>
       <th>...</th>
       <td><p>transform options</p></td>
