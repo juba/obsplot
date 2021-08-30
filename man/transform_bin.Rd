@@ -9,7 +9,7 @@
 \alias{transform_groupY}
 \alias{transform_groupZ}
 \alias{transform_map}
-\title{Define an Observable Plot transform outputs and options}
+\title{Define an Observable Plot transform with outputs and options}
 \usage{
 transform_bin(...)
 
@@ -31,7 +31,7 @@ transform_map(...)
 \item{...}{transform outputs and options}
 }
 \description{
-Define an Observable Plot transform outputs and options
+Define an Observable Plot transform with outputs and options
 }
 \details{
 the first argument passed to the function is passed as outputs to the JavaScript transform. It can be a single value or a list.
