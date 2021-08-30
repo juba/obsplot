@@ -170,7 +170,9 @@ export class Obsplot {
         }
         
         // Call transform function
-        if (transform.arg1 === null) {
+        if (transform.arg1 === null && transform.options === null) {
+            trans_result = trans_fun.call(null, undefined, undefined);
+        } else if (transform.arg1 === null) {
             // transform with options only
             trans_result = trans_fun.call(null, transform.options);
         } else if (transform.options === null) {
