@@ -107,7 +107,7 @@ get_defined_channels <- function(opts, mark_channels) {
 # Channels available for every mark
 universal_channels <- function() {
     data.frame(
-        channel = c("fill", "fillOpacity", "stroke", "strokeOpacity"),
-        status = c("opt", "opt", "opt", "opt")
+        channel = c("fill", "fillOpacity", "stroke", "strokeOpacity", "strokeWidth"),
+        status = c("opt", "opt", "opt", "opt", "opt")
     )
 }
