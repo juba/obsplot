@@ -1,6 +1,6 @@
 # OUTPUTS AND OPTIONS-----------------------------------------------------
 
-#' Define an Observable Plot transform outputs and options
+#' Define an Observable Plot transform with outputs and options
 #'
 #' @param ... transform outputs and options
 #' @details the first argument passed to the function is passed as outputs to the JavaScript transform. It can be a single value or a list.

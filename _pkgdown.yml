@@ -22,6 +22,8 @@ reference:
   - '`transform_bin`'
   - '`transform_mapX`'
   - '`transform_normalizeX`'
+  - '`transform_windowX`'
+  - '`transform_selectFirst`'
 - title: Options
   desc: Main plot options
   contents:
