@@ -169,8 +169,8 @@ mark_rect <- function(g, ...) {
 #' @export
 mark_rectX <- function(g, ...) {
     channels <- data.frame(
-        channel = c("x1",  "y1",  "x2",  "y2",  "x"),
-        status  = c("opt", "req", "opt", "req", "opt")
+        channel = c("x1",  "y1",  "x2",  "y2",  "x",   "y"),
+        status  = c("opt", "opt", "opt", "opt", "opt", "opt")
     )
     mark_("rectX", g, channels, ...)
 }
@@ -179,8 +179,8 @@ mark_rectX <- function(g, ...) {
 #' @export
 mark_rectY <- function(g, ...) {
     channels <- data.frame(
-        channel = c("x1",  "y1",  "x2",  "y2",  "y"),
-        status  = c("req", "opt", "req", "opt", "opt")
+        channel = c("x1",  "y1",  "x2",  "y2",  "y",   "x"),
+        status  = c("opt", "opt", "opt", "opt", "opt", "opt")
     )
     mark_("rectY", g, channels, ...)
 }
@@ -275,7 +275,7 @@ mark_frame <- function(g, fill = "none", ...) {
 
 mark_svg <- function(g, svg, ...) {
     f_code <- paste0("() => svg`", svg, "`")
-    f <- htmlwidgets::JS(f_code)
+    f <- JS(f_code)
     mark_function(g, f)
 }
 
@@ -295,7 +295,7 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
 
     opts <- list(...)
 
-    # Get unnamed opts and removed them
+    # Extract unnamed opts and removed them from opts
     if (is.null(names(opts))) {
         unnamed_opts <- opts
         opts <- list()
@@ -306,31 +306,22 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
 
     if (length(unnamed_opts) > 2) stop("a mark cannot accept more than two unnamed arguments")
 
-    # Get transform from unnamed opts
-    transform <- Find(
+    # Get transform
+    transform <- opts$transform %||% Find(
         function(v) inherits(v, "obsplot_transform"),
         unnamed_opts, nomatch = NULL
     )
-    # Unless it has been specifically given in named opts
-    if (!is.null(opts$transform)) {
-        transform <- opts$transform
-        opts$transform <- NULL
-    }
+    opts$transform <- NULL
 
-    # Get data from unnamed opts
-    data <- Find(
+    # Get data
+    data <- opts$data %||% Find(
         function(v) !inherits(v, "obsplot_transform"),
         unnamed_opts, nomatch = NULL
     )
-    # Unless it has been specifically given in named opts
-    if (!is.null(opts$data)) {
-        data <- opts$data
-        opts$data <- NULL
-    }
+    opts$data <- NULL
 
     # Check channels values
-    check_data <- data
-    if (is.null(data)) check_data <- g$x$data$data
+    check_data <- data %||%  g$x$data$data
     check_channels(
         check_data = check_data,
         data = data,
@@ -341,21 +332,23 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
 
     # Data channels
     data_channels <- get_data_channels(opts, mark_channels)
-    if (length(data_channels) >= 1) {
-        # Automatically add indexed data argument
+
+    # Automatically add indexed data argument if needed
+    if (length(data_channels) >= 1 && is.null(data)) {
         lengths <- sapply(data_channels, function(chan) length(opts[[chan]]))
         max_length <- max(lengths, na.rm = TRUE)
-        if (is.null(data)) data <- seq_len(max_length)
-        # Add metadata to data channels
-        for (chan in data_channels) {
-            if (length(opts[[chan]]) == 1) {
-                rep_length <- nrow(data)
-                if(is.null(rep_length)) rep_length <- length(data)
-                opts[[chan]] <- rep(opts[[chan]], rep_length)
-            }
-            if (!is.null(opts[[chan]])) opts[[chan]] <- add_metadata(opts[[chan]])
-        }
+        data <- seq_len(max_length)
     }
+
+    # Add metadata to data channels
+    for (chan in data_channels) {
+        if (length(opts[[chan]]) == 1) {
+            rep_length <- nrow(data) %||% length(data)
+            opts[[chan]] <- rep(opts[[chan]], rep_length)
+        }
+        if (!is.null(opts[[chan]])) opts[[chan]] <- add_metadata(opts[[chan]])
+    }
+
     # Add metadata to data
     data <- add_metadata(data)
 
