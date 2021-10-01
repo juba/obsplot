@@ -50,20 +50,23 @@ test_that("color and column channels", {
   expect_error(g |> mark_dot(x = JS("v87"), y = JS("v200"), fill = "red"), NA)
 })
 
-test_that("data channels", {
-  expect_error(g |> mark_dot(data, x = 1:5, y = 1:5), "can't provide both a data object and data channels")
-  expect_error(g |> mark_dot(x = 1:6, y = 1:5), "all data channels must be of the same length")
+test_that("vector channels", {
+  expect_error(g |> mark_dot(data, x = 1:5, y = 1:5), "can't provide both a data object and vector channels")
+  expect_error(g |> mark_dot(x = 1:6, y = 1:5), "all vector channels must be of the same length")
   g2 <- g |> mark_dot(x = 1:5, y = 1:5)
-  expect_equal(g2$x$marks[[1]]$vector_channels, c("x", "y"))
+  expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "y"))
   g2 <- g |> mark_dot(x = 1, r = 1:5)
-  expect_equal(g2$x$marks[[1]]$vector_channels, c("x", "r"))
-  g2 <- g |> mark_dot(x = 1, y = 2)
-  expect_equal(g2$x$marks[[1]]$vector_channels, c("x", "y"))
+  expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "r"))
+  # Not a vector channel if not a channel
+  g2 <- g |> mark_dot(x = 1, r = 1:5, z = 3:4)
+  expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "r"))
+    g2 <- g |> mark_dot(x = 1, y = 2)
+  expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "y"))
   expect_error(g |> mark_dot(x = c("a", "b"), y = c("d", "e")), NA)
   expect_error(g |> mark_dot(x = "a", y = "d"), "is not a column of data")
   # Single numerical r, strokeOpacity or fillOpacity are not data channels
   g2 <- g |> mark_dot(x = 1:5, y = 2, fillOpacity = 0.5, strokeOpacity = 10, fill = 2, r = 100)
-  expect_equal(g2$x$marks[[1]]$vector_channels, c("x", "y", "fill"))
+  expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "y", "fill"))
   g2 <- g |> mark_dot(x = 1:5, y = 2, fillOpacity = 1:5, strokeOpacity = 1:5, r = 2:6, fill = 2)
-  expect_equal(g2$x$marks[[1]]$vector_channels, c("x", "y", "r", "fill", "fillOpacity", "strokeOpacity"))
+  expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "y", "r", "fill", "fillOpacity", "strokeOpacity"))
 })

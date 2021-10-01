@@ -253,43 +253,51 @@ mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
     )
     opts$data <- NULL
 
+    # Get vector channels and remove them from opts
+    vector_channels <- get_vector_channels(opts, mark_channels)
+
+    opts <- opts[!(names(opts) %in% names(vector_channels))]
+
     # Check channels values
     check_data <- data %||%  g$x$data$data
     check_mark(
         data = check_data,
         mark_channels = mark_channels,
         req_channels = req_channels,
+        vector_channels = vector_channels,
         mark_opts = opts,
         mark_has_data = !is.null(data),
         mark_has_transform = !is.null(transform)
     )
 
-    # Data channels (vectors)
-    vector_channels <- get_vector_channels(opts, mark_channels)
-
     # Automatically add indexed data argument if needed
     if (length(vector_channels) >= 1 && is.null(data)) {
-        lengths <- sapply(vector_channels, \(chan) length(opts[[chan]]))
-        max_length <- max(lengths, na.rm = TRUE)
-        data <- seq_len(max_length)
+        lengths <- purrr::map_int(vector_channels, length)
+        data <- seq_len(max(lengths, na.rm = TRUE))
     }
 
-    # Add metadata to data channels
-    for (chan in vector_channels) {
-        if (length(opts[[chan]]) == 1) {
-            rep_length <- nrow(data) %||% length(data)
-            opts[[chan]] <- rep(opts[[chan]], rep_length)
+    vector_channels <- purrr::map(
+        vector_channels,
+        \(v) {
+            # rep() if needed
+            if (length(v) == 1) {
+                rep_length <- nrow(data) %||% length(data)
+                v <- rep(v, rep_length)
+            }
+            # Add metadata
+            add_metadata(v)
         }
-        if (!is.null(opts[[chan]])) opts[[chan]] <- add_metadata(opts[[chan]])
-    }
+    )
 
-    # Add metadata to data
+    # Add metadata to data object
     data <- add_metadata(data)
 
     mark <- list(
         type = mark_type,
-        data = data, vector_channels = vector_channels,
-        transform = transform, opts = opts
+        data = data,
+        vector_channels = vector_channels,
+        transform = transform,
+        opts = opts
     )
     g$x$marks <- append(g$x$marks, list(mark))
 
