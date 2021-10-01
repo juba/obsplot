@@ -308,14 +308,14 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
 
     # Get transform
     transform <- opts$transform %||% Find(
-        function(v) inherits(v, "obsplot_transform"),
+        \(v) inherits(v, "obsplot_transform"),
         unnamed_opts, nomatch = NULL
     )
     opts$transform <- NULL
 
     # Get data
     data <- opts$data %||% Find(
-        function(v) !inherits(v, "obsplot_transform"),
+        \(v) !inherits(v, "obsplot_transform"),
         unnamed_opts, nomatch = NULL
     )
     opts$data <- NULL
@@ -330,12 +330,12 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
         has_transform = !is.null(transform)
     )
 
-    # Data channels
+    # Data channels (vectors)
     data_channels <- get_data_channels(opts, mark_channels)
 
     # Automatically add indexed data argument if needed
     if (length(data_channels) >= 1 && is.null(data)) {
-        lengths <- sapply(data_channels, function(chan) length(opts[[chan]]))
+        lengths <- sapply(data_channels, \(chan) length(opts[[chan]]))
         max_length <- max(lengths, na.rm = TRUE)
         data <- seq_len(max_length)
     }

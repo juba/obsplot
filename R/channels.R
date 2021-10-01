@@ -35,7 +35,7 @@ check_channels <- function(check_data, data, mark_channels, mark_opts, has_trans
     # Check data channels
     data_chans <- get_data_channels(mark_opts, mark_channels)
     if (length(data_chans) >= 1) {
-        lengths <- sapply(data_chans, function(chan) length(mark_opts[[chan]]))
+        lengths <- sapply(data_chans, \(chan) length(mark_opts[[chan]]))
         if (!is.null(data) && any(lengths > 1)) stop(" can't provide both a data object and data channels")
         lengths <- lengths[lengths > 1]
         if (length(unique(lengths)) > 1) stop(" all data channels must be of the same length or of length 1")
@@ -92,17 +92,19 @@ get_data_channels <- function(opts, mark_channels) {
 # Return channels that are JS calls
 get_js_channels <- function(opts, mark_channels) {
     channels <- get_defined_channels(opts, mark_channels)
-    Filter(function(chan) {
-        inherits(opts[[chan]], "JS_EVAL")
-    }, channels)
+    Filter(
+        \(chan) inherits(opts[[chan]], "JS_EVAL"),
+        channels
+    )
 }
 
 # Return channels that are character strings
 get_character_channels <- function(opts, mark_channels) {
     channels <- get_defined_channels(opts, mark_channels)
-    Filter(function(chan) {
-        is.character(opts[[chan]]) && length(opts[[chan]]) == 1 && !(inherits(opts[[chan]], "JS_EVAL"))
-    }, channels)
+    Filter(
+        \(chan) is.character(opts[[chan]]) && length(opts[[chan]]) == 1 && !(inherits(opts[[chan]], "JS_EVAL")),
+        channels
+    )
 }
 
 # Return the defined channels names
