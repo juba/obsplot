@@ -33,7 +33,7 @@ check_channels <- function(check_data, data, mark_channels, mark_opts, has_trans
     }
 
     # Check data channels
-    data_chans <- get_data_channels(mark_opts, mark_channels)
+    data_chans <- get_vector_channels(mark_opts, mark_channels)
     if (length(data_chans) >= 1) {
         lengths <- sapply(data_chans, \(chan) length(mark_opts[[chan]]))
         if (!is.null(data) && any(lengths > 1)) stop(" can't provide both a data object and data channels")
@@ -65,23 +65,23 @@ is_css_color <- function(str) {
 }
 
 # Return channels that are data vectors
-get_data_channels <- function(opts, mark_channels) {
-    # Options that are not data channels when of length 1
-    not_data_length1 <- c(
+get_vector_channels <- function(opts, mark_channels) {
+    # Options that are not vector channels when of length 1
+    not_vector_length1 <- c(
         "fillOpacity", "strokeOpacity", "r",
         "fontSize", "rotate"
     )
     channels <- get_defined_channels(opts, mark_channels)
     Filter(function(chan) {
         value <- opts[[chan]]
-        # Channels explicitly marked as data
+        # Channels explicitly marked as vector
         is_data <- attr(value, "obsplot_is_data")
         if (!is.null(is_data) && is_data) return(TRUE)
-        # If channel is radius or opacity and a single number, don't consider it a data channel
-        if (chan %in% not_data_length1 && length(value) == 1 && is.numeric(value))
+        # If channel is radius or opacity and a single number, don't consider it a vector channel
+        if (chan %in% not_vector_length1 && length(value) == 1 && is.numeric(value))
             return(FALSE)
         # Else, vectors of size > 1 or vectors of size 1 but not characters
-        # are considered as data channels
+        # are considered as vector channels
         (is.atomic(value) && length(value) > 1) ||
         (is.atomic(value) && !is.character(value)) ||
         inherits(value, "Date") ||

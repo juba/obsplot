@@ -331,17 +331,17 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
     )
 
     # Data channels (vectors)
-    data_channels <- get_data_channels(opts, mark_channels)
+    vector_channels <- get_vector_channels(opts, mark_channels)
 
     # Automatically add indexed data argument if needed
-    if (length(data_channels) >= 1 && is.null(data)) {
-        lengths <- sapply(data_channels, \(chan) length(opts[[chan]]))
+    if (length(vector_channels) >= 1 && is.null(data)) {
+        lengths <- sapply(vector_channels, \(chan) length(opts[[chan]]))
         max_length <- max(lengths, na.rm = TRUE)
         data <- seq_len(max_length)
     }
 
     # Add metadata to data channels
-    for (chan in data_channels) {
+    for (chan in vector_channels) {
         if (length(opts[[chan]]) == 1) {
             rep_length <- nrow(data) %||% length(data)
             opts[[chan]] <- rep(opts[[chan]], rep_length)
@@ -354,7 +354,7 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
 
     mark <- list(
         type = mark_type,
-        data = data, data_channels = data_channels,
+        data = data, vector_channels = vector_channels,
         transform = transform, opts = opts
     )
     g$x$marks <- append(g$x$marks, list(mark))

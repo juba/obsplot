@@ -130,7 +130,7 @@ obsplot(penguins) |>
 A mark function takes several arguments. The first one is an optional `data` object. If not specified, it is inherited from the one passed to `obsplot`. Other named arguments are called mark constructors and can be of several types :
 
 - a *column channel*, ie a character string giving the name of a column of `data`
-- a *data channel*, ie raw data to be plotted, in general as a vector
+- a *vector channel*, ie raw data to be plotted, in general as a vector
 - a *constant option*, which defines an option (such as size, color...) globally in the same way for all mark elements
 - JavaScript code, defined with the `JS()` function, evaluated at runtime
 
@@ -173,11 +173,11 @@ obsplot() |>
 The rules to determine a channel type are as follows (this may be subject to change in the future):
 
 - If it is a call to `JS()`, it is JavaScript code
-- If it is a vector of length > 1, it is considered as a data channel
-- If it is a single number, it is considered as a data channel except for `r`, `strikeOpacity`,`fillOpacity`, `fontSize` and `rotate`
+- If it is a vector of length > 1, it is considered as a vector channel
+- If it is a single number, it is considered as a vector channel except for `r`, `strikeOpacity`,`fillOpacity`, `fontSize` and `rotate`
 - If it is a single character string, it is considered a column channel except if it is a CSS color for `fill` and `stroke`
 
-You can explicitly specify that a channel is a data channel by using the `as_data()` helper function. In the following example, without `as_data` the code would raise an error as it would look for a `"Paris"` column in the data :
+You can explicitly specify that a channel is a vector channel by using the `as_data()` helper function. In the following example, without `as_data` the code would raise an error as it would look for a `"Paris"` column in the data :
 
 ```{r}
 obsplot(metros) |>
@@ -186,7 +186,7 @@ obsplot(metros) |>
   mark_text(x = 9000000, y = 10600000, text = as_data("Paris"), dy = -10)
 ```
 
-When a column or data channel is of type `Date` or `POSIXt` in R, it is automatically converted to `Date` in JavaScript, and Observable Plot will take it into account for scale specification :
+When a column or vector channel is of type `Date` or `POSIXt` in R, it is automatically converted to `Date` in JavaScript, and Observable Plot will take it into account for scale specification :
 
 ```{r}
 data(aapl)
@@ -459,8 +459,8 @@ Data conversion from R to JavaScript is handled by `htmlwidgets` via JSON serial
 There are several differences between `obsplot` and Observable Plot, mainly :
 
 - `data` can be declared in `obsplot()` and inherited by the chart marks, whereas in Observable Plot it must be declared for each mark.
-- if a channel is given as a data channel (a vector) and no `data` has been declared, an indexed `data` argument of the same length is automatically added.
-- if a channel is considered as data and of size 1, it will be replicated to the length of the greatest other data channel (if possible).
+- if a channel is given as a vector channel (a vector) and no `data` has been declared, an indexed `data` argument of the same length is automatically added.
+- if a channel is considered as data and of size 1, it will be replicated to the length of the greatest other vector channel (if possible).
 - to force a single element to be considered as data and not as a column name, you must use `as_data()` in `obsplot` instead of `[]` in JavaScript.
 - for transform functions that accept both outputs (or map) and options arguments, the first argument is automatically considered as the output (or the map), whereas in Observable Plot you must specify two distinct objects.
 

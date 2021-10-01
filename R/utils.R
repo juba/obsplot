@@ -19,10 +19,10 @@ to_js_date <- function(date) {
 }
 
 
-#' Tells obsplot that a single value is a data channel, and must be converted to
+#' Tells obsplot that a single value is a vector channel, and must be converted to
 #' an Array in JavaScript
 #'
-#' @param x the object to be considered as a data channel
+#' @param x the object to be considered as a vector channel
 #'
 #' @export
 as_data <- function(x) {

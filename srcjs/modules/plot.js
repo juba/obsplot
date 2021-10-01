@@ -78,9 +78,9 @@ export class Obsplot {
             // Mark data
             const data = Obsplot.convert_data(mark.data) || this.data;
             // Data channels
-            if (mark.data_channels) {
-                if (!Array.isArray(mark.data_channels)) mark.data_channels = [mark.data_channels];
-                mark.data_channels.forEach(chan => 
+            if (mark.vector_channels) {
+                if (!Array.isArray(mark.vector_channels)) mark.vector_channels = [mark.vector_channels];
+                mark.vector_channels.forEach(chan => 
                     mark.opts[chan] = Obsplot.convert_data(mark.opts[chan])
                 )
             }
