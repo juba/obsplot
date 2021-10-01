@@ -484,6 +484,7 @@ You can predefine transform argument in a list for reuse :
 
 ```{r}
 xy <- list(x = "island", y = "species")
+
 obsplot(penguins, height = 100) |>
   mark_cell(
     transform_group(fill = "count", xy)
@@ -498,6 +499,7 @@ But if you want to add new arguments to this predefined list, you'll have to use
 
 ```{r}
 xy <- list(x = "island", y = "species")
+
 obsplot(penguins, height = 100) |>
   mark_cell(
     transform_group(fill = "count", xy)
