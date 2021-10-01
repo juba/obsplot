@@ -1,8 +1,8 @@
 # Channels available for every mark
 universal_channels <- function() {
     data.frame(
-        channel = c("fill", "fillOpacity", "stroke", "strokeOpacity", "strokeWidth", "dx", "dy"),
-        status = c("opt", "opt", "opt", "opt", "opt", "opt", "opt")
+        channel = c("fill", "fillOpacity", "stroke", "strokeOpacity", "strokeWidth", "title"),
+        status = "opt"
     )
 }
 
@@ -69,7 +69,7 @@ get_data_channels <- function(opts, mark_channels) {
     # Options that are not data channels when of length 1
     not_data_length1 <- c(
         "fillOpacity", "strokeOpacity", "r",
-        "fontSize", "rotate", "dx", "dy"
+        "fontSize", "rotate"
     )
     channels <- get_defined_channels(opts, mark_channels)
     Filter(function(chan) {
