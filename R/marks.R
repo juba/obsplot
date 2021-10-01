@@ -7,252 +7,185 @@
 #' to a transform function.
 #' @export
 mark_area <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x1",  "y1",  "x2",  "y2",  "z"),
-        status  = c("req", "req", "opt", "opt", "opt")
-    )
-    mark_("area", g, channels, ...)
+    channels <- c("x1", "y1", "x2", "y2", "z")
+    req_channels <- c("x1", "y1")
+    mark_("area", g, channels, req_channels, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_areaX <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",  "y",    "z"),
-        status  = c("opt", "opt", "opt")
-    )
-    mark_("areaX", g, channels, ...)
+    channels <- c("x", "y", "z")
+    mark_("areaX", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_areaY <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",  "y",    "z"),
-        status  = c("opt", "opt", "opt")
-    )
-    mark_("areaY", g, channels, ...)
+    channels <- c("x", "y", "z")
+    mark_("areaY", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_barX <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x1",  "x2",  "x",   "y"),
-        status  = c("opt", "opt", "opt", "opt")
-    )
-    mark_("barX", g, channels, ...)
+    channels <- c("x1", "x2", "x", "y")
+    mark_("barX", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_barY <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("y1",  "y2",  "x",   "y"),
-        status  = c("opt", "opt", "opt", "opt")
-    )
-    mark_("barY", g, channels, ...)
+    channels <- c("y1", "y2", "x", "y")
+    mark_("barY", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_cell <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y"),
-        status  = c("opt", "opt")
-    )
-    mark_("cell", g, channels, ...)
+    channels <- c("x", "y")
+    mark_("cell", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_cellX <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y"),
-        status  = c("opt", "opt")
-    )
-    mark_("cellX", g, channels, ...)
+    channels <- c("x", "y")
+    mark_("cellX", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_cellY <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y"),
-        status  = c("opt", "opt")
-    )
-    mark_("cellY", g, channels, ...)
+    channels <- c("x", "y")
+    mark_("cellY", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_dot <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y",   "r"),
-        status  = c("opt", "opt", "opt")
-    )
-    mark_("dot", g, channels, ...)
+    channels <- c("x", "y", "r")
+    mark_("dot", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_dotX <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y",   "r"),
-        status  = c("opt", "opt", "opt")
-    )
-    mark_("dotX", g, channels, ...)
+    channels <- c("x", "y", "r")
+    mark_("dotX", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_dotY <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y",   "r"),
-        status  = c("opt", "opt", "opt")
-    )
-    mark_("dotY", g, channels, ...)
+    channels <- c("x", "y", "r")
+    mark_("dotY", g, channels, req_channels = NULL, ...)
 }
 
 
 #' @rdname mark_area
 #' @export
 mark_line <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y",   "z"),
-        status  = c("req", "req", "opt")
-    )
-    mark_("line", g, channels, ...)
+    channels <- c("x", "y", "z")
+    req_channels <- c("x", "y")
+    mark_("line", g, channels, req_channels, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_lineX <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y",   "z"),
-        status  = c("opt", "opt", "opt")
-    )
-    mark_("lineX", g, channels, ...)
+    channels <- c("x", "y", "z")
+    mark_("lineX", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_lineY <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y",   "z"),
-        status  = c("opt", "opt", "opt")
-    )
-    mark_("lineY", g, channels, ...)
+    channels <- c("x", "y", "z")
+    mark_("lineY", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_link <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x1",   "y1", "x2",  "y2"),
-        status  = c("req", "req", "req", "req")
-    )
-    mark_("link", g, channels, ...)
+    channels <- c("x1", "y1", "x2", "y2")
+    req_channels <- c("x1", "y1", "x2", "y2")
+    mark_("link", g, channels, req_channels, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_rect <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x1",  "y1",  "x2",  "y2"),
-        status  = c("opt", "opt", "opt", "opt")
-    )
-    mark_("rect", g, channels, ...)
+    channels <- c("x1", "y1", "x2", "y2")
+    mark_("rect", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_rectX <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x1",  "y1",  "x2",  "y2",  "x",   "y"),
-        status  = c("opt", "opt", "opt", "opt", "opt", "opt")
-    )
-    mark_("rectX", g, channels, ...)
+    channels <- c("x1", "y1", "x2", "y2", "x", "y")
+    mark_("rectX", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_rectY <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x1",  "y1",  "x2",  "y2",  "y",   "x"),
-        status  = c("opt", "opt", "opt", "opt", "opt", "opt")
-    )
-    mark_("rectY", g, channels, ...)
+    channels <- c("x1", "y1", "x2", "y2", "y", "x")
+    mark_("rectY", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_ruleX <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y1",  "y2",  "y"),
-        status  = c("opt", "opt", "opt", "opt")
-    )
-    mark_("ruleX", g, channels, ...)
+    channels <- c("x", "y1", "y2", "y")
+    mark_("ruleX", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_ruleY <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("y",   "x1",  "x2",  "x"),
-        status  = c("opt", "opt", "opt", "opt")
-    )
-    mark_("ruleY", g, channels, ...)
+    channels <- c("y", "x1", "x2", "x")
+    mark_("ruleY", g, channels, req_channels = NULL, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_text <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y",  "text", "fontSize", "rotate"),
-        status  = c("opt", "opt", "req", "opt",      "opt")
-    )
-    mark_("text", g, channels, ...)
+    channels <- c("x", "y", "text", "fontSize", "rotate")
+    req_channels <- "text"
+    mark_("text", g, channels, req_channels, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_textX <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y",  "text", "fontSize", "rotate"),
-        status  = c("opt", "opt", "req", "opt",      "opt")
-    )
-    mark_("textX", g, channels, ...)
+    channels <- c("x", "y", "text", "fontSize", "rotate")
+    req_channels <- "text"
+    mark_("textX", g, channels, req_channels, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_textY <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y",  "text", "fontSize", "rotate"),
-        status  = c("opt", "opt", "req", "opt",      "opt")
-    )
-    mark_("textY", g, channels, ...)
+    channels <- c("x", "y", "text", "fontSize", "rotate")
+    req_channels <- "text"
+    mark_("textY", g, channels, req_channels, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_tickX <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y"),
-        status  = c("req", "opt")
-    )
-    mark_("tickX", g, channels, ...)
+    channels <- c("x", "y")
+    req_channels <- "x"
+    mark_("tickX", g, channels, req_channels, ...)
 }
 
 #' @rdname mark_area
 #' @export
 mark_tickY <- function(g, ...) {
-    channels <- data.frame(
-        channel = c("x",   "y"),
-        status  = c("opt", "req")
-    )
-    mark_("tickY", g, channels, ...)
+    channels <- c("x", "y")
+    req_channels <- "y"
+    mark_("tickY", g, channels, req_channels, ...)
 }
 
 
@@ -263,7 +196,7 @@ mark_tickY <- function(g, ...) {
 #' @param ... options passed to define the mark
 #' @export
 mark_frame <- function(g, fill = "none", ...) {
-    mark_("frame", g, mark_channels = NULL, fill = fill, ...)
+    mark_("frame", g, mark_channels = NULL, req_channels = NULL, fill = fill, ...)
 }
 
 #' Add an SVG element to an obsplot
@@ -287,11 +220,11 @@ mark_svg <- function(g, svg, ...) {
 #' @export
 
 mark_function <- function(g, f, ...) {
-    mark_("function", g, mark_channels = NULL, fun = f, ...)
+    mark_("function", g, mark_channels = NULL, req_channels = NULL, fun = f, ...)
 }
 
 
-mark_ <- function(mark_type, g, mark_channels, ...) {
+mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
 
     opts <- list(...)
 
@@ -322,12 +255,13 @@ mark_ <- function(mark_type, g, mark_channels, ...) {
 
     # Check channels values
     check_data <- data %||%  g$x$data$data
-    check_channels(
-        check_data = check_data,
-        data = data,
+    check_mark(
+        data = check_data,
         mark_channels = mark_channels,
+        req_channels = req_channels,
         mark_opts = opts,
-        has_transform = !is.null(transform)
+        mark_has_data = !is.null(data),
+        mark_has_transform = !is.null(transform)
     )
 
     # Data channels (vectors)
