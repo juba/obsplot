@@ -65,3 +65,12 @@ add_metadata <- function(data) {
 
   return(list(data = data, dates = NULL, type = NULL))
 }
+
+
+`%||%` <- function(lhs, rhs) {
+  if (!is.null(lhs)) {
+    lhs
+  } else {
+    rhs
+  }
+}
