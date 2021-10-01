@@ -26,7 +26,8 @@ LazyData: true
 Enhances: shiny
 Imports:
     htmlwidgets,
-    jsonlite
+    jsonlite,
+    purrr
 Suggests:
     palmerpenguins,
     knitr,
