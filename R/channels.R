@@ -1,9 +1,17 @@
 # Channels available for every mark
 universal_channels <- c("fill", "fillOpacity", "stroke", "strokeOpacity", "strokeWidth", "title")
 
+# Get CSS color names from grDevices
+css_color_names <- gsub("\\d", "", grDevices::colors()) |>
+    unique() |>
+    append(c("none", "transparent", "currentcolor"))
+
 
 # Check defined channels
-check_mark <- function(data, mark_channels, req_channels, vector_channels, mark_opts, mark_has_data, mark_has_transform) {
+check_mark <- function(
+    data, mark_channels, req_channels, 
+    vector_channels, mark_opts, mark_has_data, mark_has_transform
+) {
 
     # Check required channels if there is no transform
     if (!mark_has_transform) {
@@ -45,12 +53,8 @@ check_mark <- function(data, mark_channels, req_channels, vector_channels, mark_
 is_css_color <- function(str) {
     str <- tolower(str)
     str <- gsub("\\s", "", str)
-    css_colors <- gsub("\\d", "", grDevices::colors())
-    css_colors <- unique(css_colors)
-    css_colors <- c(css_colors, "none", "transparent", "currentcolor")
-    if (str %in% css_colors) return(TRUE)
     is_hex_code <- grepl("^#[0-9a-f]{6}$", str) || grepl("^#[0-9a-f]{3}$", str)
-    return(is_hex_code)
+    return(is_hex_code || str %in% css_color_names)
 }
 
 # Return channels that are data vectors
