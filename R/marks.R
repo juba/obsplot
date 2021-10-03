@@ -237,19 +237,19 @@ mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
         opts <- opts[names(opts) != ""]
     }
 
-    if (length(unnamed_opts) > 2) stop("a mark cannot accept more than two unnamed arguments")
+    stopifnot("a mark cannot accept more than two unnamed arguments" = length(unnamed_opts) <= 2)
 
     # Get transform
-    transform <- opts$transform %||% Find(
-        \(v) inherits(v, "obsplot_transform"),
-        unnamed_opts, nomatch = NULL
+    transform <- opts$transform %||% purrr::detect(
+        unnamed_opts,
+        \(v) inherits(v, "obsplot_transform")
     )
     opts$transform <- NULL
 
     # Get data
-    data <- opts$data %||% Find(
-        \(v) !inherits(v, "obsplot_transform"),
-        unnamed_opts, nomatch = NULL
+    data <- opts$data %||% purrr::detect(
+        unnamed_opts,
+        \(v) !inherits(v, "obsplot_transform")
     )
     opts$data <- NULL
 
