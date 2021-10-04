@@ -537,7 +537,7 @@ obsplot(congress, height = 280) |>
         transform_stackX(
             transform_groupZ(
                 list(x = "proportion-facet", text = "first"),
-                z = "gender", 
+                z = "gender",
                 text = JS('d => d.gender === "F" ? "Women" : d.gender === "M" ? "Men" : null')
             )
         )
