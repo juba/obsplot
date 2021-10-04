@@ -95,7 +95,7 @@ export class Obsplot {
                 ...mark.transform,
                 ...mark.opts
             }
-            console.log(mark.opts)
+
             // Call mark function
             return mark_fun.call(null, data, mark.opts)
         })
