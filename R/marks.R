@@ -342,8 +342,8 @@ check_mark <- function(
         c("fill", "stroke")
     )
     for (name in color_chan_names) {
-        value <- mark_opts[[name]]
-        if (!(is_css_color(value) || value %in% names(data))) {
+        chan <- mark_opts[[name]]
+        if (!(is_css_color(chan) || chan %in% names(data))) {
             stop(name, " must be a CSS color or a column of data")
         }
     }
