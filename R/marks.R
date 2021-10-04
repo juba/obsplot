@@ -271,7 +271,7 @@ mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
     )
 
     # Automatically add indexed data argument if needed
-    if (length(vector_channels) >= 1 && is.null(data)) {
+    if (length(vector_channels) >= 1 && is.null(data) && is.null(column_channels)) {
         lengths <- purrr::map_int(vector_channels, length)
         data <- seq_len(max(lengths, na.rm = TRUE))
     }
@@ -302,6 +302,7 @@ mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
         transform = transform,
         opts = opts
     )
+
     g$x$marks <- append(g$x$marks, list(mark))
 
     g
