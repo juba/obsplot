@@ -1,6 +1,6 @@
 # obsplot (development version)
 
-* Update Plot to 0.2.0
+* Update Plot to 0.2.8
 * Add `mark_svg` and `mark_function` marks
 * Default height and width values are now set to "auto"
 * Add gear menu and SVG export

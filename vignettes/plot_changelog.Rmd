@@ -29,6 +29,44 @@ library(dplyr)
 This document tries to reproduce charts included in the [Observable Plot Changelog](https://github.com/observablehq/plot/blob/main/CHANGELOG.md).
 
 
+Currently supported Plot version : 0.2.8.
+
+## Plot 0.2.3
+
+`rect`, `bar`, and `rule` marks now accept an interval option.
+
+```{r}
+obsplot(aapl) |>
+  mark_barX(
+    x = "Date",
+    interval = JS("d3.utcYear"),
+    fill = "Date"
+  )
+```
+
+## Plot 0.2.1
+
+All marks now support `dx` and `dy` constant options.
+
+```{r}
+data(athletes)
+obsplot(athletes) |>
+  mark_dot(x = "weight", y = "height", dx = -100, dy = 250)
+```
+
+```{r}
+obsplot(athletes) |>
+  mark_rect(
+    transform_bin(
+      list(
+        fill = "count",
+        title = JS("(bin, {x1, x2, y1, y2}) => `${bin.length} athletes weighing between ${x1} and ${x2} and with a height between ${y1} and ${y2}`")
+      ),
+      x = "weight", y = "height", inset = 0
+    )
+  )
+```
+
 ## Plot 0.2.0
 
 ### Render functions
