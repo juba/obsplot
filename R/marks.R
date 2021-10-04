@@ -224,6 +224,7 @@ mark_function <- function(g, f, ...) {
 }
 
 
+# Add a mark to a chart object
 mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
 
     opts <- list(...)
@@ -320,16 +321,11 @@ check_mark <- function(
         stop("a mark cannot accept more than two unnamed arguments")
     }
 
-    # If there is a transform there must be no other options
-    if (mark_has_transform && length(mark_opts) > 0) {
-        stop("if a transform is specified, no other option must be given")
-    }
-
     # Check required channels if there is no transform
     if (!mark_has_transform) {
         missing_channels <- setdiff(
             req_channels,
-            c(names(vector_channels), names(column_channels))
+            c(names(vector_channels), names(column_channels), names(mark_opts))
         )
         if (length(missing_channels) >= 1) {
             stop("missing channels ", paste(missing_channels, collapse = ", "))
@@ -356,8 +352,7 @@ check_mark <- function(
     # Check vector channels
     if (length(vector_channels) >= 1) {
         lengths <- purrr::map_int(vector_channels, length)
-        if (mark_has_data && any(lengths > 1)) stop(" can't provide both a data object and vector channels")
-        lengths <- lengths[lengths > 1]
-        if (length(unique(lengths)) > 1) stop(" all vector channels must be of the same length or of length 1")
+        lengths <- unique(lengths[lengths > 1])
+        if (length(lengths) > 1) stop(" all vector channels must be of the same length or of length 1")
     }
 }

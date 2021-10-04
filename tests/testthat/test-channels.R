@@ -56,7 +56,6 @@ test_that("color and column channels", {
 })
 
 test_that("vector channels", {
-  expect_error(g |> mark_dot(data, x = 1:5, y = 1:5), "can't provide both a data object and vector channels")
   expect_error(g |> mark_dot(x = 1:6, y = 1:5), "all vector channels must be of the same length")
   g2 <- g |> mark_dot(x = 1:5, y = 1:5)
   expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "y"))
