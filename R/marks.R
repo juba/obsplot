@@ -307,6 +307,57 @@ mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
 }
 
 
-is_transform <- function(v) {
-    inherits(v, "obsplot_transform")
+# Check defined channels
+check_mark <- function(
+    data, mark_channels, req_channels,
+    vector_channels, column_channels,
+    mark_unnamed_opts, mark_opts,
+    mark_has_data, mark_has_transform
+) {
+
+    # No more than two unnamed opts
+    if (length(mark_unnamed_opts) > 2) {
+        stop("a mark cannot accept more than two unnamed arguments")
+    }
+
+    # If there is a transform there must be no other options
+    if (mark_has_transform && length(mark_opts) > 0) {
+        stop("if a transform is specified, no other option must be given")
+    }
+
+    # Check required channels if there is no transform
+    if (!mark_has_transform) {
+        missing_channels <- setdiff(
+            req_channels,
+            c(names(vector_channels), names(column_channels))
+        )
+        if (length(missing_channels) >= 1) {
+            stop("missing channels ", paste(missing_channels, collapse = ", "))
+        }
+    }
+
+    # Check color channels
+    color_chan_names <- intersect(
+        get_character_channels(mark_opts, mark_channels),
+        c("fill", "stroke")
+    )
+    for (name in color_chan_names) {
+        value <- mark_opts[[name]]
+        if (!(is_css_color(value) || value %in% names(data))) {
+            stop(name, " must be a CSS color or a column of data")
+        }
+    }
+
+    # Check column channels
+    for (chan in column_channels) {
+        if (!(chan %in% names(data))) stop(chan, " is not a column of data")
+    }
+
+    # Check vector channels
+    if (length(vector_channels) >= 1) {
+        lengths <- purrr::map_int(vector_channels, length)
+        if (mark_has_data && any(lengths > 1)) stop(" can't provide both a data object and vector channels")
+        lengths <- lengths[lengths > 1]
+        if (length(unique(lengths)) > 1) stop(" all vector channels must be of the same length or of length 1")
+    }
 }

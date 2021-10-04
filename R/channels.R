@@ -6,68 +6,35 @@ css_color_names <- gsub("\\d", "", grDevices::colors()) |>
     unique() |>
     append(c("none", "transparent", "currentcolor"))
 
-
-# Check defined channels
-check_mark <- function(
-    data, mark_channels, req_channels,
-    vector_channels, column_channels,
-    mark_unnamed_opts, mark_opts,
-    mark_has_data, mark_has_transform
-) {
-
-    # No more than two unnamed opts
-    if (length(mark_unnamed_opts) > 2) {
-        stop("a mark cannot accept more than two unnamed arguments")
-    }
-
-    # If there is a transform there must be no other options
-    if (mark_has_transform && length(mark_opts) > 0) {
-        stop("if a transform is specified, no other option must be given")
-    }
-
-    # Check required channels if there is no transform
-    if (!mark_has_transform) {
-        missing_channels <- setdiff(
-            req_channels,
-            c(names(vector_channels), names(column_channels))
-        )
-        if (length(missing_channels) >= 1) {
-            stop("missing channels ", paste(missing_channels, collapse = ", "))
-        }
-    }
-
-    ## Check channels that are single character strings
-    char_chans <- get_character_channels(mark_opts, mark_channels)
-
-    # Check color channels
-    chans <- intersect(char_chans, c("fill", "stroke"))
-    for (chan in chans) {
-        value <- mark_opts[[chan]]
-        if (!(is_css_color(value) || value %in% names(data))) {
-            stop(chan, " must be a CSS color or a column of data")
-        }
-    }
-
-    # Check column channels
-    for (chan in column_channels) {
-        if (!(chan %in% names(data))) stop(chan, " is not a column of data")
-    }
-
-    # Check vector channels
-    if (length(vector_channels) >= 1) {
-        lengths <- purrr::map_int(vector_channels, length)
-        if (mark_has_data && any(lengths > 1)) stop(" can't provide both a data object and vector channels")
-        lengths <- lengths[lengths > 1]
-        if (length(unique(lengths)) > 1) stop(" all vector channels must be of the same length or of length 1")
-    }
-}
-
 # Check if a string is a CSS color or equivalent
 is_css_color <- function(str) {
     str <- tolower(str)
     str <- gsub("\\s", "", str)
     is_hex_code <- grepl("^#[0-9a-f]{6}$", str) || grepl("^#[0-9a-f]{3}$", str)
     return(is_hex_code || str %in% css_color_names)
+}
+
+# Check if an object is a transform call
+is_transform <- function(v) {
+    inherits(v, "obsplot_transform")
+}
+
+# Return the defined channels names
+get_defined_channels <- function(opts, mark_channels) {
+    intersect(
+        # All possible channels
+        c(mark_channels, universal_channels),
+        names(opts)
+    )
+}
+
+# Return channels that are character strings
+get_character_channels <- function(opts, mark_channels) {
+    get_defined_channels(opts, mark_channels) |>
+        purrr::keep(\(chan) {
+            v <- opts[[chan]]
+            is.character(v) && length(v) == 1 && !(inherits(v, "JS_EVAL"))
+        })
 }
 
 # Return channels that are data vectors
@@ -113,23 +80,5 @@ get_js_channels <- function(opts, mark_channels) {
     Filter(
         \(chan) inherits(opts[[chan]], "JS_EVAL"),
         channels
-    )
-}
-
-# Return channels that are character strings
-get_character_channels <- function(opts, mark_channels) {
-    get_defined_channels(opts, mark_channels) |>
-        purrr::keep(\(chan) {
-            v <- opts[[chan]]
-            is.character(v) && length(v) == 1 && !(inherits(v, "JS_EVAL"))
-        })
-}
-
-# Return the defined channels names
-get_defined_channels <- function(opts, mark_channels) {
-    intersect(
-        # All possible channels
-        c(mark_channels, universal_channels),
-        names(opts)
     )
 }
