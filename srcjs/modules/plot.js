@@ -53,7 +53,8 @@ export class Obsplot {
     resize() {
 
         if (this.opts.orig_width !== null && this.opts.orig_width != "auto" &&
-            this.opts.orig_height !== null && this.opts.orig_height != "auto") return;
+            this.opts.orig_height !== null && this.opts.orig_height != "auto") 
+            return;
         this.destroy();
         this.plot();
 
