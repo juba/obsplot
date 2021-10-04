@@ -8,12 +8,12 @@ export class Obsplot {
         this.data = Obsplot.convert_data(x.data);
         this.marks = x.marks || [];
         this.facet = x.facet;
-        
+
         this.opts = x.opts || {};
         // Store original width and height values
         this.opts.orig_width = this.opts.width;
         this.opts.orig_height = this.opts.height;
-        
+
         this.el = el;
 
     }
@@ -32,12 +32,12 @@ export class Obsplot {
             p = Plot.plot(opts);
             // If no exception
             do_add_menu = true;
-        } catch(error) {
+        } catch (error) {
             p = document.createElement("div");
             p.className = "obsplot-error";
             p.append(error);
             console.log(p);
-        } 
+        }
         this.el.append(p);
         if (do_add_menu && this.opts.menu) this.add_menu();
     }
@@ -50,7 +50,7 @@ export class Obsplot {
 
     }
 
-    resize() {  
+    resize() {
 
         if (this.opts.orig_width !== null && this.opts.orig_width != "auto" &&
             this.opts.orig_height !== null && this.opts.orig_height != "auto") return;
@@ -62,34 +62,41 @@ export class Obsplot {
     build_marks() {
 
         return this.marks.map((mark) => {
-            
+
             // Render function mark
             if (["function"].includes(mark.type)) {
                 return mark.opts.fun;
             }
 
             const mark_fun = Plot[mark.type];
-            
+
             // Decorations mark
             if (["frame"].includes(mark.type)) {
                 return mark_fun.call(null, mark.opts);
             }
-            
+
             // Mark data
             const data = Obsplot.convert_data(mark.data) || this.data;
+
             // Vector channels
-            if (mark.vector_channels) {
-                Object.entries(mark.vector_channels).forEach(([k, v]) => 
-                    mark.vector_channels[k] = Obsplot.convert_data(v)
-                )
-                mark.opts = {...mark.vector_channels, ...mark.opts}
-            }
-        
+            Object.entries(mark.vector_channels).forEach(([k, v]) =>
+                mark.vector_channels[k] = Obsplot.convert_data(v)
+            )
+
             // Check for and apply any transform
             if (mark.transform !== undefined && mark.transform !== null) {
-                mark.opts = {...Obsplot.call_transform(mark.transform), ...mark.opts}
+                mark.transform = Obsplot.call_transform(mark.transform)
             }
 
+            // Merge opts
+            mark.opts = {
+                ...mark.vector_channels,
+                ...mark.column_channels,
+                ...mark.transform,
+                ...mark.opts
+            }
+            console.log(mark.opts)
+            // Call mark function
             return mark_fun.call(null, data, mark.opts)
         })
 
@@ -109,14 +116,14 @@ export class Obsplot {
 
     static convert_data(data) {
 
-        if (data.data === undefined || data.data === null) return(null)
-        
+        if (data.data === undefined || data.data === null) return (null)
+
         // If data is a data frame
         if (data.type == "data.frame") {
             let date_columns = data.dates;
-            data =  HTMLWidgets.dataframeToD3(data.data)
+            data = HTMLWidgets.dataframeToD3(data.data)
             // Convert date columns to Date
-            if (!Array.isArray(date_columns)) date_columns = [date_columns]    
+            if (!Array.isArray(date_columns)) date_columns = [date_columns]
             data = data.map(d => {
                 date_columns.forEach(col => d[col] = new Date(d[col]));
                 return d;
@@ -159,7 +166,7 @@ export class Obsplot {
         if (Array.isArray(transform.arg1) && transform.arg1.length == 0) {
             transform.arg1 = {}
         }
-        
+
         // Recursive call to compose transforms : if options is a transform,
         // apply it first
         if (transform.options && transform.options.transform_type) {
@@ -168,7 +175,7 @@ export class Obsplot {
         if (transform.arg1 && transform.arg1.transform_type) {
             transform.arg1 = Obsplot.call_transform(transform.arg1)
         }
-        
+
         // Call transform function
         if (transform.arg1 === null && transform.options === null) {
             trans_result = trans_fun.call(null, undefined, undefined);

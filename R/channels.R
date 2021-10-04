@@ -9,13 +9,28 @@ css_color_names <- gsub("\\d", "", grDevices::colors()) |>
 
 # Check defined channels
 check_mark <- function(
-    data, mark_channels, req_channels, 
-    vector_channels, mark_opts, mark_has_data, mark_has_transform
+    data, mark_channels, req_channels,
+    vector_channels, column_channels,
+    mark_unnamed_opts, mark_opts,
+    mark_has_data, mark_has_transform
 ) {
+
+    # No more than two unnamed opts
+    if (length(mark_unnamed_opts) > 2) {
+        stop("a mark cannot accept more than two unnamed arguments")
+    }
+
+    # If there is a transform there must be no other options
+    if (mark_has_transform && length(mark_opts) > 0) {
+        stop("if a transform is specified, no other option must be given")
+    }
 
     # Check required channels if there is no transform
     if (!mark_has_transform) {
-        missing_channels <- setdiff(req_channels, names(mark_opts))
+        missing_channels <- setdiff(
+            req_channels,
+            c(names(vector_channels), names(column_channels))
+        )
         if (length(missing_channels) >= 1) {
             stop("missing channels ", paste(missing_channels, collapse = ", "))
         }
@@ -33,11 +48,9 @@ check_mark <- function(
         }
     }
 
-    # Check data column channels
-    chans <- setdiff(char_chans, c("fill", "stroke"))
-    for (chan in chans) {
-        value <- mark_opts[[chan]]
-        if (!(value %in% names(data))) stop(chan, " is not a column of data")
+    # Check column channels
+    for (chan in column_channels) {
+        if (!(chan %in% names(data))) stop(chan, " is not a column of data")
     }
 
     # Check vector channels
@@ -64,7 +77,7 @@ get_vector_channels <- function(opts, mark_channels) {
         "fillOpacity", "strokeOpacity", "r",
         "fontSize", "rotate"
     )
-    vector_channels <- purrr::keep(
+    vector_channels_names <- purrr::keep(
         get_defined_channels(opts, mark_channels),
         \(chan) {
             v <- opts[[chan]]
@@ -82,8 +95,16 @@ get_vector_channels <- function(opts, mark_channels) {
                 inherits(v, "POSIXt")
         }
     )
-    if (length(vector_channels) == 0) return(NULL)
-    opts[vector_channels]
+    if (length(vector_channels_names) == 0) return(NULL)
+    opts[vector_channels_names]
+}
+
+# Return channels that are data column names
+get_column_channels <- function(data, opts, mark_channels) {
+    char_chans <- get_character_channels(opts, mark_channels)
+    column_channels_names <- setdiff(char_chans, c("fill", "stroke"))
+    if (length(column_channels_names) == 0) return(NULL)
+    opts[column_channels_names]
 }
 
 # Return channels that are JS calls
@@ -97,18 +118,18 @@ get_js_channels <- function(opts, mark_channels) {
 
 # Return channels that are character strings
 get_character_channels <- function(opts, mark_channels) {
-    channels <- get_defined_channels(opts, mark_channels)
-    Filter(
-        \(chan) {
+    get_defined_channels(opts, mark_channels) |>
+        purrr::keep(\(chan) {
             v <- opts[[chan]]
             is.character(v) && length(v) == 1 && !(inherits(v, "JS_EVAL"))
-        },
-        channels
-    )
+        })
 }
 
 # Return the defined channels names
 get_defined_channels <- function(opts, mark_channels) {
-    possible_channels <- c(mark_channels, universal_channels)
-    intersect(possible_channels, names(opts))
+    intersect(
+        # All possible channels
+        c(mark_channels, universal_channels),
+        names(opts)
+    )
 }

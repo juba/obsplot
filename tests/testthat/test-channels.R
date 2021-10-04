@@ -29,6 +29,7 @@ test_that("unnamed opts", {
 
 test_that("required channels", {
   expect_error(g |> mark_line(x = "v1"), "missing channels y")
+  expect_error(g |> mark_line(x = 1:3), "missing channels y")
   expect_error(g |> mark_line(transform_group(x = "sum", x = "v1")), NA)
 })
 
@@ -48,6 +49,10 @@ test_that("color and column channels", {
   expect_error(g |> mark_dot(x = "v1", y = "v2", fill = "#A87654"), NA)
   expect_error(g |> mark_dot(x = "v1", y = "v2", fill = "#55G"), "must be a CSS color or a column")
   expect_error(g |> mark_dot(x = JS("v87"), y = JS("v200"), fill = "red"), NA)
+  g2 <- g |> mark_dot(x = "v1", y = "v2")
+  expect_equal(g2$x$marks[[1]]$column_channels |> names(), c("x", "y"))
+  g2 <- g |> mark_dot(x = "v1", r = "v2")
+  expect_equal(g2$x$marks[[1]]$column_channels |> names(), c("x", "r"))
 })
 
 test_that("vector channels", {

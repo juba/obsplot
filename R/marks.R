@@ -208,7 +208,7 @@ mark_frame <- function(g, fill = "none", ...) {
 
 mark_svg <- function(g, svg, ...) {
     f_code <- paste0("() => svg`", svg, "`")
-    f <- JS(f_code)
+    f <- JS(f_code) # nolint
     mark_function(g, f)
 }
 
@@ -227,6 +227,7 @@ mark_function <- function(g, f, ...) {
 mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
 
     opts <- list(...)
+    unnamed_opts <- list()
 
     # Extract unnamed opts and removed them from opts
     if (is.null(names(opts))) {
@@ -237,34 +238,32 @@ mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
         opts <- opts[names(opts) != ""]
     }
 
-    stopifnot("a mark cannot accept more than two unnamed arguments" = length(unnamed_opts) <= 2)
-
-    # Get transform
-    transform <- opts$transform %||% purrr::detect(
-        unnamed_opts,
-        \(v) inherits(v, "obsplot_transform")
-    )
-    opts$transform <- NULL
-
     # Get data
-    data <- opts$data %||% purrr::detect(
-        unnamed_opts,
-        \(v) !inherits(v, "obsplot_transform")
-    )
+    data <- opts$data %||% purrr::detect(unnamed_opts, \(v) !is_transform(v)) # nolint
     opts$data <- NULL
 
-    # Get vector channels and remove them from opts
-    vector_channels <- get_vector_channels(opts, mark_channels)
+    # Get transform
+    transform <- opts$transform %||% purrr::detect(unnamed_opts, is_transform) # nolint
+    opts$transform <- NULL
 
+    # Get vector channels and remove them from opts
+    vector_channels <- get_vector_channels(opts, mark_channels) # nolint
     opts <- opts[!(names(opts) %in% names(vector_channels))]
 
+    # Get column channels and remove them from opts
+    column_channels <- get_column_channels(data, opts, mark_channels) # nolint
+    opts <- opts[!(names(opts) %in% names(column_channels))]
+
+
     # Check channels values
-    check_data <- data %||%  g$x$data$data
+    check_data <- data %||%  g$x$data$data # nolint
     check_mark(
         data = check_data,
         mark_channels = mark_channels,
         req_channels = req_channels,
         vector_channels = vector_channels,
+        column_channels = column_channels,
+        mark_unnamed_opts = unnamed_opts,
         mark_opts = opts,
         mark_has_data = !is.null(data),
         mark_has_transform = !is.null(transform)
@@ -276,30 +275,38 @@ mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
         data <- seq_len(max(lengths, na.rm = TRUE))
     }
 
+    # rep() and add metadata to vector channels
     vector_channels <- purrr::map(
         vector_channels,
         \(v) {
             # rep() if needed
             if (length(v) == 1) {
-                rep_length <- nrow(data) %||% length(data)
+                rep_length <- nrow(data) %||% length(data) # nolint
                 v <- rep(v, rep_length)
             }
             # Add metadata
-            add_metadata(v)
+            add_metadata(v) # nolint
         }
     )
 
     # Add metadata to data object
-    data <- add_metadata(data)
+    data <- add_metadata(data) # nolint
 
+    # Add mark to chart
     mark <- list(
         type = mark_type,
         data = data,
         vector_channels = vector_channels,
+        column_channels = column_channels,
         transform = transform,
         opts = opts
     )
     g$x$marks <- append(g$x$marks, list(mark))
 
     g
+}
+
+
+is_transform <- function(v) {
+    inherits(v, "obsplot_transform")
 }
