@@ -2,15 +2,15 @@
 % Please edit documentation in R/utils.R
 \name{as_data}
 \alias{as_data}
-\title{Tells obsplot that a single value is a data channel, and must be converted to
+\title{Tells obsplot that a single value is a vector channel, and must be converted to
 an Array in JavaScript}
 \usage{
 as_data(x)
 }
 \arguments{
-\item{x}{the object to be considered as a data channel}
+\item{x}{the object to be considered as a vector channel}
 }
 \description{
-Tells obsplot that a single value is a data channel, and must be converted to
+Tells obsplot that a single value is a vector channel, and must be converted to
 an Array in JavaScript
 }
