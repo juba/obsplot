@@ -309,7 +309,7 @@ mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
 }
 
 
-# Check defined channels
+# Check mark arguments and channels
 check_mark <- function(
     data, mark_channels, req_channels,
     vector_channels, column_channels,

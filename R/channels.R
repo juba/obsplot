@@ -73,12 +73,3 @@ get_column_channels <- function(data, opts, mark_channels) {
     if (length(column_channels_names) == 0) return(NULL)
     opts[column_channels_names]
 }
-
-# Return channels that are JS calls
-get_js_channels <- function(opts, mark_channels) {
-    channels <- get_defined_channels(opts, mark_channels)
-    Filter(
-        \(chan) inherits(opts[[chan]], "JS_EVAL"),
-        channels
-    )
-}
