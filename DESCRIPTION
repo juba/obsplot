@@ -27,7 +27,8 @@ Enhances: shiny
 Imports:
     htmlwidgets,
     jsonlite,
-    purrr
+    purrr,
+    rlang
 Suggests:
     palmerpenguins,
     knitr,
