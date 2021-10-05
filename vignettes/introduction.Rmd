@@ -156,7 +156,7 @@ If we want to highlight some points by adding a text label, we can do it by givi
 metros_10m <- subset(metros, POP_2015 > 10000000)
 obsplot(metros) |>
   mark_dot(x = POP_1980, y = POP_2015, stroke = "#D00") |>
-  mark_text(metros_10m, x = POP_1980, y = POP_2015, text = "nyt_display", dy = -10)
+  mark_text(metros_10m, x = POP_1980, y = POP_2015, text = nyt_display, dy = -10)
 ```
 
 We can also use JavaScript code. For example, we can use accessors to convert population values to million of people :
@@ -181,7 +181,7 @@ obsplot() |>
 The rules to determine a channel type are as follows (this may be subject to change in the future):
 
 - If it is a call to `JS()`, it is JavaScript code
-- If it a single symbol, it is considered a column channel if the symbol name matches a data column. Otherwise it is seen as an object in the calling environment
+- If it is a single symbol, it is considered a column channel if the symbol name matches a data column. Otherwise it is seen as an object in the calling environment
 - If it is a vector of length > 1, it is considered as a vector channel
 - If it is a single number, it is considered as a vector channel except for `r`, `strikeOpacity`,`fillOpacity`, `fontSize` and `rotate`
 - If it is a single character string, it is considered a column channel except if it is a CSS color for `fill` and `stroke`
@@ -621,7 +621,7 @@ obsplot(df, height = 120) |>
 
 ### JavaScript libraries in `JS()`
 
-When using JavaScript in `obsplot` with `JS()`, both `d3` and `Plot` libraries are directly available. You can then directly call [d3](https://d3js.org/) functions or [Plot formats](https://github.com/observablehq/plot#formats) in your code.
+When using JavaScript in `obsplot` with `JS()`, both `d3` and `Plot` libraries are available. You can then directly call [d3](https://d3js.org/) functions or [Plot formats](https://github.com/observablehq/plot#formats) in your code.
 
 ```{r}
 obsplot() |>
