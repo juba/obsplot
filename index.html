@@ -102,11 +102,12 @@
 <a href="#examples" class="anchor"></a>Examples</h2>
 <p>Here is a small example of a simple scatterplot from the <code>penguins</code> dataset of the <code>palmerpenguins</code> package :</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://juba.github.io/obsplot/">obsplot</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/obsplot.html">obsplot</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"bill_length_mm"</span>, y <span class="op">=</span> <span class="st">"bill_depth_mm"</span>, stroke <span class="op">=</span> <span class="st">"sex"</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bill_length_mm</span>, y <span class="op">=</span> <span class="va">bill_depth_mm</span>, stroke <span class="op">=</span> <span class="va">sex</span><span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/opts.html">opts</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/readme_scatter.png" alt="Simple scatterplot"></p>
 <p>And here is a much more complex example taken from Observable Plot documentation :</p>
@@ -120,13 +121,13 @@
     <span class="fu"><a href="reference/mark_area.html">mark_ruleY</a></span><span class="op">(</span>
         <span class="fu"><a href="reference/transform_bin.html">transform_groupY</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="st">"min"</span>, x2 <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span>, <span class="va">xy</span><span class="op">)</span>
     <span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span><span class="va">xy</span>, fill <span class="op">=</span> <span class="st">"age"</span>, title <span class="op">=</span> <span class="st">"age"</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span><span class="va">xy</span>, fill <span class="op">=</span> <span class="va">age</span>, title <span class="op">=</span> <span class="va">age</span><span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/mark_area.html">mark_text</a></span><span class="op">(</span>
-        <span class="fu"><a href="reference/transform_selectFirst.html">transform_selectMinX</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span>, textAnchor <span class="op">=</span> <span class="st">"end"</span>, dx <span class="op">=</span> <span class="op">-</span><span class="fl">6</span>, text <span class="op">=</span> <span class="st">"name"</span>
+        <span class="fu"><a href="reference/transform_selectFirst.html">transform_selectMinX</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span>, textAnchor <span class="op">=</span> <span class="st">"end"</span>, dx <span class="op">=</span> <span class="op">-</span><span class="fl">6</span>, text <span class="op">=</span> <span class="va">name</span>
     <span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/scale_color.html">scale_x</a></span><span class="op">(</span>
         axis <span class="op">=</span> <span class="st">"top"</span>,   label <span class="op">=</span>  <span class="st">"Percent (%) →"</span>, 
-        transform <span class="op">=</span> <span class="fu">JS</span><span class="op">(</span><span class="st">"d =&gt; d * 100"</span><span class="op">)</span>
+        transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html">JS</a></span><span class="op">(</span><span class="st">"d =&gt; d * 100"</span><span class="op">)</span>
     <span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/scale_color.html">scale_y</a></span><span class="op">(</span>axis <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/scale_color.html">scale_color</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"spectral"</span>, domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">$</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> |&gt;
