@@ -29,7 +29,7 @@ knitr::opts_chunk$set(
 
 ## A word of caution
 
-`obsplot` is still an experimental package, in particular its API is not stable and could change in the future, either for self improvements or to follow Observable Plot evolutions. It is not suitable for production right now.
+`obsplot` is still in an early stage, in particular its API could change in the future, either for self improvements or to follow Observable Plot evolutions. It may not be suitable for production right now.
 
 Also to be considered, `obsplot` is not suitable for charting very large datasets : the generated plots are in SVG format, and when using it in RMarkdown or Shiny the underlying data are included in the output as JSON.
 
@@ -71,12 +71,20 @@ To create such a chart we first initialise it with `obsplot()`. We pass as argum
 obsplot(penguins)
 ```
 
-We then add a graphical mark to create our chart. Here we use the dot mark by piping the `mark_dot` function. We pass as arguments the `x` and `y` *channels* in the form of character strings giving the corresponding data frame columns :
+We then add a graphical mark to create our chart. Here we use the dot mark by piping the `mark_dot` function. We pass as arguments the `x` and `y` *channels* giving the corresponding data frame columns :
 
 ```{r}
 obsplot(penguins) |>
     mark_dot(x = bill_length_mm, y = bill_depth_mm)
 ```
+
+Here we passed the data frame columns as symbols, but we can also use character strings instead :
+
+```{r results = "hide"}
+obsplot(penguins) |>
+    mark_dot(x = "bill_length_mm", y = "bill_depth_mm")
+```
+
 
 We can add other channels, for example by changing dots color according to another variable :
 
@@ -129,7 +137,7 @@ obsplot(penguins) |>
 
 A mark function takes several arguments. The first one is an optional `data` object. If not specified, it is inherited from the one passed to `obsplot`. Other named arguments are called mark constructors and can be of several types :
 
-- a *column channel*, ie a character string giving the name of a column of `data`
+- a *column channel*, ie the name of a column of `data`, as a string (`"col"`) or a symbol (`col`)
 - a *vector channel*, ie raw data to be plotted, in general as a vector
 - a *constant option*, which defines an option (such as size, color...) globally in the same way for all mark elements
 - JavaScript code, defined with the `JS()` function, evaluated at runtime
@@ -173,6 +181,7 @@ obsplot() |>
 The rules to determine a channel type are as follows (this may be subject to change in the future):
 
 - If it is a call to `JS()`, it is JavaScript code
+- If it a single symbol, it is considered a column channel if the symbol name matches a data column. Otherwise it is seen as an object in the calling environment
 - If it is a vector of length > 1, it is considered as a vector channel
 - If it is a single number, it is considered as a vector channel except for `r`, `strikeOpacity`,`fillOpacity`, `fontSize` and `rotate`
 - If it is a single character string, it is considered a column channel except if it is a CSS color for `fill` and `stroke`
@@ -314,6 +323,8 @@ obsplot(penguins) |>
     transform_binX(y = "count", x = bill_depth_mm)
   )
 ```
+
+Note that data columns can be passed as symbols (`bill_depth_mm`), but other arguments have to be character strings (`"count"`).
 
 To create a cell chart of the cross tabulation of two categorical variables, we have to apply a `transform_group` before calling `mark_rect` and `mark_text` :
 
@@ -495,7 +506,9 @@ obsplot(penguins, height = 100) |>
   scale_color(scheme = "PuRd")
 ```
 
-But if you want to add new arguments to this predefined list, you'll have to use `append` and put the new arguments themselves in a list :
+Note that in this case, all arguments including data column names must be passed as strings, not as symbols.
+
+If you want to add new arguments to this predefined list, you'll have to use `append` and put the new arguments themselves in a list :
 
 ```{r}
 xy <- list(x = "island", y = "species")
@@ -507,10 +520,104 @@ obsplot(penguins, height = 100) |>
   mark_text(
     transform_group(
       text = "count",
-      append(xy, list(fontWeight = "bold", fontSize = 18, stroke = "#FFF", strokeWidth = .5)))
+      append(
+        xy,
+        list(fill = "black", fontWeight = "bold", fontSize = 16, stroke = "#FFF")
+      )
+    )
   ) |>
   scale_color(scheme = "PuRd")
 ```
+
+### Passing column names as symbols
+
+To make interactive usage simpler, `obsplot` allows to pass column names as symbols instead of character strings.
+
+```{r eval=FALSE}
+obsplot(penguins) |>
+    mark_dot(x = bill_length_mm, y = bill_depth_mm)
+```
+
+If the symbol matches both a data column and an environment object, the data column has priority.
+
+```{r}
+df <- data.frame(x = c("A", "B", "C"))
+x <- 1:5
+obsplot(df, height = 60) |>
+  mark_dotX(x = x)
+```
+
+Only single symbols can be used as data columns, any other type of expression will be evaluated in the current environment.
+
+```{r}
+obsplot(df, height = 60) |>
+  mark_dotX(x = x * 10)
+```
+
+The same rules apply when symbols are used in `facet()`.
+
+In `transform` functions, data columns can also be passed as symbols, but in these cases the rules are a bit different because the transform doesn't have a direct access to the data to check if the symbol name is a column.
+
+1. If the symbol doesn't exist in the calling environment, it is considered as a data column and converted to a character string.
+
+```{r}
+df <- data.frame(
+  v1 = rnorm(100)
+)
+
+obsplot(df, height = 120) |>
+  mark_rectY(
+    transform_binX(y = "count", x = v1)
+  )
+```
+
+2. If the symbol exists in the calling environment but is a function, it is also considered as a data column and converted to a character string. This allows to use symbols corresponding to R function like `min`, `range`, etc.
+
+```{r}
+df <- data.frame(
+  max = rnorm(100)
+)
+
+obsplot(df, height = 120) |>
+  mark_rectY(
+    transform_binX(y = "count", x = max)
+  )
+```
+
+3. Otherwise, the symbol is evaluated in its calling environment.
+
+```{r}
+rnd <- rnorm(100)
+
+obsplot(df, height = 120) |>
+  mark_rectY(
+    transform_binX(y = "count", x = rnd)
+  )
+```
+
+What may be confusing here is that the priority is reversed regarding `mark` or `facet` functions : if a symbol exists with  in the calling environment, it has priority over a data column of the same name.
+
+```{r}
+df <- data.frame(
+  x = rnorm(100)
+)
+x <- 1000:1100
+
+obsplot(df, height = 120) |>
+  mark_rectY(
+    transform_binX(y = "count", x = x)
+  )
+```
+
+In this case you can use a character string instead of a symbol if you want to be sure that a channel will be seen as a data column.
+
+```{r}
+obsplot(df, height = 120) |>
+  mark_rectY(
+    transform_binX(y = "count", x = "x")
+  )
+```
+
 
 ### JavaScript libraries in `JS()`
 
