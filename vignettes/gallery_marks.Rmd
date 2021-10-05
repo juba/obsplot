@@ -33,8 +33,8 @@ As always, there are several ways to do things, in particular data manipulation 
 ```{r}
 data(aapl)
 obsplot(aapl) |>
-    mark_areaY(x = "Date", y = "Close", fill = "#ccc") |>
-    mark_lineY(x = "Date", y = "Close") |>
+    mark_areaY(x = Date, y = Close, fill = "#ccc") |>
+    mark_lineY(x = Date, y = Close) |>
     mark_ruleY(y = 0) |>
     scale_y(grid = TRUE)
 ```
@@ -47,14 +47,14 @@ obsplot(sftemp) |>
     mark_ruleY(y = 32) |>
     mark_areaY(
         transform_windowY(
-            x = "date",
-            y1 = "low", y2 = "high",
+            x = date,
+            y1 = low, y2 = high,
             fill = "#ccc", k = 14
         )
     ) |>
     mark_line(
         transform_windowY(
-            x = "date",
+            x = date,
             y = JS("d => (d.low + d.high) / 2"),
             k = 14
         )
@@ -68,23 +68,23 @@ obsplot(sftemp) |>
 data(bls)
 
 obsplot(bls) |>
-    mark_areaY(x = "date", y2 = "unemployed", z = "industry", fillOpacity = 0.1) |>
-    mark_lineY(x = "date", y = "unemployed", z = "industry", strokeWidth = 1)
+    mark_areaY(x = date, y2 = unemployed, z = industry, fillOpacity = 0.1) |>
+    mark_lineY(x = date, y = unemployed, z = industry, strokeWidth = 1)
 ```
 
 
 ```{r}
 obsplot(bls) |>
-    mark_areaY(x = "date", y = "unemployed", fill = "industry") |>
+    mark_areaY(x = date, y = unemployed, fill = industry) |>
     mark_ruleY(y = 0)
 ```
 
 ```{r}
-normY <- transform_normalizeY(basis = "median", x = "date", y = "unemployed")
+normY <- transform_normalizeY(basis = "median", x = date, y = unemployed)
 obsplot(bls, height = 600) |>
     mark_areaY(normY, fillOpacity = 0.2) |>
     mark_lineY(normY, strokeWidth = 1) |>
-    facet(y = "industry", marginRight = 140) |>
+    facet(y = industry, marginRight = 140) |>
     scale_y(axis = NULL) |>
     scale_fy(axis = "right", label = NULL)
 ```
@@ -97,9 +97,9 @@ obsplot(bls, height = 600) |>
 data(civilizations)
 
 obsplot(civilizations, height = nrow(civilizations) * 12) |>
-    mark_barX(x1 = "start", x2 = "end", y = "civilization") |>
+    mark_barX(x1 = start, x2 = end, y = civilization) |>
     mark_text(
-        x = "start", y = "civilization", text = "civilization",
+        x = start, y = civilization, text = civilization,
         textAnchor = "end", dx = -6
     ) |>
     opts(marginLeft = 140) |>
@@ -113,7 +113,7 @@ popchange$diff <- (popchange$`2019` - popchange$`2010`) / popchange$`2010` * 100
 popchange$up <- popchange$diff >= 0
 
 obsplot(popchange, height = 780) |>
-    mark_barX(y = "State", x = "diff", fill = "up") |>
+    mark_barX(y = State, x = diff, fill = up) |>
     mark_ruleX(x = 0) |>
     opts(marginLeft = 110, grid = TRUE) |>
     scale_x(
@@ -132,10 +132,10 @@ data(alphabet)
 obsplot(alphabet, height = 60) |>
     mark_ruleX(c(0,1)) |>
     mark_barX(
-        transform_stackX(order = "letter", x = "frequency", fill = "#ccc", insetLeft = 1)
+        transform_stackX(order = letter, x = frequency, fill = "#ccc", insetLeft = 1)
     ) |>
     mark_textX(
-        transform_stackX(order = "letter", x = "frequency", text = "letter", insetLeft = 1)
+        transform_stackX(order = letter, x = frequency, text = "letter", insetLeft = 1)
     ) |>
     scale_x(label = "Frequency (%)", transform = JS("d => d * 100"))
 
@@ -155,9 +155,9 @@ states <- stateage |>
     pull(name)
 
 obsplot(stateage) |>
-    mark_barY(x = "age", y = "population", fill = "age", title = "age") |>
+    mark_barY(x = age, y = population, fill = age, title = age) |>
     mark_ruleY(y = 0) |>
-    facet(x = "name") |>
+    facet(x = name) |>
     scale_x(axis = NULL, domain = unique(stateage$age)) |>
     scale_fx(domain = states, label = NULL, tickSize = 6) |>
     scale_y(grid = TRUE, tickFormat = "s") |>
@@ -170,8 +170,8 @@ obsplot(stateage) |>
 
 ```{r}
 obsplot(simpsons, height = 600) |>
-    mark_cell(x = "season", y = "number_in_season", fill = "imdb_rating") |>
-    mark_text(x = "season", y = "number_in_season", text = "imdb_rating", title = "title") |>
+    mark_cell(x = season, y = number_in_season, fill = imdb_rating) |>
+    mark_text(x = season, y = number_in_season, text = imdb_rating, title = title) |>
     scale_x(axis = "top", label = "Season") |>
     scale_y(label = "Episode") |>
     scale_color(scheme = "PiYg") |>
@@ -191,8 +191,8 @@ obsplot(dji, height = 1300) |>
     mark_cell(
         x = JS("d => d3.utcWeek.count(d3.utcYear(d.Date), d.Date)"),
         y = JS("d => d.Date.getUTCDay()"),
-        fill = "variation",
-        title = "title",
+        fill = variation,
+        title = title,
         inset = 0.5
     ) |>
     facet(y = JS("d => d.Date.getUTCFullYear()")) |>
@@ -214,7 +214,7 @@ obsplot(seattle, height = 300) |>
             list(fill = "max"),
             x = JS("d => d.date.getUTCDate()"),
             y = JS("d => d.date.getUTCMonth()"),
-            fill = "temp_max",
+            fill = temp_max,
             inset = 0.5
         )
     ) |>
@@ -229,7 +229,7 @@ df <- simpsons |>
     mutate(tick = season * 100 + number_in_season - 1)
 
 obsplot(df, height = 60) |>
-    mark_cell(x = "tick", fill = "imdb_rating") |>
+    mark_cell(x = tick, fill = imdb_rating) |>
     scale_x(
         ticks = df |> filter(number_in_season == 1) |> pull(tick),
         tickFormat = JS("d => d / 100"),
@@ -247,7 +247,7 @@ data(gistemp)
 
 obsplot(gistemp) |>
     mark_ruleY(y = 0) |>
-    mark_dot(x = "Date", y = "Anomaly", stroke = "Anomaly") |>
+    mark_dot(x = Date, y = Anomaly, stroke = Anomaly) |>
     scale_y(tickFormat = "+f", grid = TRUE) |>
     scale_color(type = "diverging", scheme = "BuRd")
 ```
@@ -260,7 +260,7 @@ obsplot(aapl) |>
     mark_ruleX(0) |>
     mark_dot(
         x = JS("d => (d.Close - d.Open) / d.Open"),
-        y = "Volume", r = "Volume"
+        y = Volume, r = Volume
     ) |>
     scale_x(
         label = "Daily change (%) →",
@@ -278,7 +278,7 @@ data(diamonds_obs)
 
 obsplot(diamonds_obs, height = 480) |>
     mark_dot(
-        transform_bin(r = "count", x = "carat", y = "price", thresholds = 100)
+        transform_bin(r = "count", x = carat, y = price, thresholds = 100)
     ) |>
     scale_x(label = "Carats →") |>
     scale_y(label = "↑ Price ($)") |>
@@ -292,9 +292,9 @@ data(driving)
 driv5 <- driving |> filter(year %% 5 == 0)
 
 obsplot(driving) |>
-    mark_line(x = "miles", y = "gas", curve = "catmull-rom") |>
-    mark_dot(x = "miles", y = "gas", fill = "currentColor") |>
-    mark_text(driv5, x = "miles", y = "gas", text = "year", dy = -8) |>
+    mark_line(x = miles, y = gas, curve = "catmull-rom") |>
+    mark_dot(x = miles, y = gas, fill = "currentColor") |>
+    mark_text(driv5, x = miles, y = gas, text = year, dy = -8) |>
     opts(grid = TRUE)
 ```
 
@@ -304,8 +304,8 @@ data(alphabet)
 
 obsplot(alphabet) |>
     mark_ruleY(y = 0) |>
-    mark_ruleX(x = "letter", y = "frequency") |>
-    mark_dot(x = "letter", y = "frequency", fill = "black", r = 4) |>
+    mark_ruleX(x = letter, y = frequency) |>
+    mark_dot(x = letter, y = frequency, fill = "black", r = 4) |>
     scale_x(label = NULL, tickSize = 0) |>
     scale_y(transform = JS("d => d * 100"), label = "↑ Frequency (%)")
 ```
@@ -332,9 +332,9 @@ obsplot(stateage, height = 660) |>
     mark_ruleY(
         transform_groupY(list(x1 = "min", x2 = "max"), xy)
     ) |>
-    mark_dot(xy, fill = "age", title = "age") |>
+    mark_dot(xy, fill = age, title = age) |>
     mark_text(
-        transform_selectMinX(xy), textAnchor = "end", dx = -6, text = "name"
+        transform_selectMinX(xy), textAnchor = "end", dx = -6, text = name
     ) |>
     scale_x(axis = "top",   label =  "Percent (%) →", transform = JS("d => d * 100")) |>
     scale_y(axis = NULL) |>
@@ -351,13 +351,13 @@ metros$diff1580 <- metros$R90_10_2015 - metros$R90_10_1980
 
 obsplot(metros) |>
     mark_link(
-        x1 = "POP_1980", y1 = "R90_10_1980",
-        x2 = "POP_2015", y2 = "R90_10_2015", stroke = "diff1580"
+        x1 = POP_1980, y1 = R90_10_1980,
+        x2 = POP_2015, y2 = R90_10_2015, stroke = diff1580
     ) |>
-    mark_dot(x = "POP_2015", y = "R90_10_2015", r = 1) |>
+    mark_dot(x = POP_2015, y = R90_10_2015, r = 1) |>
     mark_text(
-        x = "POP_2015", y = "R90_10_2015",
-        filter = "highlight", text = "nyt_display", dy = -6
+        x = POP_2015, y = R90_10_2015,
+        filter = highlight, text = nyt_display, dy = -6
     ) |>
     scale_x(type = "log", tickFormat = "~s") |>
     scale_color(type = "diverging", reverse = TRUE) |>
@@ -381,7 +381,7 @@ obsplot(height = 600) |>
         x = imax, y = qs * imax, textAnchor = "start", dx = 6,
         text = ifelse(qs == 1, "Equal", qs)
     ) |>
-    mark_dot(income, x = "m", y = "f", title = paste(income$type, income$age)) |>
+    mark_dot(income, x = m, y = f, title = paste(income$type, income$age)) |>
     opts(marginRight = 40) |>
     scale_x(
         label = "Median annual income (men, thousands) →",
@@ -399,7 +399,7 @@ obsplot(height = 600) |>
 data(aapl)
 
 obsplot(aapl) |>
-    mark_line(x = "Date", y = "Close") |>
+    mark_line(x = Date, y = Close) |>
     scale_y(grid = TRUE)
 ```
 
@@ -414,7 +414,7 @@ data(bls_unemployment)
 
 obsplot(bls_unemployment) |>
     mark_ruleY(y = 0) |>
-    mark_line(x = "date", y = "unemployment", z = "division") |>
+    mark_line(x = date, y = unemployment, z = division) |>
     scale_y(grid = TRUE, label = "↑ Unemployment (%)")
 ```
 
@@ -424,13 +424,13 @@ data(stocks)
 obsplot(stocks) |>
     mark_ruleY(1) |>
     mark_line(
-        transform_normalizeY(x = "Date", y = "Close", stroke = "Symbol")
+        transform_normalizeY(x = Date, y = Close, stroke = Symbol)
     ) |>
     mark_text(
         transform_selectLast(
             transform_normalizeY(
-                x = "Date", y = "Close", stroke = "Symbol",
-                text = "Symbol", textAnchor = "start", dx = 3
+                x = Date, y = Close, stroke = Symbol,
+                text = Symbol, textAnchor = "start", dx = 3
             )
         )
     ) |>
@@ -447,7 +447,7 @@ data(bls_unemployment)
 obsplot(bls_unemployment) |>
     mark_ruleY(0) |>
     mark_line(
-        x = "date", y = "unemployment", z = "division", stroke = "unemployment"
+        x = date, y = unemployment, z = division, stroke = unemployment
     ) |>
     scale_y(grid = TRUE, label = "↑ Unemployment (%)")
 ```
@@ -459,8 +459,8 @@ bls_unemployment$highlight <- grepl(", MI ", bls_unemployment$division)
 obsplot(bls_unemployment) |>
     mark_ruleY(0) |>
     mark_line(
-        x = "date", y = "unemployment", z = "division",
-        stroke = "highlight", sort = "highlight"
+        x = date, y = unemployment, z = division,
+        stroke = highlight, sort = highlight
     ) |>
     scale_y(grid = TRUE, label = "↑ Unemployment (%)") |>
     scale_color(domain = c(FALSE, TRUE), range = c("#CCC", "red"))
@@ -471,10 +471,10 @@ data(sftemp)
 
 obsplot(sftemp) |>
     mark_line(
-        transform_windowY(k = 14, x = "date", y = "low", stroke = "#4e79a7")
+        transform_windowY(k = 14, x = date, y = low, stroke = "#4e79a7")
     ) |>
     mark_line(
-        transform_windowY(k = 14, x = "date", y = "high", stroke = "#e15759")
+        transform_windowY(k = 14, x = date, y = high, stroke = "#e15759")
     ) |>
     mark_ruleY(32) |>
     scale_y(grid = TRUE, label = "↑ Temperature (°F)")
@@ -504,10 +504,10 @@ obsplot(povcalnet) |>
     mark_rectY(
         transform_stackX(
             filter = JS("d => ['N', 'A'].includes(d.CoverageType)"),
-            x = "ReqYearPopulation",
-            order = "HeadCount",
+            x = ReqYearPopulation,
+            order = HeadCount,
             reverse = TRUE,
-            y2 = "HeadCount",
+            y2 = HeadCount,
             title = JS("d => `${d.CountryName}\n${(d.HeadCount * 100).toFixed(1)}%`"),
             insetLeft = 0.2,
             insetRight = 0.2
@@ -528,7 +528,7 @@ data(diamonds_obs)
 obsplot(diamonds_obs, height = 640) |>
     mark_rect(
         transform_bin(
-            fill = "count", x = "carat", y = "price", thresholds = 100, inset = 0
+            fill = "count", x = carat, y = price, thresholds = 100, inset = 0
         )
     ) |>
     opts(round = TRUE)  |>
@@ -562,7 +562,7 @@ data(seattle)
 
 obsplot(seattle) |>
     mark_ruleY(0) |>
-    mark_ruleX(x = "date", y1 = "temp_min", y2 = "temp_max", stroke = "temp_max") |>
+    mark_ruleX(x = date, y1 = temp_min, y2 = temp_max, stroke = temp_max) |>
     scale_color(scheme = "BuRd") |>
     scale_y(
         grid = TRUE, label = "↑ Temperature (°F)",
@@ -575,10 +575,10 @@ data(aapl)
 aapl120 <- tail(aapl, 120)
 
 obsplot(aapl120) |>
-    mark_ruleX(x = "Date", strokeOpacity = 0.1) |>
-    mark_ruleX(x = "Date", y1 = "Low", y2 = "High") |>
+    mark_ruleX(x = Date, strokeOpacity = 0.1) |>
+    mark_ruleX(x = Date, y1 = Low, y2 = High) |>
     mark_ruleX(
-        x = "Date", y1 = "Open", y2 = "Close",
+        x = Date, y1 = Open, y2 = Close,
         stroke = JS("d => Math.sign(d.Close - d.Open)"),
         strokeWidth = 4,
         strokeLinecap = "round"
@@ -597,16 +597,16 @@ obsplot(simpsons) |>
     mark_ruleX(
         transform_groupX(
             list(y1 = "min", y2 = "max"),
-            x = "season", y = "imdb_rating"
+            x = season, y = imdb_rating
         )
     ) |>
     mark_line(
         transform_groupX(
             y = "median",
-            x = "season", y = "imdb_rating", stroke = "red"
+            x = season, y = imdb_rating, stroke = "red"
         )
     ) |>
-    mark_dot(x = "season", y = "imdb_rating") |>
+    mark_dot(x = season, y = imdb_rating) |>
     scale_x(type = "point", label = "Season →", labelAnchor = "right") |>
     scale_y(label = "↑ IMDb rating")
 ```
@@ -618,9 +618,9 @@ obsplot(simpsons) |>
 data(alphabet)
 
 obsplot(alphabet) |>
-    mark_barY(x = "letter", y = "frequency") |>
+    mark_barY(x = letter, y = frequency) |>
     mark_text(
-        x = "letter", y = "frequency",
+        x = letter, y = frequency,
         text = JS("d => (d.frequency * 100).toFixed(1)"), dy = -5
     ) |>
     mark_ruleY(0) |>
@@ -636,14 +636,14 @@ last_traveler <- head(travelers, 1)
 
 obsplot(travelers) |>
     mark_ruleY(0) |>
-    mark_line(x = "date", y = "previous", stroke = "#bab0ab") |>
-    mark_line(x = "date", y = "current") |>
+    mark_line(x = date, y = previous, stroke = "#bab0ab") |>
+    mark_line(x = date, y = current) |>
     mark_text(
-        last_traveler, x = "date", y = "previous",
+        last_traveler, x = date, y = previous,
         fill = "#8a817c", text = as_data("2019"), dy = "-0.5em"
     ) |>
     mark_text(
-        last_traveler, x = "date", y = "current",
+        last_traveler, x = date, y = current,
         text = as_data("2020"), dy = "1.2em"
     ) |>
     scale_y(
@@ -670,10 +670,10 @@ obsplot(caltrain, height = 480, width = 240) |>
         north,
         transform_stackX2(
             x = 1,
-            y = "hours",
+            y = hours,
             text = str_pad(north$minutes, 2, side = "left", pad = 0),
             title = paste(north$time, north$line),
-            fill = "type",
+            fill = type,
             textAnchor = "start"
         )
     ) |>
@@ -681,10 +681,10 @@ obsplot(caltrain, height = 480, width = 240) |>
         south,
         transform_stackX2(
             x = -1,
-            y = "hours",
+            y = hours,
             text = str_pad(south$minutes, 2, side = "left", pad = 0),
             title = paste(north$time, north$line),
-            fill = "type",
+            fill = type,
             textAnchor = "end"
         )
     ) |>
@@ -704,7 +704,7 @@ data(stateage)
 obsplot(stateage, height = 300) |>
     mark_ruleX(0) |>
     mark_tickX(
-        transform_normalizeX(basis = "sum", z = "name", x = "population", y = "age")
+        transform_normalizeX(basis = "sum", z = name, x = population, y = age)
     ) |>
     scale_x(axis = "top", label = "Percent (%) →", transform = JS("d => d*100")) |>
     scale_y(domain = unique(stateage$age), label = "Age") |>
@@ -727,7 +727,7 @@ obsplot(morley, height = 150) |>
                 x1 = JS('V => Math.max(d3.min(V), d3.quantile(V, 0.25) * 2.5 - d3.quantile(V, 0.75) * 1.5)'),
                 x2 = JS('V => Math.min(d3.max(V), d3.quantile(V, 0.75) * 2.5 - d3.quantile(V, 0.25) * 1.5)')
             ),
-            x = "Speed", y = "Expt"
+            x = Speed, y = Expt
         )
     ) |>
     mark_barX(
@@ -736,13 +736,13 @@ obsplot(morley, height = 150) |>
                 x1 = JS('V => d3.quantile(V, 0.25)'),
                 x2 = JS('V => d3.quantile(V, 0.75)')
             ),
-            x = "Speed", y = "Expt", fill = "#ccc"
+            x = Speed, y = Expt, fill = "#ccc"
         )
     ) |>
     mark_tickX(
         transform_groupY(
             list(x = JS('d3.median')),
-            x = "Speed", y = "Expt", strokeWidth = 2
+            x = Speed, y = Expt, strokeWidth = 2
         )
     ) |>
     scale_x(grid = TRUE, inset = 6)

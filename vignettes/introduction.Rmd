@@ -75,28 +75,28 @@ We then add a graphical mark to create our chart. Here we use the dot mark by pi
 
 ```{r}
 obsplot(penguins) |>
-    mark_dot(x = "bill_length_mm", y = "bill_depth_mm")
+    mark_dot(x = bill_length_mm, y = bill_depth_mm)
 ```
 
 We can add other channels, for example by changing dots color according to another variable :
 
 ```{r}
 obsplot(penguins) |>
-    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "island")
+    mark_dot(x = bill_length_mm, y = bill_depth_mm, stroke = island)
 ```
 
 We can also add *constant* options to a mark to modify an attribute in the same way for all dots :
 
 ```{r}
 obsplot(penguins) |>
-    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "island", r = 2)
+    mark_dot(x = bill_length_mm, y = bill_depth_mm, stroke = island, r = 2)
 ```
 
 We can also add global options to the chart with the `opts()` function :
 
 ```{r}
 obsplot(penguins) |>
-    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "island", r = 2) |>
+    mark_dot(x = bill_length_mm, y = bill_depth_mm, stroke = island, r = 2) |>
     opts(grid = TRUE)
 ```
 
@@ -104,7 +104,7 @@ Finally, we can modify the way variables values are linked to graphical attribut
 
 ```{r}
 obsplot(penguins) |>
-    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "island", r = 2) |>
+    mark_dot(x = bill_length_mm, y = bill_depth_mm, stroke = island, r = 2) |>
     scale_color(scheme = "set1") |>
     opts(grid = TRUE)
 ```
@@ -124,7 +124,7 @@ mean_depth <- mean(penguins$bill_depth_mm, na.rm = TRUE)
 obsplot(penguins) |>
     mark_ruleY(y = mean_depth) |>
     mark_ruleX(x = mean_length) |>
-    mark_dot(x = "bill_length_mm", y = "bill_depth_mm")
+    mark_dot(x = bill_length_mm, y = bill_depth_mm)
 ```
 
 A mark function takes several arguments. The first one is an optional `data` object. If not specified, it is inherited from the one passed to `obsplot`. Other named arguments are called mark constructors and can be of several types :
@@ -139,7 +139,7 @@ In the following example, both `x` and `y` are column channels, whereas `stroke`
 ```{r}
 data(metros)
 obsplot(metros) |>
-  mark_dot(x = "POP_1980", y = "POP_2015", stroke = "#D00")
+  mark_dot(x = POP_1980, y = POP_2015, stroke = "#D00")
 ```
 
 If we want to highlight some points by adding a text label, we can do it by giving a specific `data` argument to `mark_text` :
@@ -147,8 +147,8 @@ If we want to highlight some points by adding a text label, we can do it by givi
 ```{r}
 metros_10m <- subset(metros, POP_2015 > 10000000)
 obsplot(metros) |>
-  mark_dot(x = "POP_1980", y = "POP_2015", stroke = "#D00") |>
-  mark_text(metros_10m, x = "POP_1980", y = "POP_2015", text = "nyt_display", dy = -10)
+  mark_dot(x = POP_1980, y = POP_2015, stroke = "#D00") |>
+  mark_text(metros_10m, x = POP_1980, y = POP_2015, text = "nyt_display", dy = -10)
 ```
 
 We can also use JavaScript code. For example, we can use accessors to convert population values to million of people :
@@ -181,7 +181,7 @@ You can explicitly specify that a channel is a vector channel by using the `as_d
 
 ```{r}
 obsplot(metros) |>
-  mark_dot(x = "POP_1980", y = "POP_2015") |>
+  mark_dot(x = POP_1980, y = POP_2015) |>
   mark_dot(x = 9000000, y = 10600000, stroke = "red") |>
   mark_text(x = 9000000, y = 10600000, text = as_data("Paris"), dy = -10)
 ```
@@ -193,7 +193,7 @@ data(aapl)
 recent_aapl <- tail(aapl, 200)
 
 obsplot(recent_aapl) |>
-  mark_line(x = "Date", y = "Close")
+  mark_line(x = Date, y = Close)
 ```
 
 Here is the list of the different mark functions currently available in `obsplot` :
@@ -215,26 +215,26 @@ Here, we create an horizontal set of scatterplots by passing an `x` channel to `
 
 ```{r}
 obsplot(penguins) |>
-  mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex") |>
-  facet(x = "island")
+  mark_dot(x = bill_length_mm, y = bill_depth_mm, stroke = sex) |>
+  facet(x = island)
 ```
 
 To get a vertical faceting, define `y` instead of `x`. We can also add a frame around each subchart by using `mark_frame()` :
 
 ```{r fig.height=5.5}
 obsplot(penguins) |>
-  mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex") |>
+  mark_dot(x = bill_length_mm, y = bill_depth_mm, stroke = sex) |>
   mark_frame() |>
-  facet(y = "island")
+  facet(y = island)
 ```
 
 Finally it is also possible to create a trellis of charts by specifying both `x` and `y`.
 
 ```{r fig.height=6}
 obsplot(penguins) |>
-  mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex") |>
+  mark_dot(x = bill_length_mm, y = bill_depth_mm, stroke = sex) |>
   mark_frame() |>
-  facet(x = "species", y = "island")
+  facet(x = species, y = island)
 ```
 
 For more information and examples on faceting and the available options, take a look at the [facet options API reference](https://github.com/observablehq/plot#facet-options) and the [facets section of the transforms gallery](https://juba.github.io/obsplot/articles/gallery_transforms.html#facets).
@@ -263,7 +263,7 @@ For example, we could modify the `x` and `y` scales to become logarithmic and ch
 metros$evo <- (metros$POP_2015 - metros$POP_1980) / metros$POP_1980
 
 obsplot(metros) |>
-  mark_dot(x = "POP_1980", y = "POP_2015", stroke = "evo") |>
+  mark_dot(x = POP_1980, y = POP_2015, stroke = evo) |>
   scale_x(type = "log", label = "Population 1980") |>
   scale_y(type = "log", label = "Population 2015")
 ```
@@ -272,7 +272,7 @@ Scales can also be used to specify a color palette, or even modify tick values w
 
 ```{r}
 obsplot(metros) |>
-  mark_dot(x = "POP_1980", y = "POP_2015", stroke = "evo") |>
+  mark_dot(x = POP_1980, y = POP_2015, stroke = evo) |>
   scale_x(type = "log", label = "Pop 1980 (millions)", tickFormat = JS("d => d / 1000000")) |>
   scale_y(type = "log", label = "Pop 2015 (millions)", tickFormat = JS("d => d / 1000000")) |>
   scale_color(scheme = "viridis")
@@ -293,7 +293,7 @@ Every mark allows to provide a set of basic transforms : `filter`, `sort` and `r
 ```{r}
 obsplot(metros) |>
   mark_dot(
-    x = "POP_1980", y = "POP_2015", stroke = "#D00",
+    x = POP_1980, y = POP_2015, stroke = "#D00",
     filter = JS("d => d.POP_1980 > 2000000")
   )
 ```
@@ -311,7 +311,7 @@ For example, if we want to create an histogram, we have to apply binning by call
 ```{r}
 obsplot(penguins) |>
   mark_rectY(
-    transform_binX(y = "count", x = "bill_depth_mm")
+    transform_binX(y = "count", x = bill_depth_mm)
   )
 ```
 
@@ -320,10 +320,10 @@ To create a cell chart of the cross tabulation of two categorical variables, we 
 ```{r fig.height = 2}
 obsplot(penguins) |>
   mark_cell(
-    transform_group(fill = "count", x = "island", y = "species")
+    transform_group(fill = "count", x = island, y = species)
   ) |>
   mark_text(
-    transform_group(text = "count", x = "island", y = "species")
+    transform_group(text = "count", x = island, y = species)
   ) |>
   scale_color(scheme = "PuRd")
 ```
@@ -332,17 +332,17 @@ Some transform functions take a specific first argument : either *outputs* for `
 
 ```{r fig.height=2}
 obsplot(penguins) |>
-    mark_dot(y = "species", x = "body_mass_g") |>
+    mark_dot(y = species, x = body_mass_g) |>
     mark_ruleY(
         transform_groupY(
           list(x1 = "min", x2 = "max"),
-          y = "species", x = "body_mass_g"
+          y = species, x = body_mass_g
         )
     ) |>
     mark_tickX(
       transform_groupY(
         list(x = "median"),
-        y = "species", x = "body_mass_g", stroke = "red"
+        y = species, x = body_mass_g, stroke = "red"
       )
     ) |>
     scale_x(inset = 6) |>
@@ -357,7 +357,7 @@ df <- data.frame(
   value = rnorm(100)
 )
 
-xy <- transform_mapY("cumsum", y = "value", x = "index", k = 20)
+xy <- transform_mapY("cumsum", y = value, x = index, k = 20)
 obsplot(df) |>
   mark_lineY(xy) |>
   mark_lineY(
@@ -377,7 +377,7 @@ You can define global options such as [layout options](https://github.com/observ
 ```{r}
 obsplot(metros) |>
   mark_dot(
-    x = "POP_1980", y = "POP_2015", stroke = "#D00"
+    x = POP_1980, y = POP_2015, stroke = "#D00"
   ) |>
   opts(grid = TRUE, marginLeft = 80, nice = TRUE)
 ```
@@ -387,7 +387,7 @@ obsplot(metros) |>
 ```{r}
 obsplot(metros) |>
   mark_dot(
-    x = "POP_1980", y = "POP_2015", stroke = "#D00"
+    x = POP_1980, y = POP_2015, stroke = "#D00"
   ) |>
   opts(caption = "What a wonderful scatterplot", grid = TRUE, marginLeft = 80)
 ```
@@ -401,21 +401,21 @@ The default `width` and `height` value is `"auto"` : in this case height and wid
 
 ```{r}
 obsplot(metros) |>
-  mark_tickX(x = "POP_2015", strokeOpacity = .2)
+  mark_tickX(x = POP_2015, strokeOpacity = .2)
 ```
 
 By specifying height or width values, both Observable Plot and `htmlwidgets` will use these values :
 
 ```{r}
 obsplot(metros, height = 60) |>
-  mark_tickX(x = "POP_2015", strokeOpacity = .2)
+  mark_tickX(x = POP_2015, strokeOpacity = .2)
 ```
 
 Finally, when `height` and `width` are set to `NULL`, the chart dimensions in pixels will be determined by Observable Plot. Note that these dimensions may not be the same as the HTML widget dimensions, which can produce big margins :
 
 ```{r}
 obsplot(penguins, height = NULL, width = NULL) |>
-  mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex")
+  mark_dot(x = bill_length_mm, y = bill_depth_mm, stroke = sex)
 ```
 
 When `obsplot` is used in a Shiny app with a responsive layout such as `fluidPage`, it is recommended to use `"auto"` (the default) at least for width so that the chart will redraw itself accordingly when its container is resized.
@@ -426,7 +426,7 @@ Style options allow to customize plot appearance via CSS rules. They can be spec
 
 ```{r}
 obsplot(penguins) |>
-  mark_dot(x = "bill_length_mm", y = "bill_depth_mm") |>
+  mark_dot(x = bill_length_mm, y = bill_depth_mm) |>
   style(background = "#333", color = "#FFF", `font-family` = "serif")
 ```
 
@@ -436,7 +436,7 @@ By default, a "gear" menu is added on the right side of the plots with additiona
 
 ```{r}
 obsplot(penguins, menu = FALSE) |>
-  mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex")
+  mark_dot(x = bill_length_mm, y = bill_depth_mm, stroke = sex)
 ```
 
 You can also disable the gear menu globally in an R session, a Shiny app or an RMarkdown document with :
@@ -473,9 +473,9 @@ When the plotted data are stored in a data frame, `obsplot` has currently no way
 One solution is to preselect the needed data in R before calling `obsplot` :
 
 ```{r eval = FALSE}
-df <- penguins[, c("bill_depth_mm", "bill_length_mm")]
+df <- penguins[, c(bill_depth_mm, bill_length_mm)]
 obsplot(df) |>
-  mark_dot(x = "bill_length_mm", y = "bill_depth_mm")
+  mark_dot(x = bill_length_mm, y = bill_depth_mm)
 ```
 
 #### Reusing transform arguments
@@ -502,7 +502,7 @@ xy <- list(x = "island", y = "species")
 
 obsplot(penguins, height = 100) |>
   mark_cell(
-    transform_group(fill = "count", xy)
+    transform_group(fill = count, xy)
   ) |>
   mark_text(
     transform_group(

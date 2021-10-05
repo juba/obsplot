@@ -35,8 +35,8 @@ data(anscombe_obs)
 
 obsplot(anscombe_obs, height = 240) |>
     mark_frame() |>
-    mark_dot(x = "x", y = "y") |>
-    facet(x = "series") |>
+    mark_dot(x = x, y = y) |>
+    facet(x = series) |>
     opts(grid = TRUE, inset = 10)
 ```
 
@@ -46,10 +46,10 @@ data(barley)
 obsplot(barley, height = 800) |>
     mark_frame() |>
     mark_dot(
-        x = "yield", y = "variety", stroke = "year",
+        x = yield, y = variety, stroke = year,
         sort = list(fy = "x", y = "x", reduce = "median", reverse = TRUE)
     ) |>
-    facet(y = "site", marginRight = 90) |>
+    facet(y = site, marginRight = 90) |>
     scale_color(type = "categorical") |>
     opts(marginLeft = 110, grid = TRUE)
 ```
@@ -60,9 +60,9 @@ data(penguins)
 
 obsplot(penguins, height = 600) |>
     mark_frame() |>
-    mark_dot(penguins, x = "bill_depth_mm", y = "bill_length_mm", r = 2, fill = "#ddd") |>
-    mark_dot(x = "bill_depth_mm", y = "bill_length_mm") |>
-    facet(x = "sex", y = "species", marginRight = 80) |>
+    mark_dot(penguins, x = bill_depth_mm, y = bill_length_mm, r = 2, fill = "#ddd") |>
+    mark_dot(x = bill_depth_mm, y = bill_length_mm) |>
+    facet(x = sex, y = species, marginRight = 80) |>
     opts(grid = TRUE)
 ```
 
@@ -74,7 +74,7 @@ data(penguins)
 
 obsplot(penguins) |>
     mark_barY(
-        transform_groupX(y = "count", x = "species")
+        transform_groupX(y = "count", x = species)
     ) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE)
@@ -85,7 +85,7 @@ species_domain <- names(sort(table(penguins$species)))
 
 obsplot(penguins) |>
     mark_barY(
-        transform_groupX(y = "count", x = "species")
+        transform_groupX(y = "count", x = species)
     ) |>
     mark_ruleY(0) |>
     scale_x(domain = species_domain, reverse = TRUE) |>
@@ -95,7 +95,7 @@ obsplot(penguins) |>
 ```{r}
 obsplot(penguins) |>
     mark_barY(
-        transform_groupX(y = "proportion", x = "species")
+        transform_groupX(y = "proportion", x = species)
     ) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE, percent = TRUE)
@@ -106,7 +106,7 @@ penguins$body_mass_kg <- penguins$body_mass_g / 1000
 
 obsplot(penguins) |>
     mark_barY(
-        transform_groupX(y = "sum", x = "species", y = "body_mass_kg")
+        transform_groupX(y = "sum", x = species, y = body_mass_kg)
     ) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE, label = "↑ Total mass (kg)")
@@ -114,17 +114,17 @@ obsplot(penguins) |>
 
 ```{r}
 obsplot(penguins, height = 170) |>
-    mark_dot(y = "species", x = "body_mass_g") |>
+    mark_dot(y = species, x = body_mass_g) |>
     mark_ruleY(
         transform_groupY(
             list(x1 = "min", x2 = "max"), 
-            y = "species", x = "body_mass_g"
+            y = species, x = body_mass_g
         )
     ) |>
     mark_tickX(
         transform_groupY(
             list(x = "median"), 
-            y = "species", x = "body_mass_g", stroke = "red"
+            y = species, x = body_mass_g, stroke = "red"
         )
     ) |>
     scale_x(inset = 6) |>
@@ -157,10 +157,10 @@ data(penguins)
 
 obsplot(penguins) |>
     mark_barY(
-        transform_groupX(y = "count", x = "sex")
+        transform_groupX(y = "count", x = sex)
     ) |>
     mark_ruleY(0) |>
-    facet(x = "species") |>
+    facet(x = species) |>
     scale_x(tickFormat = JS('d => d === null ? "N/A" : d')) |>
     scale_y(grid = TRUE)
 ```
@@ -168,10 +168,10 @@ obsplot(penguins) |>
 ```{r}
 obsplot(penguins) |>
     mark_barY(
-        transform_groupX(y = "proportion-facet", x = "sex")
+        transform_groupX(y = "proportion-facet", x = sex)
     ) |>
     mark_ruleY(0) |>
-    facet(x = "species") |>
+    facet(x = species) |>
     scale_x(tickFormat = JS('d => d === null ? "N/A" : d')) |>
     scale_y(grid = TRUE, percent = TRUE)
 ```
@@ -179,7 +179,7 @@ obsplot(penguins) |>
 ```{r}
 obsplot(penguins) |>
     mark_barY(
-        transform_groupX(y = "count", x = "species", fill = "sex")
+        transform_groupX(y = "count", x = species, fill = sex)
     ) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE)
@@ -189,14 +189,14 @@ obsplot(penguins) |>
 obsplot(penguins, height = 60) |>
     mark_barX(
         transform_stackX(
-            transform_groupZ(x = "proportion", fill = "sex")
+            transform_groupZ(x = "proportion", fill = sex)
         )
     ) |>
     mark_text(
         transform_stackX(
             transform_groupZ(
                 list(x = "proportion", text = "first"),
-                z = "sex", text = "sex")
+                z = sex, text = sex)
         )
     ) |>
     mark_ruleX(c(0, 1)) |>
@@ -206,10 +206,10 @@ obsplot(penguins, height = 60) |>
 ```{r}
 obsplot(penguins) |>
     mark_barY(
-        transform_groupZ(y = "proportion-facet", fill = "sex")
+        transform_groupZ(y = "proportion-facet", fill = sex)
     ) |>
     mark_ruleY(c(0, 1)) |>
-    facet(x = "species") |>
+    facet(x = species) |>
     scale_y(grid = TRUE, percent = TRUE)
 ```
 
@@ -222,7 +222,7 @@ obsplot(seattle, height = 300) |>
             fill = "max",
             x = JS('d => d.date.getUTCDate()'),
             y = JS('d => d.date.getUTCMonth()'),
-            fill = "temp_max",
+            fill = temp_max,
             inset = 0.5
         )
     ) |>
@@ -241,7 +241,7 @@ athletes <- athletes[, c("weight", "height", "sex", "sport")]
 
 obsplot(athletes) |>
     mark_rectY(
-        transform_binX(y = "count", x = "weight")
+        transform_binX(y = "count", x = weight)
     ) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE)
@@ -250,7 +250,7 @@ obsplot(athletes) |>
 ```{r}
 obsplot(athletes) |>
     mark_rectY(
-        transform_binX(y = "count", x = "weight", inset = 0)
+        transform_binX(y = "count", x = weight, inset = 0)
     ) |>
     mark_ruleY(0) |>
     scale_x(round = TRUE) |>
@@ -260,10 +260,10 @@ obsplot(athletes) |>
 ```{r}
 obsplot(athletes) |>
     mark_areaY(
-        transform_binX(y = "count", x = "weight", fill = "#ccc")
+        transform_binX(y = "count", x = weight, fill = "#ccc")
     ) |>
     mark_lineY(
-        transform_binX(y = "count", x = "weight")
+        transform_binX(y = "count", x = weight)
     ) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE)
@@ -272,7 +272,7 @@ obsplot(athletes) |>
 ```{r}
 obsplot(athletes) |>
     mark_rectY(
-        transform_binX(y = "count", x = "weight", thresholds = "sturges")
+        transform_binX(y = "count", x = weight, thresholds = "sturges")
     ) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE)
@@ -281,7 +281,7 @@ obsplot(athletes) |>
 ```{r}
 obsplot(athletes) |>
     mark_rectY(
-        transform_binX(y = "count", x = "weight", cumulative = TRUE)
+        transform_binX(y = "count", x = weight, cumulative = TRUE)
     ) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE)
@@ -292,7 +292,7 @@ obsplot(athletes) |>
     mark_rectY(
         transform_binX(
             y2 = "count", 
-            x = "weight", fill = "sex", mixBlendMode = "multiply"
+            x = weight, fill = sex, mixBlendMode = "multiply"
         )
     ) |>
     mark_ruleY(0) |>
@@ -302,7 +302,7 @@ obsplot(athletes) |>
 ```{r}
 obsplot(athletes) |>
     mark_rectY(
-        transform_binX(y = "count", x = "weight", fill = "sex")
+        transform_binX(y = "count", x = weight, fill = sex)
     ) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE)
@@ -311,7 +311,7 @@ obsplot(athletes) |>
 ```{r}
 obsplot(athletes, height = 60) |>
     mark_barX(
-        transform_binX(fill = "count", x = "weight")
+        transform_binX(fill = "count", x = weight)
     ) |>
     scale_x(round = TRUE) |>
     scale_color(scheme = "YlGnBu")
@@ -320,7 +320,7 @@ obsplot(athletes, height = 60) |>
 ```{r}
 obsplot(athletes) |>
     mark_rect(
-        transform_bin(fill = "count", x = "weight", y = "height", inset = 0)
+        transform_bin(fill = "count", x = weight, y = height, inset = 0)
     ) |>
     scale_color(scheme = "YlGnBu") |>
     opts(round = TRUE, grid = TRUE)
@@ -331,7 +331,7 @@ obsplot(athletes) |>
     mark_rect(
         transform_bin(
             fillOpacity = "count", 
-            x = "weight", y = "height", fill = "sex", inset = 0
+            x = weight, y = height, fill = sex, inset = 0
         )
     ) |>
     opts(round = TRUE, grid = TRUE)
@@ -340,7 +340,7 @@ obsplot(athletes) |>
 ```{r}
 obsplot(athletes) |>
     mark_dot(
-        transform_bin(r = "count", x = "weight", y = "height")
+        transform_bin(r = "count", x = weight, y = height)
     ) |>
     scale_r(range = c(0, 10)) |>
     opts(round = TRUE, grid = TRUE)
@@ -349,7 +349,7 @@ obsplot(athletes) |>
 ```{r}
 obsplot(athletes) |>
     mark_dot(
-        transform_bin(r = "count", x = "weight", y = "height", stroke = "sex")
+        transform_bin(r = "count", x = weight, y = height, stroke = sex)
     ) |>
     scale_r(range = c(0, 10)) |>
     opts(round = TRUE, grid = TRUE)
@@ -358,7 +358,7 @@ obsplot(athletes) |>
 ```{r}
 obsplot(athletes, height = 60) |>
     mark_dot(
-        transform_binX(r = "count", x = "weight")
+        transform_binX(r = "count", x = weight)
     ) |>
     scale_r(range = c(0, 14))
 ```
@@ -368,9 +368,9 @@ sports_by_weight <- levels(reorder(athletes$sport, athletes$weight, median, na.r
 
 obsplot(athletes, height = 600) |>
     mark_barX(
-        transform_binX(fill = "proportion-facet", x = "weight", inset = 0.5)
+        transform_binX(fill = "proportion-facet", x = weight, inset = 0.5)
     ) |>
-    facet(marginLeft = 100, y = "sport") |>
+    facet(marginLeft = 100, y = sport) |>
     scale_color(scheme = "YlGnBu") |>
     scale_x(round = TRUE, grid = TRUE) |>
     scale_fy(domain = sports_by_weight, label = NULL) |>
@@ -384,28 +384,28 @@ obsplot(athletes, height = 600) |>
 data(crimea)
 
 obsplot(crimea) |>
-    mark_lineY(x = "date", y = "deaths", stroke = "cause") |>
+    mark_lineY(x = date, y = deaths, stroke = cause) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE)
 ```
 
 ```{r}
 obsplot(crimea) |>
-    mark_areaY(x = "date", y2 = "deaths", fill = "cause", mixBlendMode = "multiply") |>
+    mark_areaY(x = date, y2 = deaths, fill = cause, mixBlendMode = "multiply") |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE)
 ```
 
 ```{r}
 obsplot(crimea) |>
-    mark_areaY(x = "date", y = "deaths", fill = "cause") |>
+    mark_areaY(x = date, y = deaths, fill = cause) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE)
 ```
 
 ```{r}
 obsplot(crimea) |>
-    mark_barY(x = "date", y = "deaths", fill = "cause") |>
+    mark_barY(x = date, y = deaths, fill = cause) |>
     mark_ruleY(0) |>
     scale_x(label = NULL, tickFormat = JS('d => d.toLocaleString("en", {month: "narrow"})'))
 ```
@@ -415,7 +415,7 @@ data(unemployment)
 
 obsplot(unemployment) |>
     mark_areaY(
-        transform_stackY(x = "date", y = "unemployed", fill = "industry", title = "industry")
+        transform_stackY(x = date, y = unemployed, fill = industry, title = industry)
     ) |>
     mark_ruleY(0) |>
     scale_y(grid = TRUE, label = '↑ Unemployed (thousands)')
@@ -424,7 +424,7 @@ obsplot(unemployment) |>
 ```{r}
 obsplot(unemployment) |>
     mark_areaY(
-        transform_stackY(offset = "silhouette", x = "date", y = "unemployed", fill = "industry")
+        transform_stackY(offset = "silhouette", x = date, y = unemployed, fill = industry)
     ) |>
     scale_y(grid = TRUE, label = '↑ Unemployed (thousands)')
 ```
@@ -432,7 +432,7 @@ obsplot(unemployment) |>
 ```{r}
 obsplot(unemployment) |>
     mark_areaY(
-        transform_stackY(offset = "wiggle", x = "date", y = "unemployed", fill = "industry")
+        transform_stackY(offset = "wiggle", x = date, y = unemployed, fill = industry)
     ) |>
     scale_y(grid = TRUE, label = '↑ Unemployed (thousands)')
 ```
@@ -442,7 +442,7 @@ obsplot(unemployment) |>
     mark_areaY(
         transform_stackY(
             curve = "catmull-rom", 
-            x = "date", y = "unemployed", fill = "industry", order = "value"
+            x = date, y = unemployed, fill = industry, order = value
         )
     ) |>
     mark_ruleY(0) |>
@@ -514,7 +514,7 @@ obsplot(congress, height = 300) |>
         transform_stackY2(
             x = JS('d => 2021 - d.birth'),
             y = JS('d => d.gender === "M" ? 1 : d.gender === "F" ? -1 : 0'),
-            fill = "gender"
+            fill = gender
         )
     ) |>
     mark_ruleY(0) |>
@@ -530,14 +530,14 @@ obsplot(congress, height = 300) |>
 obsplot(congress, height = 280) |>
     mark_barX(
         transform_stackX(
-            transform_groupZ(x = "proportion-facet", fill = "gender")
+            transform_groupZ(x = "proportion-facet", fill = gender)
         )
     ) |>
     mark_text(
         transform_stackX(
             transform_groupZ(
                 list(x = "proportion-facet", text = "first"),
-                z = "gender",
+                z = gender,
                 text = JS('d => d.gender === "F" ? "Women" : d.gender === "M" ? "Men" : null')
             )
         )
@@ -552,7 +552,7 @@ data(iowa)
 
 obsplot(iowa) |>
     mark_areaY(
-        transform_stackY(x = "year", y = "net_generation", fill = "source", title = "source")
+        transform_stackY(x = year, y = net_generation, fill = source, title = source)
     ) |>
     mark_ruleY(0) |>
     scale_y(
@@ -568,11 +568,11 @@ obsplot(iowa) |>
 data(stocks)
 
 obsplot(stocks) |>
-    mark_line(x = "Date", y = "Close", stroke = "Symbol") |>
+    mark_line(x = Date, y = Close, stroke = Symbol) |>
     mark_text(
         transform_selectLast(
-            x = "Date", y = "Close", stroke = "Symbol",
-            text = "Symbol", textAnchor = "start", dx = 3
+            x = Date, y = Close, stroke = Symbol,
+            text = Symbol, textAnchor = "start", dx = 3
         )
     ) |>
     scale_y(grid = TRUE, label = "↑ Price ($)") |>
@@ -598,12 +598,12 @@ obsplot(values, height = 200) |>
 data(sftemp)
 
 obsplot(sftemp) |>
-    mark_areaY(x = "date", y1 = "low", y2 = "high", curve = "step", fill = "#ccc") |>
+    mark_areaY(x = date, y1 = low, y2 = high, curve = "step", fill = "#ccc") |>
     mark_line(
-        transform_windowY(x = "date", y = "low", k = 7, curve = "step", stroke = "blue")
+        transform_windowY(x = date, y = low, k = 7, curve = "step", stroke = "blue")
     ) |>
     mark_line(
-        transform_windowY(x = "date", y = "high", k = 7, curve = "step", stroke = "red")
+        transform_windowY(x = date, y = high, k = 7, curve = "step", stroke = "red")
     ) |>
     scale_y(grid = TRUE, label = "↑ Daily temperature range (°F)")
 ```
@@ -613,12 +613,12 @@ data(stocks)
 
 obsplot(stocks) |>
     mark_ruleY(1) |>
-    mark_line(transform_normalizeY(x = "Date", y = "Close", stroke = "Symbol")) |>
+    mark_line(transform_normalizeY(x = Date, y = Close, stroke = Symbol)) |>
     mark_text(
         transform_selectLast(
             transform_normalizeY(
-                x = "Date", y = "Close", stroke = "Symbol",
-                text = "Symbol", textAnchor = "start", dx = 3
+                x = Date, y = Close, stroke = Symbol,
+                text = Symbol, textAnchor = "start", dx = 3
             )
         )
     ) |>
@@ -629,7 +629,7 @@ obsplot(stocks) |>
     opts(marginRight = 40)
 ```
 
-```{r}
+```{r message = FALSE, warning = FALSE}
 data(stateage)
 
 # Get states order by proportion of >=80
@@ -643,16 +643,16 @@ state_order <- stateage |>
     filter(age == "≥80") |>
     arrange(desc(prop))
 
-xy <- transform_normalizeX(basis = "sum", z = "name", x = "population", y = "name")
+xy <- transform_normalizeX(basis = "sum", z = name, x = population, y = name)
 
 obsplot(stateage, height = 660) |>
     mark_ruleX(x = 0) |>
     mark_ruleY(
         transform_groupY(list(x1 = "min", x2 = "max"), xy)
     ) |>
-    mark_dot(xy, fill = "age", title = "age") |>
+    mark_dot(xy, fill = age, title = age) |>
     mark_text(
-        transform_selectMinX(xy), textAnchor = "end", dx = -6, text = "name"
+        transform_selectMinX(xy), textAnchor = "end", dx = -6, text = name
     ) |>
     scale_x(axis = "top",   label =  "Percent (%) →", transform = JS("d => d * 100")) |>
     scale_y(
