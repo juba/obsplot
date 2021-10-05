@@ -50,8 +50,9 @@ get_vector_channels <- function(opts, mark_channels) {
             v <- opts[[chan]]
             # Channels explicitly marked as vector
             is_data <- attr(v, "obsplot_is_data")
-            if (!is.null(is_data) && is_data) return(TRUE)
-            # If channel is radius or opacity and a single number, don't consider it a vector channel
+            if (!is.null(is_data) && is_data)
+                return(TRUE)
+            # If channel is in not_vector_length1, don't consider it a vector channel
             if (chan %in% not_vector_length1 && length(v) == 1 && is.numeric(v))
                 return(FALSE)
             # Else, vectors of size > 1 or vectors of size 1 but not characters
@@ -62,7 +63,8 @@ get_vector_channels <- function(opts, mark_channels) {
                 inherits(v, "POSIXt")
         }
     )
-    if (length(vector_channels_names) == 0) return(NULL)
+    if (length(vector_channels_names) == 0)
+        return(NULL)
     opts[vector_channels_names]
 }
 

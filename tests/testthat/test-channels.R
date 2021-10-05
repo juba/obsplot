@@ -55,6 +55,18 @@ test_that("color and column channels", {
   expect_equal(g2$x$marks[[1]]$column_channels |> names(), c("x", "r"))
 })
 
+test_that("column channels as symbols", {
+  expect_error(g |> mark_dot(x = v3))
+  expect_error(g |> mark_dot(x = v1), NA)
+  expect_error(g |> mark_dot(z = v1), NA)
+  expect_error(g |> mark_dot(data_mark, x = v1))
+  expect_error(g |> mark_dot(data_mark, x = v3), NA)
+  g2 <- g |> mark_dot(x = v1, y = v2)
+  expect_equal(g2$x$marks[[1]]$column_channels |> names(), c("x", "y"))
+  g2 <- g |> mark_dot(x = v1, r = v2)
+  expect_equal(g2$x$marks[[1]]$column_channels |> names(), c("x", "r"))
+})
+
 test_that("vector channels", {
   expect_error(g |> mark_dot(x = 1:6, y = 1:5), "all vector channels must be of the same length")
   g2 <- g |> mark_dot(x = 1:5, y = 1:5)
@@ -73,4 +85,32 @@ test_that("vector channels", {
   expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "y", "fill"))
   g2 <- g |> mark_dot(x = 1:5, y = 2, fillOpacity = 1:5, strokeOpacity = 1:5, r = 2:6, fill = 2)
   expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "y", "r", "fill", "fillOpacity", "strokeOpacity"))
+})
+
+test_that("vector channels as symbols", {
+  xv <- 1:6
+  yv <- 1:5
+  expect_error(g |> mark_dot(x = xv, y = yv), "all vector channels must be of the same length")
+  xv <- 1:5
+  yv <- 1:5
+  g2 <- g |> mark_dot(x = xv, y = yv)
+  expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "y"))
+  xv <- 1
+  yv <- 1:5
+  g2 <- g |> mark_dot(x = xv, r = yv)
+  expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "r"))
+  # Not a vector channel if not a channel
+  xv <- 1
+  yv <- 1:5
+  zv <- 3:4
+  g2 <- g |> mark_dot(x = xv, r = yv, z = zv)
+})
+
+test_that("column / vector priority", {
+  x <- 1:5
+  g2 <- g |> mark_dot(x = x)
+  expect_equal(g2$x$marks[[1]]$vector_channels$x$data, 1:5)
+  data_x <- data.frame(x = c("a", "b", "c"))
+  g2 <- g |> mark_dot(data_x, x = x)
+  expect_equal(g2$x$marks[[1]]$column_channels$x, "x")
 })

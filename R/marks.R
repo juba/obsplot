@@ -227,25 +227,40 @@ mark_function <- function(g, f, ...) {
 # Add a mark to a chart object
 mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
 
-    opts <- list(...)
+    # Keep opts as quosures
+    opts <- rlang::enquos(...)
     unnamed_opts <- list()
 
-    # Extract unnamed opts and removed them from opts
+    # Extract unnamed opts, eval the quosures and remove them from opts
     if (is.null(names(opts))) {
-        unnamed_opts <- opts
+        unnamed_opts <- opts |> purrr::map(rlang::eval_tidy)
         opts <- list()
     } else {
-        unnamed_opts <- opts[names(opts) == ""]
+        unnamed_opts <- opts[names(opts) == ""] |> purrr::map(rlang::eval_tidy)
         opts <- opts[names(opts) != ""]
     }
 
     # Get data
-    data <- opts$data %||% purrr::detect(unnamed_opts, \(v) !is_transform(v)) # nolint
+    data <- rlang::eval_tidy(opts$data) %||%
+        purrr::detect(unnamed_opts, \(v) !is_transform(v)) # nolint
     opts$data <- NULL
+    check_data <- data %||%  g$x$data$data # nolint
 
     # Get transform
-    transform <- opts$transform %||% purrr::detect(unnamed_opts, is_transform) # nolint
+    transform <- rlang::eval_tidy(opts$transform) %||%
+        purrr::detect(unnamed_opts, is_transform) # nolint
     opts$transform <- NULL
+
+    # If an opt is a symbol which is a data column name, convert it to a string
+    # Otherwise, eval the quosure
+    opts <- purrr::modify(opts,
+        \(opt) {
+            expr <- rlang::quo_get_expr(opt)
+            if (is.symbol(expr) && as_string(expr) %in% names(check_data))
+                return(as_string(expr))
+            rlang::eval_tidy(expr)
+        }
+    )
 
     # Get vector channels and remove them from opts
     vector_channels <- get_vector_channels(opts, mark_channels) # nolint
@@ -257,7 +272,6 @@ mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
 
 
     # Check channels values
-    check_data <- data %||%  g$x$data$data # nolint
     check_mark(
         data = check_data,
         mark_channels = mark_channels,
