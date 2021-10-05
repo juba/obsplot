@@ -14,11 +14,12 @@ Please note that **the package is in an early stage**. Its API is subject to bre
 Here is a small example of a simple scatterplot from the `penguins` dataset of the `palmerpenguins` package :
 
 ```r
+library(obsplot)
 library(palmerpenguins)
 data(penguins)
 
 obsplot(penguins) |>
-    mark_dot(x = "bill_length_mm", y = "bill_depth_mm", stroke = "sex") |>
+    mark_dot(x = bill_length_mm, y = bill_depth_mm, stroke = sex) |>
     opts(grid = TRUE)
 ```
 
@@ -36,9 +37,9 @@ obsplot(stateage, height = 660) |>
     mark_ruleY(
         transform_groupY(list(x1 = "min", x2 = "max"), xy)
     ) |>
-    mark_dot(xy, fill = "age", title = "age") |>
+    mark_dot(xy, fill = age, title = age) |>
     mark_text(
-        transform_selectMinX(xy), textAnchor = "end", dx = -6, text = "name"
+        transform_selectMinX(xy), textAnchor = "end", dx = -6, text = name
     ) |>
     scale_x(
         axis = "top",   label =  "Percent (%) →", 
