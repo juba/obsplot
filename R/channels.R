@@ -41,8 +41,8 @@ get_character_channels <- function(opts, mark_channels) {
 get_vector_channels <- function(opts, mark_channels) {
     # Options that are not vector channels when of length 1
     not_vector_length1 <- c(
-        "fillOpacity", "strokeOpacity", "r",
-        "fontSize", "rotate"
+        "fillOpacity", "strokeOpacity", "strokeWidth", 
+        "r", "fontSize", "rotate"
     )
     vector_channels_names <- purrr::keep(
         get_defined_channels(opts, mark_channels),
