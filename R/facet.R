@@ -6,7 +6,10 @@
 #' @export
 
 facet <- function(g, data = NULL, ...) {
+  opts <- rlang::enquos(...)
+  check_data <- data %||% g$x$data$data
+  opts <- quosures2opts_data(check_data, opts)
   data <- add_metadata(data)
-  g$x$facet <- list(data = data, opts = list(...))
+  g$x$facet <- list(data = data, opts = opts)
   g
 }

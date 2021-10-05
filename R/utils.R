@@ -66,6 +66,43 @@ add_metadata <- function(data) {
   return(list(data = data, dates = NULL, type = NULL))
 }
 
+# From a list of quosures, convert single symbols which are not in the
+# quosure envoronment to strings and keep the rest as is
+quosures2opts_env <- function(opts) {
+    purrr::map(opts,
+        \(opt) {
+            expr <- rlang::quo_get_expr(opt)
+            env <- rlang::quo_get_env(opt)
+            if (is.symbol(expr)) {
+                # If symbol is not defined in its environment,
+                # convert to string
+                if (!exists(expr, envir = env)) {
+                    return(rlang::as_string(expr))
+                }
+                # If symbol defined but is a function,
+                # convert to string
+                if (exists(expr, envir = env) && is.function(rlang::eval_tidy(opt))) {
+                    return(rlang::as_string(expr))
+                }
+            }
+            rlang::eval_tidy(opt)
+        }
+    )
+}
+
+# If a quosure is a symbol which is a data column name, convert it to a string
+# Otherwise, eval the quosure
+quosures2opts_data <- function(data, opts) {
+    purrr::map(
+        opts,
+        \(opt) {
+            expr <- rlang::quo_get_expr(opt)
+            if (is.symbol(expr) && rlang::as_string(expr) %in% names(data))
+                return(rlang::as_string(expr))
+            rlang::eval_tidy(opt)
+        }
+    )
+}
 
 `%||%` <- function(lhs, rhs) {
   if (!is.null(lhs)) {
@@ -74,3 +111,5 @@ add_metadata <- function(data) {
     rhs
   }
 }
+
+

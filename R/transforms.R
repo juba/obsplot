@@ -205,7 +205,7 @@ transform_ <- function(transform_type, arg1, options) {
 
 # From a list of arguments, returns the first one as arg1 and the rest as options
 split_options <- function(...) {
-    opts <- convert_options(...)
+    opts <- rlang::enquos(...) |> quosures2opts_env()
     if (length(opts) == 0) {
         return(list(arg1 = NULL, options = NULL))
     }
@@ -223,7 +223,7 @@ split_options <- function(...) {
 # Returns the passed arguments as a list, unless the first argument is itself a list.
 # In this case, returns the first argument.
 get_options <- function(...) {
-    options <- convert_options(...)
+    options <- rlang::enquos(...) |> quosures2opts_env()
     if (length(options) == 0) {
         return(NULL)
     }
@@ -231,18 +231,4 @@ get_options <- function(...) {
         options <- options[[1]]
     }
     return(options)
-}
-
-# From a dotted list of options, convert single symbols to strings
-# and keep the rest as is
-convert_options <- function(...) {
-    options <- rlang::enquos(...)
-    purrr::map(options,
-        \(opt) {
-            expr <- rlang::quo_get_expr(opt)
-            if (is.symbol(opt))
-                return(rlang::as_string(expr))
-            rlang::eval_tidy(opt)
-        }
-    )
 }

@@ -253,15 +253,7 @@ mark_ <- function(mark_type, g, mark_channels, req_channels, ...) {
 
     # If an opt is a symbol which is a data column name, convert it to a string
     # Otherwise, eval the quosure
-    opts <- purrr::map(
-        opts,
-        \(opt) {
-            expr <- rlang::quo_get_expr(opt)
-            if (is.symbol(expr) && rlang::as_string(expr) %in% names(check_data))
-                return(rlang::as_string(expr))
-            rlang::eval_tidy(opt)
-        }
-    )
+    opts <- quosures2opts_data(check_data, opts)
 
     # Get vector channels and remove them from opts
     vector_channels <- get_vector_channels(opts, mark_channels) # nolint
