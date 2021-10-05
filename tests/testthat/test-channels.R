@@ -104,13 +104,18 @@ test_that("vector channels as symbols", {
   yv <- 1:5
   zv <- 3:4
   g2 <- g |> mark_dot(x = xv, r = yv, z = zv)
+  expect_equal(g2$x$marks[[1]]$vector_channels |> names(), c("x", "r"))
 })
 
 test_that("column / vector priority", {
   x <- 1:5
   g2 <- g |> mark_dot(x = x)
   expect_equal(g2$x$marks[[1]]$vector_channels$x$data, 1:5)
+  g2 <- g |> mark_dot(x = x + 2)
+  expect_equal(g2$x$marks[[1]]$vector_channels$x$data, 3:7)
   data_x <- data.frame(x = c("a", "b", "c"))
   g2 <- g |> mark_dot(data_x, x = x)
   expect_equal(g2$x$marks[[1]]$column_channels$x, "x")
+  g2 <- g |> mark_dot(data_x, x = x + 2)
+  expect_equal(g2$x$marks[[1]]$vector_channels$x$data, 3:7)
 })
