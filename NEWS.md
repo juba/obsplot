@@ -1,5 +1,7 @@
 # obsplot (development version)
 
+* Update Plot to 0.2.9
+
 # obsplot 0.0.2
 
 * Update Plot to 0.2.8
