@@ -7,3 +7,4 @@ vignettes/*.html
 .vscode/
 node_modules
 *.Rproj
+tests.R
