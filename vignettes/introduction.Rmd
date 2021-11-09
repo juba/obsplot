@@ -443,17 +443,17 @@ obsplot(penguins) |>
 
 ### Gear menu
 
-By default, a "gear" menu is added on the right side of the plots with additional features such as SVG export. This can be disabled by specifying `menu = FALSE` :
+A "gear" menu can be added on the right side of the plots with additional features such as SVG export. This can be enabled by specifying `menu = TRUE` :
 
 ```{r}
-obsplot(penguins, menu = FALSE) |>
+obsplot(penguins, menu = TRUE) |>
   mark_dot(x = bill_length_mm, y = bill_depth_mm, stroke = sex)
 ```
 
-You can also disable the gear menu globally in an R session, a Shiny app or an RMarkdown document with :
+You can also enable the gear menu globally in an R session, a Shiny app or an RMarkdown document with :
 
 ```{r, eval = FALSE}
-options("obsplot_menu" = FALSE)
+options("obsplot_menu" = TRUE)
 ```
 
 

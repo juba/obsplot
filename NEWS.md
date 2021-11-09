@@ -1,5 +1,6 @@
 # obsplot (development version)
 
+* Disable gear menu by default
 * Update Plot to 0.2.9
 
 # obsplot 0.0.2

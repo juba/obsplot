@@ -20,7 +20,7 @@ obsplot <- function(
   # forward options using x
   x$data <- add_metadata(data)
   x$opts <- list(...)
-  if (is.null(menu)) menu <- TRUE
+  if (is.null(menu)) menu <- FALSE
   x$opts$menu <- menu
   x["marks"] <- list(NULL)
 
