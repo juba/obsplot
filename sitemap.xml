@@ -1,165 +1,180 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://juba.github.io/obsplot//index.html</loc>
+    <loc>https://juba.github.io/obsplot/404.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/aapl.html</loc>
+    <loc>https://juba.github.io/obsplot/articles/gallery_marks.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/alphabet.html</loc>
+    <loc>https://juba.github.io/obsplot/articles/gallery_transforms.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/anscombe_obs.html</loc>
+    <loc>https://juba.github.io/obsplot/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/as_data.html</loc>
+    <loc>https://juba.github.io/obsplot/articles/introduction.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/athletes.html</loc>
+    <loc>https://juba.github.io/obsplot/articles/plot_changelog.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/barley.html</loc>
+    <loc>https://juba.github.io/obsplot/authors.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/bls.html</loc>
+    <loc>https://juba.github.io/obsplot/index.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/bls_unemployment.html</loc>
+    <loc>https://juba.github.io/obsplot/news/index.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/caltrain.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/aapl.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/civilizations.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/alphabet.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/congress.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/anscombe_obs.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/crimea.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/as_data.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/diamonds_obs.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/athletes.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/dji.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/barley.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/driving.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/bls.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/facet.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/bls_unemployment.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/gistemp.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/caltrain.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/income.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/civilizations.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/iowa.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/congress.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/mark_area.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/crimea.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/mark_frame.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/diamonds_obs.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/mark_function.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/dji.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/mark_svg.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/driving.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/metros.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/facet.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/mobydick1.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/gistemp.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/obsplot-shiny.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/income.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/obsplot.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/opts.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/iowa.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/popchange.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/mark_area.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/povcalnet.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/mark_frame.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/reexports.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/mark_function.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/riaa.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/mark_svg.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/scale_color.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/metros.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/seattle.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/mobydick1.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/sfcases.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/obsplot-shiny.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/sftemp.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/obsplot.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/simpsons.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/opts.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/stateage.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/popchange.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/stocks.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/povcalnet.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/style.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/reexports.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/to_js_date.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/riaa.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/transform_bin.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/scale_color.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/transform_mapX.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/seattle.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/transform_normalizeX.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/sfcases.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/transform_selectFirst.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/sftemp.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/transform_windowX.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/simpsons.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/travelers.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/stateage.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/trends2020.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/stocks.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//reference/unemployment.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/style.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//articles/gallery_marks.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/to_js_date.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//articles/gallery_transforms.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/transform_bin.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//articles/introduction.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/transform_mapX.html</loc>
   </url>
   <url>
-    <loc>https://juba.github.io/obsplot//articles/plot_changelog.html</loc>
+    <loc>https://juba.github.io/obsplot/reference/transform_normalizeX.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot/reference/transform_selectFirst.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot/reference/transform_windowX.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot/reference/travelers.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot/reference/trends2020.html</loc>
+  </url>
+  <url>
+    <loc>https://juba.github.io/obsplot/reference/unemployment.html</loc>
   </url>
 </urlset>

@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">obsplot</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.2.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -73,7 +69,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/juba/obsplot/">
+  <a href="https://github.com/juba/obsplot/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -92,34 +88,36 @@
   <div class="contents col-md-9">
 
 
-<div id="obsplot" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#obsplot" class="anchor"></a>Obsplot</h1></div>
-<p><code>obsplot</code> is an experimental attempt at using <a href="https://observablehq.com/@observablehq/plot">Observable Plot</a> as HTML widget in R.</p>
+<div class="section level1">
+<div class="page-header"><h1 id="obsplot">Obsplot<a class="anchor" aria-label="anchor" href="#obsplot"></a>
+</h1></div>
+<p><code>obsplot</code> is an experimental attempt at using <a href="https://observablehq.com/@observablehq/plot" class="external-link">Observable Plot</a> as HTML widget in R.</p>
 <p>Please note that <strong>the package is in an early stage</strong>. Its API is subject to breaking changes, there are bugs, and maybe bad design choices. But if you still want to try it, issues and feedback are very welcome !</p>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
 <p>Here is a small example of a simple scatterplot from the <code>penguins</code> dataset of the <code>palmerpenguins</code> package :</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://juba.github.io/obsplot/">obsplot</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/">palmerpenguins</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://juba.github.io/obsplot/">obsplot</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/obsplot.html">obsplot</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bill_length_mm</span>, y <span class="op">=</span> <span class="va">bill_depth_mm</span>, stroke <span class="op">=</span> <span class="va">sex</span><span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/opts.html">opts</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/readme_scatter.png" alt="Simple scatterplot"></p>
+<div class="figure">
+<img src="reference/figures/readme_scatter.png" alt=""><p class="caption">Simple scatterplot</p>
+</div>
 <p>And here is a much more complex example taken from Observable Plot documentation :</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">)</span>
 
 <span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/transform_normalizeX.html">transform_normalizeX</a></span><span class="op">(</span>basis <span class="op">=</span> <span class="st">"sum"</span>, z <span class="op">=</span> <span class="st">"name"</span>, x <span class="op">=</span> <span class="st">"population"</span>, y <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span>
 
 <span class="fu"><a href="reference/obsplot.html">obsplot</a></span><span class="op">(</span><span class="va">stateage</span>, height <span class="op">=</span> <span class="fl">660</span><span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/mark_area.html">mark_ruleX</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/mark_area.html">mark_ruleY</a></span><span class="op">(</span>
-        <span class="fu"><a href="reference/transform_bin.html">transform_groupY</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="st">"min"</span>, x2 <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span>, <span class="va">xy</span><span class="op">)</span>
+        <span class="fu"><a href="reference/transform_bin.html">transform_groupY</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="st">"min"</span>, x2 <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span>, <span class="va">xy</span><span class="op">)</span>
     <span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span><span class="va">xy</span>, fill <span class="op">=</span> <span class="va">age</span>, title <span class="op">=</span> <span class="va">age</span><span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/mark_area.html">mark_text</a></span><span class="op">(</span>
@@ -127,37 +125,39 @@
     <span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/scale_color.html">scale_x</a></span><span class="op">(</span>
         axis <span class="op">=</span> <span class="st">"top"</span>,   label <span class="op">=</span>  <span class="st">"Percent (%) →"</span>, 
-        transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html">JS</a></span><span class="op">(</span><span class="st">"d =&gt; d * 100"</span><span class="op">)</span>
+        transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">"d =&gt; d * 100"</span><span class="op">)</span>
     <span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/scale_color.html">scale_y</a></span><span class="op">(</span>axis <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/scale_color.html">scale_color</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"spectral"</span>, domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">$</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> |&gt;
+    <span class="fu"><a href="reference/scale_color.html">scale_color</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"spectral"</span>, domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">$</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> |&gt;
     <span class="fu"><a href="reference/opts.html">opts</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/readme_stateage.png" alt="stateage example"></p>
+<div class="figure">
+<img src="reference/figures/readme_stateage.png" alt=""><p class="caption">stateage example</p>
+</div>
 <p>You will find many more examples in the two gallery vignettes :</p>
 <ul>
 <li><a href="https://juba.github.io/obsplot/articles/gallery_marks.html">marks gallery</a></li>
 <li><a href="https://juba.github.io/obsplot/articles/gallery_transforms.html">facets and transforms gallery</a></li>
 </ul>
 </div>
-<div id="usage" class="section level2">
-<h2 class="hasAnchor">
-<a href="#usage" class="anchor"></a>Usage</h2>
+<div class="section level2">
+<h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
+</h2>
 <p>To get started, take a look at the <a href="https://juba.github.io/obsplot/articles/introduction.html">introduction vignette</a>.</p>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>From Github :</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"juba/obsplot"</span><span class="op">)</span></code></pre></div>
-<p>From <a href="https://r-universe.dev/organizations/">R-universe</a> :</p>
+<p>From <a href="https://r-universe.dev/organizations/" class="external-link">R-universe</a> :</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"obsplot"</span>, repos <span class="op">=</span> <span class="st">"https://juba.r-universe.dev"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"obsplot"</span>, repos <span class="op">=</span> <span class="st">"https://juba.r-universe.dev"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="development-notes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#development-notes" class="anchor"></a>Development notes</h2>
-<p>This package uses <a href="https://github.com/JohnCoene/packer">packer</a> to manage JavaScript source code and dependencies. If you want to modify it, you’ll need a working installation of <a href="https://nodejs.org/en/">Node.js</a>.</p>
+<div class="section level2">
+<h2 id="development-notes">Development notes<a class="anchor" aria-label="anchor" href="#development-notes"></a>
+</h2>
+<p>This package uses <a href="https://github.com/JohnCoene/packer" class="external-link">packer</a> to manage JavaScript source code and dependencies. If you want to modify it, you’ll need a working installation of <a href="https://nodejs.org/en/" class="external-link">Node.js</a>.</p>
 <p>After cloning this repository, run the following in a terminal at the project root :</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">npm</span> install</span></code></pre></div>
 <p>Then, if you modify the JavaScript code in <code>srcjs</code>, you’ll have to run the following command to bundle and update the widget JavaScript code :</p>
@@ -167,14 +167,14 @@
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">packer</span><span class="fu">::</span><span class="fu">bundle_prod</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="credits" class="section level2">
-<h2 class="hasAnchor">
-<a href="#credits" class="anchor"></a>Credits</h2>
+<div class="section level2">
+<h2 id="credits">Credits<a class="anchor" aria-label="anchor" href="#credits"></a>
+</h2>
 <ul>
-<li>Obviously, the <a href="https://observablehq.com/@observablehq/plot">Observable Plot</a> library developed by <a href="https://observablehq.com/@mbostock">Mike Bostock</a> and <a href="https://observablehq.com/@fil/">Philippe Rivière</a> at <a href="https://observablehq.com/">Observable</a>.</li>
-<li>The <a href="https://www.htmlwidgets.org/">htmlwidgets</a> package, which does all the heavy work to bridge R and JavaScript.</li>
+<li>Obviously, the <a href="https://observablehq.com/@observablehq/plot" class="external-link">Observable Plot</a> library developed by <a href="https://observablehq.com/@mbostock" class="external-link">Mike Bostock</a> and <a href="https://observablehq.com/@fil/" class="external-link">Philippe Rivière</a> at <a href="https://observablehq.com/" class="external-link">Observable</a>.</li>
+<li>The <a href="https://www.htmlwidgets.org/" class="external-link">htmlwidgets</a> package, which does all the heavy work to bridge R and JavaScript.</li>
 <li>
-<a href="https://twitter.com/jdatap">John Coene</a> for the <a href="https://github.com/JohnCoene/packer">packer</a> package, the <a href="https://book.javascript-for-r.com/">JavaScript for R</a> book and the <a href="https://github.com/devOpifex/g2r/">g2r</a> package which is a great source of inspiration.</li>
+<a href="https://twitter.com/jdatap" class="external-link">John Coene</a> for the <a href="https://github.com/JohnCoene/packer" class="external-link">packer</a> package, the <a href="https://book.javascript-for-r.com/" class="external-link">JavaScript for R</a> book and the <a href="https://github.com/devOpifex/g2r/" class="external-link">g2r</a> package which is a great source of inspiration.</li>
 </ul>
 </div>
 </div>
@@ -183,45 +183,56 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/juba/obsplot/">https://​github.com/​juba/​obsplot/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/juba/obsplot/issues">https://​github.com/​juba/​obsplot/​issues</a>
-</li>
+<li><a href="https://github.com/juba/obsplot/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/juba/obsplot/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>GPL (&gt;=3)</li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Julien Barnier <br><small class="roles"> Author, maintainer </small>  </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing obsplot</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-experimental-red.svg" alt="Lifecycle: experimental"></a></li>
-<li><a href="https://github.com/juba/obsplot/actions"><img src="https://github.com/juba/obsplot/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+<li>Julien Barnier <br><small class="roles"> Author, maintainer </small>  </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing" class="external-link"><img src="https://img.shields.io/badge/lifecycle-experimental-red.svg" alt="Lifecycle: experimental"></a></li>
+<li><a href="https://github.com/juba/obsplot/actions" class="external-link"><img src="https://github.com/juba/obsplot/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Julien Barnier.</p>
+  <p></p>
+<p>Developed by Julien Barnier.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -229,6 +240,8 @@
 
   
 
+
+  
 
   </body>
 </html>
