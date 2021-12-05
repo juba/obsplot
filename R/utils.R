@@ -67,7 +67,7 @@ add_metadata <- function(data) {
 }
 
 # From a list of quosures, convert single symbols which are not in the
-# quosure envoronment to strings and keep the rest as is
+# quosure environment to strings and keep the rest as is
 quosures2opts_env <- function(opts) {
     purrr::map(opts,
         \(opt) {
@@ -111,5 +111,3 @@ quosures2opts_data <- function(data, opts) {
     rhs
   }
 }
-
-
