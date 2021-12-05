@@ -26,6 +26,7 @@
 \alias{mark_textY}
 \alias{mark_tickX}
 \alias{mark_tickY}
+\alias{mark_image}
 \title{Add a mark to an obsplot}
 \usage{
 mark_area(g, ...)
@@ -77,6 +78,8 @@ mark_textY(g, ...)
 mark_tickX(g, ...)
 
 mark_tickY(g, ...)
+
+mark_image(g, ...)
 }
 \arguments{
 \item{g}{an obsplot object}
