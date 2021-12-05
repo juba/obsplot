@@ -10,6 +10,8 @@ reference:
   contents:
   - '`mark_area`'
   - '`mark_frame`'
+  - '`mark_function`'
+  - '`mark_svg`'
 - title: Scales
   contents:
   - '`scale_color`'
@@ -34,6 +36,44 @@ reference:
   contents:
   - '`as_data`'
   - '`to_js_date`'
+- title: Shiny
+  desc: Functions for Shiny integration
+  contents:
+  - '`obsplot-shiny`'  
+- title: Datasets
+  desc: Datasets used in gallery
+  contents:
+  - '`aapl`'
+  - '`alphabet`'
+  - '`anscombe_obs`'
+  - '`athletes`'
+  - '`barley`'
+  - '`bls`'
+  - '`bls_unemployment`'
+  - '`caltrain`'
+  - '`civilizations`'
+  - '`congress`'
+  - '`crimea`'
+  - '`diamonds_obs`'
+  - '`dji`'
+  - '`driving`'
+  - '`gistemp`'
+  - '`income`'
+  - '`iowa`'
+  - '`metros`'
+  - '`mobydick1`'
+  - '`popchange`'
+  - '`povcalnet`'
+  - '`riaa`'
+  - '`seattle`'
+  - '`sfcases`'
+  - '`sftemp`'
+  - '`simpsons`'
+  - '`stateage`'
+  - '`stocks`'
+  - '`travelers`'
+  - '`trends2020`'
+  - '`unemployment`'
 articles:
 - title: Articles
   navbar: ~
