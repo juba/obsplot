@@ -1,7 +1,9 @@
 # obsplot (development version)
 
+* Update Plot to 0.3.0
+* Since Plot 0.3.0, legends are now supported for color and opacity
+* Add `mark_image` mark
 * Disable gear menu by default
-* Update Plot to 0.2.9
 
 # obsplot 0.0.2
 
