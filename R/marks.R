@@ -188,6 +188,14 @@ mark_tickY <- function(g, ...) {
     mark_("tickY", g, channels, req_channels, ...)
 }
 
+#' @rdname mark_area
+#' @export
+mark_image <- function(g, ...) {
+    channels <- c("x", "y", "width", "height")
+    req_channels <- "y"
+    mark_("image", g, channels, req_channels, ...)
+}
+
 
 #' Add a decoration mark to an obsplot
 #'
