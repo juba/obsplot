@@ -25,7 +25,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@observablehq/plot": "^0.3.0",
+    "@observablehq/plot": "^0.3.2",
     "@observablehq/stdlib": "^3.11.0",
     "core-js": "^3.15.2",
     "d3": "^7.1.1"
