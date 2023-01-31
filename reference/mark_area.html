@@ -26,7 +26,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -72,67 +72,70 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">mark_area</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_areaX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_areaY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_barX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_barY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_cell</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_cellX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_cellY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_dot</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_dotX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_dotY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_line</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_lineX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_lineY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_link</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_rect</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_rectX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_rectY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_ruleX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_ruleY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_text</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_textX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_textY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_tickX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_tickY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">mark_image</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">mark_area</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_areaX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_areaY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_barX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_barY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_cell</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_cellX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_cellY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_dot</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_dotX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_dotY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_line</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_lineX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_lineY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_link</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_rect</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_rectX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_rectY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_ruleX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_ruleY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_text</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_textX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_textY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_tickX</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_tickY</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">mark_image</span><span class="op">(</span><span class="va">g</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>g</dt>
 <dd><p>an obsplot object</p></dd>
+
+
 <dt>...</dt>
 <dd><p>named options passed to define the mark</p>
 <p>... arguments can accept at most two unnamed arguments : a data object and a call
 to a transform function.</p></dd>
+
 </dl></div>
 
   </div>
@@ -147,7 +150,7 @@ to a transform function.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

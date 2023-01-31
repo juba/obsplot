@@ -43,7 +43,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -98,38 +98,38 @@
 </h2>
 <p>Here is a small example of a simple scatterplot from the <code>penguins</code> dataset of the <code>palmerpenguins</code> package :</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://juba.github.io/obsplot/">obsplot</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span>
-
-<span class="fu"><a href="reference/obsplot.html">obsplot</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bill_length_mm</span>, y <span class="op">=</span> <span class="va">bill_depth_mm</span>, stroke <span class="op">=</span> <span class="va">sex</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/opts.html">opts</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://juba.github.io/obsplot/">obsplot</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">palmerpenguins</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/obsplot.html">obsplot</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">bill_length_mm</span>, y <span class="op">=</span> <span class="va">bill_depth_mm</span>, stroke <span class="op">=</span> <span class="va">sex</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/opts.html">opts</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="reference/figures/readme_scatter.png" alt=""><p class="caption">Simple scatterplot</p>
 </div>
 <p>And here is a much more complex example taken from Observable Plot documentation :</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">)</span>
-
-<span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/transform_normalizeX.html">transform_normalizeX</a></span><span class="op">(</span>basis <span class="op">=</span> <span class="st">"sum"</span>, z <span class="op">=</span> <span class="st">"name"</span>, x <span class="op">=</span> <span class="st">"population"</span>, y <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span>
-
-<span class="fu"><a href="reference/obsplot.html">obsplot</a></span><span class="op">(</span><span class="va">stateage</span>, height <span class="op">=</span> <span class="fl">660</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/mark_area.html">mark_ruleX</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/mark_area.html">mark_ruleY</a></span><span class="op">(</span>
-        <span class="fu"><a href="reference/transform_bin.html">transform_groupY</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="st">"min"</span>, x2 <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span>, <span class="va">xy</span><span class="op">)</span>
-    <span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span><span class="va">xy</span>, fill <span class="op">=</span> <span class="va">age</span>, title <span class="op">=</span> <span class="va">age</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/mark_area.html">mark_text</a></span><span class="op">(</span>
-        <span class="fu"><a href="reference/transform_selectFirst.html">transform_selectMinX</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span>, textAnchor <span class="op">=</span> <span class="st">"end"</span>, dx <span class="op">=</span> <span class="op">-</span><span class="fl">6</span>, text <span class="op">=</span> <span class="va">name</span>
-    <span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/scale_color.html">scale_x</a></span><span class="op">(</span>
-        axis <span class="op">=</span> <span class="st">"top"</span>,   label <span class="op">=</span>  <span class="st">"Percent (%) →"</span>, 
-        transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">"d =&gt; d * 100"</span><span class="op">)</span>
-    <span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/scale_color.html">scale_y</a></span><span class="op">(</span>axis <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/scale_color.html">scale_color</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"spectral"</span>, domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">$</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> |&gt;
-    <span class="fu"><a href="reference/opts.html">opts</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">xy</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/transform_normalizeX.html">transform_normalizeX</a></span><span class="op">(</span>basis <span class="op">=</span> <span class="st">"sum"</span>, z <span class="op">=</span> <span class="st">"name"</span>, x <span class="op">=</span> <span class="st">"population"</span>, y <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="reference/obsplot.html">obsplot</a></span><span class="op">(</span><span class="va">stateage</span>, height <span class="op">=</span> <span class="fl">660</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/mark_area.html">mark_ruleX</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/mark_area.html">mark_ruleY</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="reference/transform_bin.html">transform_groupY</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>x1 <span class="op">=</span> <span class="st">"min"</span>, x2 <span class="op">=</span> <span class="st">"max"</span><span class="op">)</span>, <span class="va">xy</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/mark_area.html">mark_dot</a></span><span class="op">(</span><span class="va">xy</span>, fill <span class="op">=</span> <span class="va">age</span>, title <span class="op">=</span> <span class="va">age</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/mark_area.html">mark_text</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="reference/transform_selectFirst.html">transform_selectMinX</a></span><span class="op">(</span><span class="va">xy</span><span class="op">)</span>, textAnchor <span class="op">=</span> <span class="st">"end"</span>, dx <span class="op">=</span> <span class="op">-</span><span class="fl">6</span>, text <span class="op">=</span> <span class="va">name</span></span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/scale_color.html">scale_x</a></span><span class="op">(</span></span>
+<span>        axis <span class="op">=</span> <span class="st">"top"</span>,   label <span class="op">=</span>  <span class="st">"Percent (%) →"</span>, </span>
+<span>        transform <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/htmlwidgets/man/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">"d =&gt; d * 100"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/scale_color.html">scale_y</a></span><span class="op">(</span>axis <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/scale_color.html">scale_color</a></span><span class="op">(</span>scheme <span class="op">=</span> <span class="st">"spectral"</span>, domain <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">stateage</span><span class="op">$</span><span class="va">age</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>    <span class="fu"><a href="reference/opts.html">opts</a></span><span class="op">(</span>grid <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <div class="figure">
 <img src="reference/figures/readme_stateage.png" alt=""><p class="caption">stateage example</p>
 </div>
@@ -149,23 +149,23 @@
 </h2>
 <p>From Github :</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"juba/obsplot"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"juba/obsplot"</span><span class="op">)</span></span></code></pre></div>
 <p>From <a href="https://r-universe.dev/organizations/" class="external-link">R-universe</a> :</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"obsplot"</span>, repos <span class="op">=</span> <span class="st">"https://juba.r-universe.dev"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"obsplot"</span>, repos <span class="op">=</span> <span class="st">"https://juba.r-universe.dev"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="development-notes">Development notes<a class="anchor" aria-label="anchor" href="#development-notes"></a>
 </h2>
 <p>This package uses <a href="https://github.com/JohnCoene/packer" class="external-link">packer</a> to manage JavaScript source code and dependencies. If you want to modify it, you’ll need a working installation of <a href="https://nodejs.org/en/" class="external-link">Node.js</a>.</p>
 <p>After cloning this repository, run the following in a terminal at the project root :</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="ex">npm</span> install</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">npm</span> install</span></code></pre></div>
 <p>Then, if you modify the JavaScript code in <code>srcjs</code>, you’ll have to run the following command to bundle and update the widget JavaScript code :</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">packer</span><span class="fu">::</span><span class="fu">bundle_dev</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">packer</span><span class="fu">::</span><span class="fu">bundle_dev</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>If you want to ship a minimized production version, use :</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">packer</span><span class="fu">::</span><span class="fu">bundle_prod</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">packer</span><span class="fu">::</span><span class="fu">bundle_prod</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="credits">Credits<a class="anchor" aria-label="anchor" href="#credits"></a>
@@ -232,7 +232,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
