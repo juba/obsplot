@@ -5,6 +5,9 @@
 
 # Obsplot
 
+
+> **Warning**: this project is currently not actively maintained. In particular, the current managed Plot version is 0.3.2, which is very outdated.
+
 `obsplot` is an experimental attempt at using [Observable Plot](https://observablehq.com/@observablehq/plot) as HTML widget in R.
 
 Please note that **the package is in an early stage**. Its API is subject to breaking changes, there are bugs, and maybe bad design choices. But if you still want to try it, issues and feedback are very welcome !
